@@ -14,7 +14,7 @@ const Navigation = () => {
     { name: "Contact", path: "/contact" },
   ];
 
-  const isActive = (path) => location.pathname === path;
+  const isActive = (path: string) => location.pathname === path;
 
   return (
     <nav className="bg-background border-b border-border shadow-soft sticky top-0 z-50">
