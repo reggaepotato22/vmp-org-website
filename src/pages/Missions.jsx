@@ -129,12 +129,12 @@ const Missions = () => {
 
   const getCategoryColor = (category) => {
     switch (category) {
-      case 'veterinary': return 'bg-blue-500/10 text-blue-700 border-blue-200';
-      case 'education': return 'bg-green-500/10 text-green-700 border-green-200';
-      case 'emergency': return 'bg-red-500/10 text-red-700 border-red-200';
-      case 'conservation': return 'bg-emerald-500/10 text-emerald-700 border-emerald-200';
-      case 'rescue': return 'bg-purple-500/10 text-purple-700 border-purple-200';
-      default: return 'bg-gray-500/10 text-gray-700 border-gray-200';
+      case 'veterinary': return 'bg-blue-50 text-blue-700 border-blue-200';
+      case 'education': return 'bg-green-50 text-green-700 border-green-200';
+      case 'emergency': return 'bg-red-50 text-red-700 border-red-200';
+      case 'conservation': return 'bg-emerald-50 text-emerald-700 border-emerald-200';
+      case 'rescue': return 'bg-purple-50 text-purple-700 border-purple-200';
+      default: return 'bg-muted text-muted-foreground border-border';
     }
   };
 
@@ -184,12 +184,12 @@ const Missions = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {allMissions.map((mission, index) => (
-              <Card key={index} className="overflow-hidden shadow-medium hover:shadow-large transition-smooth group">
+              <Card key={index} className="overflow-hidden shadow-medium hover:shadow-large transition-all duration-300 group">
                 <div className="aspect-video overflow-hidden">
                   <img 
                     src={mission.image}
                     alt={mission.title}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-smooth"
+                    className="w-full h-full object-cover group-hover:scale-105 transition-all duration-300"
                   />
                 </div>
                 <CardContent className="p-6">
