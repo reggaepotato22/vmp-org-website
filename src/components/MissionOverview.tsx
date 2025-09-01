@@ -73,7 +73,7 @@ const MissionOverview = () => {
           <div>
             <h3 className="text-2xl font-bold text-foreground mb-4">Our History</h3>
             <p className="text-muted-foreground leading-relaxed">
-              Founded in 2010 by Dr. Emily Carter, Vet Missions began with a small group of volunteers 
+              Founded in 20-- by Dr. Josiah Mandieka, Veterianrians with a Mission Programe began with a small group of volunteers 
               and a vision to make a difference. Over the years, we have expanded our reach, conducting 
               missions in numerous countries and impacting countless lives. Our journey is a testament to 
               the unwavering dedication of our team and the support of our generous donors.

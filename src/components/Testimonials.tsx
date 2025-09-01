@@ -4,7 +4,7 @@ import { Star, Quote } from "lucide-react";
 const Testimonials = () => {
   const testimonials = [
     {
-      name: "Dr. Emily Carter",
+      name: "Dr. George Mulovi",
       role: "Founder & Lead Veterinarian",
       year: "2022",
       rating: 5,
@@ -13,7 +13,7 @@ const Testimonials = () => {
       dislikes: 2
     },
     {
-      name: "Dr. David Lee", 
+      name: "Dr. Jadiel Muiru   ", 
       role: "Volunteer Veterinarian",
       year: "2023",
       rating: 5,

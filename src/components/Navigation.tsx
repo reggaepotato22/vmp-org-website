@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Menu, X, Heart } from "lucide-react";
-
+import logoImage from "@/assets/kenyavetsmission-logo.png";
 const Navigation = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const location = useLocation();
@@ -23,7 +23,7 @@ const Navigation = () => {
           <div className="flex items-center">
             <Link to="/" className="flex items-center space-x-2">
               <Heart className="h-8 w-8 text-primary" />
-              <span className="text-xl font-bold text-foreground">Vet Missions</span>
+              <span className="text-xl font-bold text-foreground">VMP</span>
             </Link>
           </div>
 

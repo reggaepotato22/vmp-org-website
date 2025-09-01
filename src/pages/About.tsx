@@ -30,14 +30,14 @@ const About = () => {
 
   const testimonials = [
     {
-      name: "Dr. Emily Carter",
+      name: "Dr. Kathy Dunaway",
       role: "Founder & Lead Veterinarian",
       year: "2022",
       content: "My experience with Vet Missions was truly life-changing. The opportunity to use my skills to help animals in need while sharing my faith was incredibly rewarding.",
       rating: 5
     },
     {
-      name: "Dr. David Lee",
+      name: "Dr. Troy Sammons",
       role: "Volunteer Veterinarian", 
       year: "2023",
       content: "Vet Missions provides a unique platform for veterinarians to make a global impact. The dedication and compassion of the team are inspiring.",

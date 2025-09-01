@@ -107,9 +107,9 @@ const Contact = () => {
                   <div className="flex items-start space-x-3">
                     <MapPin className="h-5 w-5 text-primary mt-1" />
                     <div>
-                      <div className="font-semibold">Vet Mission Headquarters</div>
-                      <div className="text-muted-foreground">123 Mission Way</div>
-                      <div className="text-muted-foreground">Hopeville, CA 91234</div>
+                      <div className="font-semibold">Ultimate House</div>
+                      <div className="text-muted-foreground">Oloolua Road</div>
+                      <div className="text-muted-foreground">Ngong Town.</div>
                     </div>
                   </div>
                   
@@ -117,7 +117,8 @@ const Contact = () => {
                     <Phone className="h-5 w-5 text-primary" />
                     <div>
                       <div className="font-semibold">Phone</div>
-                      <div className="text-muted-foreground">(555) 123-4567</div>
+                      <div className="text-muted-foreground">020-2430331</div>
+                      <div className="text-muted-foreground">Mobile +254 719 207 497</div>
                     </div>
                   </div>
                   
@@ -125,7 +126,7 @@ const Contact = () => {
                     <Mail className="h-5 w-5 text-primary" />
                     <div>
                       <div className="font-semibold">Email</div>
-                      <div className="text-muted-foreground">contact@vetmission.org</div>
+                      <div className="text-muted-foreground">veterinarianswithamission@gmail.com</div>
                     </div>
                   </div>
                 </CardContent>

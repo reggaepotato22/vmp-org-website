@@ -32,11 +32,11 @@ const Footer = () => {
               sharing God's love and compassion through our service.
             </p>
             <div className="space-y-2 text-sm text-white/80">
-              <div>Vet Mission Headquarters</div>
-              <div>123 Mission Way</div>
-              <div>Hopeville, CA 91234</div>
-              <div className="mt-2">Phone: (555) 123-4567</div>
-              <div>Email: contact@vetmission.org</div>
+              <div>Veterinarians with a Mission Programme</div>
+              <div>Ultimate House,</div>
+              <div>Oloolua Road, Ngong Town.</div>
+              <div className="mt-2">Phone: 020-2430331</div>
+              <div>Email: veterinarianswithamission@gmail.com</div>
             </div>
           </div>
 
@@ -89,7 +89,7 @@ const Footer = () => {
         </div>
 
         <div className="border-t border-white/20 mt-8 pt-8 text-center text-white/60 text-sm">
-          © {currentYear} Vet Missions. All rights reserved.
+          © {currentYear} veterinarianswithamissionprogramme.org  All rights reserved.
         </div>
       </div>
     </footer>
