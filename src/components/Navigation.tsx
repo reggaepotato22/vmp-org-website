@@ -3,6 +3,13 @@ import { Link, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Menu, X, Heart } from "lucide-react";
 import logoImage from "@/assets/kenyavetsmission-logo.png";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+
 const Navigation = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const location = useLocation();
@@ -12,6 +19,8 @@ const Navigation = () => {
     { name: "Missions", path: "/missions" },
     { name: "News & Events", path: "/news" },
     { name: "Contact", path: "/contact" },
+    { name: "Gallery", path: "/gallery" },
+    {name: "Volunteers", path: "/volunteers"},
   ];
 
   const isActive = (path: string) => location.pathname === path;
@@ -21,27 +30,79 @@ const Navigation = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-16">
           <div className="flex items-center">
+
             <Link to="/" className="flex items-center space-x-2">
-              <Heart className="h-8 w-8 text-primary" />
-              <span className="text-xl font-bold text-foreground">VMP</span>
+             <img 
+  src={logoImage} 
+  alt="kenyavetsmission-logo"
+  className="h-20 w-auto mx-auto mb-1"
+/>
+              <span className="text-xl font-bold text-foreground">Veterinarians With a Mission Programme</span>
             </Link>
           </div>
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-8">
-            {navItems.map((item) => (
-              <Link
-                key={item.name}
-                to={item.path}
-                className={`px-3 py-2 text-sm font-medium transition-smooth hover:text-primary ${
-                  isActive(item.path)
-                    ? "text-primary border-b-2 border-primary"
-                    : "text-muted-foreground"
-                }`}
-              >
-                {item.name}
-              </Link>
-            ))}
+            {navItems.map((item) =>
+  item.name === "Missions" ? (
+    <DropdownMenu key="missions">
+      <DropdownMenuTrigger
+        className={`px-3 py-2 text-sm font-medium transition-smooth hover:text-primary ${
+          isActive("/missions")
+            ? "text-primary border-b-2 border-primary"
+            : "text-muted-foreground"
+        }`}
+      >
+        Missions
+      </DropdownMenuTrigger>
+      <DropdownMenuContent>
+        <DropdownMenuItem asChild>
+          <Link to="/missions/kenya">2025</Link>
+        </DropdownMenuItem>
+        <DropdownMenuItem asChild>
+          <Link to="/missions/uganda">2024</Link>
+        </DropdownMenuItem>
+        <DropdownMenuItem asChild>
+          <Link to="/missions/tanzania">2023</Link>
+        </DropdownMenuItem>
+      </DropdownMenuContent>
+    </DropdownMenu>
+    ) : item.name === "Volunteers" ? (
+    <DropdownMenu key="volunteers">
+      <DropdownMenuTrigger
+        className={`px-3 py-2 text-sm font-medium transition-smooth hover:text-primary ${
+          isActive("/volunteers")
+            ? "text-primary border-b-2 border-primary"
+            : "text-muted-foreground"
+        }`}
+      >
+        Volunteers
+      </DropdownMenuTrigger>
+      <DropdownMenuContent>
+        <DropdownMenuItem asChild>
+          <Link to="/volunteers/stories">Volunteer Stories</Link>
+        </DropdownMenuItem>
+        <DropdownMenuItem asChild>
+          <Link to="/volunteers/how-to">How to Volunteer</Link>
+        </DropdownMenuItem>
+      </DropdownMenuContent>
+    </DropdownMenu>
+  ) : (
+     <Link
+      key={item.name}
+      to={item.path}
+      className={`px-3 py-2 text-sm font-medium transition-smooth hover:text-primary ${
+        isActive(item.path)
+          ? "text-primary border-b-2 border-primary"
+          : "text-muted-foreground"
+      }`}
+    >
+      {item.name}
+    </Link>
+  )
+)}
+
+
             <Button variant="donate" size="sm" asChild>
               <Link to="/donate">Donate</Link>
             </Button>
