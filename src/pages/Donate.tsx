@@ -93,7 +93,8 @@ const Donate = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
             
-           <img src="/kenyavetsmission-logo.png"
+           <img 
+             src="src/assets/kenyavetsmission-logo.png" 
            alt="kenyavetsmission-logo"
            className="h-1500 w-auto mx-auto mb-4"
            />
