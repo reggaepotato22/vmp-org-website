@@ -11,7 +11,7 @@ const RecentMissions = () => {
       date: "Month 20--",
       participants: "25 volunteers",
       description: "Our team provided essential veterinary care to animals in remote villages, improving their health and well-being.",
-      image: "https://images.unsplash.com/photo-1551717743-49959800b1f6?w=400&h=250&fit=crop"
+      image: "src/assets/mosiro.jpg"
     },
     {
       title: "Community Outreach in Marsabit",
@@ -19,7 +19,7 @@ const RecentMissions = () => {
       date: "February 20--",
       participants: "120 volunteers", 
       description: "We engaged with local communities, offering education on animal care and building lasting relationships.",
-      image: "https://images.unsplash.com/photo-1584464491033-06628f3a6b7b?w=400&h=250&fit=crop"
+      image: "src/assets/lodwar.jpg"
     },
     {
       title: "Team Success in Moyale",

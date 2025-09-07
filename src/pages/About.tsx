@@ -54,7 +54,7 @@ const About = () => {
           {/* Hero Banner */}
           <div className="relative rounded-xl overflow-hidden mb-12">
             <img 
-              src="https://images.unsplash.com/photo-1559181567-c3190ca9959b?w=1200&h=400&fit=crop"
+              src="src/assets/flock.jpg"
               alt="Veterinarians working with animals"
               className="w-full h-64 object-cover"
             />
