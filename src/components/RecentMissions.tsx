@@ -22,9 +22,8 @@ const RecentMissions = () => {
       participants: "120 volunteers", 
       description: "We engaged with local communities, offering education on animal care and building lasting relationships.",
 
-      image: "src/assets/lodwar.jpg"
+      image: "/src/assets/lodwar.jpg"
 
-      image: "src/assets/vmphotos/vetst4.jpg"
 
     },
     {
@@ -33,7 +32,7 @@ const RecentMissions = () => {
       date: "January 20--",
       participants: "70 volunteers",
       description: "Our mission team achieved significant milestones, treating over 300 animals and training local volunteers.",
-      image: "src/assets/vmphotos/prayers.jpg"
+      image: "/src/assets/vmphotos/prayers.jpg"
     }
   ];
 

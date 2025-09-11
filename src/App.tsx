@@ -11,6 +11,9 @@ import Donate from "./pages/Donate";
 import Missions from "./pages/Missions";
 import Gallery from "./pages/Gallery";
 import News from "./pages/News";
+import HowToVolunteer from "./pages/Howtovolunteer";
+import Stories from "./pages/VolunteerStories";
+
 
 const queryClient = new QueryClient();
 
@@ -28,6 +31,8 @@ const App = () => (
           <Route path="/missions" element={<Missions />} />
           <Route path="/gallery" element={<Gallery />} />
           <Route path="/news" element={<News />} />
+          <Route path="/volunteers/how-to" element={<HowToVolunteer />} />
+
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
