@@ -77,7 +77,7 @@ const Footer = () => {
                 <a href="#" className="text-white/80 hover:text-white transition-colors">
                   <Twitter className="h-5 w-5" />
                 </a>
-                <a href="#" className="text-white/80 hover:text-white transition-colors">
+                <a href="" className="text-white/80 hover:text-white transition-colors">
                   <Facebook className="h-5 w-5" />
                 </a>
                 <a href="#" className="text-white/80 hover:text-white transition-colors">

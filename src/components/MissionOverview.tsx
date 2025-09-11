@@ -2,15 +2,54 @@ import { Heart, Users, Globe, Award } from "lucide-react";
 
 const MissionOverview = () => {
   const stats = [
-    { icon: Heart, label: "Animals Treated", value: "10,000+" },
+    { icon: Heart, label: "Born again", value: "10,000+" },
     { icon: Users, label: "Volunteers", value: "500+" },
-    { icon: Globe, label: "Countries Served", value: "25+" },
-    { icon: Award, label: "Years of Service", value: "14" },
+    { icon: Globe, label: "Counties Served", value: "25+" },
+    { icon: Award, label: "Years of Service", value: "12" },
+  ];
+
+  const partners = [
+    {
+      id: 1,
+      image: "/src/assets/vmphotos/maf.svg",
+      name: "Mission Aviation Fellowship",
+      description: "Help bring the love of Christ to isolated people.",
+      link: "https://maf.org/",
+    },
+    {
+      id: 2,
+      image: "/src/assets/vmphotos/citam.jpg",
+      name: "CITAM",
+      description: "To know God and to make Him known through evangelism and discipleship",
+      link: "https://citam.org/",
+    },
+    {
+      id: 3,
+      image: "/src/assets/vmphotos/cvm.webp",
+      name: "Christian Veterinary Mission",
+      description: "Use your passion for veterinary medicine to share Christ's love.",
+      link: "https://cvm.org/",
+    },
+    {
+      id: 4,
+      image: "/src/assets/vmphotos/",
+      name: "Christian Veterinarian African Network",
+      description: "needs a motto **",
+      link: "",
+    },
+    {
+      id: 5,
+      image: "/src/assets/vmphotos/uvs.svg",
+      name: "Ultimate Vetserve Ltd",
+      description: "We care for your animals.",
+      link: "https://www.ultimatevetserve.com/",
+    },
   ];
 
   return (
     <section className="py-16 bg-mission-gradient">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Who We Are */}
         <div className="text-center mb-12">
           <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
             Who We Are
@@ -22,6 +61,7 @@ const MissionOverview = () => {
           </p>
         </div>
 
+        {/* Stats */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-12">
           {stats.map((stat, index) => {
             const Icon = stat.icon;
@@ -41,6 +81,7 @@ const MissionOverview = () => {
           })}
         </div>
 
+        {/* What We Do / History */}
         <div className="grid md:grid-cols-2 gap-12 items-center">
           <div>
             <h3 className="text-2xl font-bold text-foreground mb-4">What We Do</h3>
@@ -78,6 +119,36 @@ const MissionOverview = () => {
               missions in numerous countries and impacting countless lives. Our journey is a testament to 
               the unwavering dedication of our team and the support of our generous donors.
             </p>
+          </div>
+        </div>
+
+        {/* Partnerships Section */}
+        <div className="mt-20">
+          <h3 className="text-2xl md:text-3xl font-bold text-center text-foreground mb-12">
+            In Partnership With
+          </h3>
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8">
+            {partners.map((partner) => (
+              <a
+                key={partner.id}
+                href={partner.link}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="block text-center group hover:scale-105 transition-transform"
+              >
+                <img
+                  src={partner.image}
+                  alt={partner.name}
+                  className="mx-auto h-20 w-auto object-contain mb-4 grayscale group-hover:grayscale-0 transition-all"
+                />
+                <h4 className="text-lg font-semibold text-foreground mb-2">
+                  {partner.name}
+                </h4>
+                <p className="text-sm text-muted-foreground">
+                  {partner.description}
+                </p>
+              </a>
+            ))}
           </div>
         </div>
       </div>

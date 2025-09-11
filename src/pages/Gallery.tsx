@@ -4,15 +4,10 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { MapPin, Calendar, Heart, Users, Stethoscope, Camera } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const Gallery = () => {
-  const galleryCategories = [
-    { name: "All", count: 120, active: true },
-    { name: "Medical Care", count: 45, active: false },
-    { name: "Community Outreach", count: 30, active: false },
-    { name: "Training Programs", count: 25, active: false },
-    { name: "Team Moments", count: 20, active: false }
-  ];
+  const galleryCategories = [];
 
   const featuredGalleries = [
     {
@@ -22,7 +17,8 @@ const Gallery = () => {
       imageCount: 24,
       description: "Providing livestock care to rural farming communities",
       category: "Medical Care",
-      featured: true
+      featured: true,
+      url: "https://photos.app.goo.gl/Npm53WWZd6wM8wL19"
     },
     {
       title: "Guatemala Mountain Outreach",
@@ -31,7 +27,8 @@ const Gallery = () => {
       imageCount: 18,
       description: "Mobile clinics serving remote mountain communities",
       category: "Community Outreach",
-      featured: true
+      featured: true,
+      url: "links will be here"
     }
   ];
 
@@ -42,7 +39,8 @@ const Gallery = () => {
       date: "November 2023",
       imageCount: 32,
       description: "Comprehensive livestock vaccination initiative",
-      category: "Medical Care"
+      category: "Medical Care",
+      url: "links will be here"
     },
     {
       title: "Volunteer Training Workshop",
@@ -50,7 +48,8 @@ const Gallery = () => {
       date: "October 2023", 
       imageCount: 15,
       description: "Preparing new volunteers for international service",
-      category: "Training Programs"
+      category: "Training Programs",
+      url: "links will be here"
     },
     {
       title: "Honduras Emergency Response",
@@ -58,7 +57,8 @@ const Gallery = () => {
       date: "September 2023",
       imageCount: 21,
       description: "Post-hurricane veterinary emergency care",
-      category: "Medical Care"
+      category: "Medical Care",
+      url: "links will be here"
     },
     {
       title: "Annual VMP Gala 2023",
@@ -66,7 +66,8 @@ const Gallery = () => {
       date: "August 2023",
       imageCount: 28,
       description: "Celebrating another year of faithful service",
-      category: "Team Moments"
+      category: "Team Moments",
+      url: "links will be here"
     },
     {
       title: "Philippines Island Clinics",
@@ -74,7 +75,8 @@ const Gallery = () => {
       date: "July 2023",
       imageCount: 26,
       description: "Serving remote island communities",
-      category: "Community Outreach"
+      category: "Community Outreach",
+      url: "links will be here"
     },
     {
       title: "Nicaragua Pig Farming Project",
@@ -82,7 +84,8 @@ const Gallery = () => {
       date: "June 2023",
       imageCount: 19,
       description: "Supporting sustainable pig farming practices",
-      category: "Training Programs"
+      category: "Training Programs",
+      url: "links will be here"
     }
   ];
 
@@ -97,8 +100,6 @@ const Gallery = () => {
   return (
     <div className="min-h-screen">
       <Navigation />
-      
-      {/* Hero Section */}
       <section className="bg-gradient-to-br from-primary/10 to-secondary/10 py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
@@ -108,14 +109,13 @@ const Gallery = () => {
             </h1>
             <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
               Witness God's love in action through our veterinary missions around the world. 
-              Each photo tells a story of compassion, healing, and transformed lives.
+              Each folders tells a story of compassion, healing, and transformed lives.
             </p>
           </div>
         </div>
       </section>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-        {/* Category Filters */}
         <div className="flex flex-wrap justify-center gap-2 mb-12">
           {galleryCategories.map((category, index) => (
             <Button
@@ -129,7 +129,6 @@ const Gallery = () => {
           ))}
         </div>
 
-        {/* Featured Galleries */}
         <div className="mb-16">
           <h2 className="text-3xl font-bold text-center text-foreground mb-8">Featured Collections</h2>
           <div className="grid md:grid-cols-2 gap-8">
@@ -165,8 +164,10 @@ const Gallery = () => {
                     </div>
                   </div>
                   <p className="text-muted-foreground text-sm mb-4">{gallery.description}</p>
-                  <Button variant="outline" className="w-full group-hover:bg-primary group-hover:text-primary-foreground transition-colors">
-                    View Gallery
+                  <Button asChild variant="outline" className="w-full group-hover:bg-primary group-hover:text-primary-foreground transition-colors">
+                    <Link to={gallery.url}>
+                      View Gallery
+                    </Link>
                   </Button>
                 </CardContent>
               </Card>
@@ -174,7 +175,6 @@ const Gallery = () => {
           </div>
         </div>
 
-        {/* Recent Galleries Grid */}
         <div className="mb-16">
           <h2 className="text-3xl font-bold text-center text-foreground mb-8">Recent Mission Galleries</h2>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -202,8 +202,10 @@ const Gallery = () => {
                     </div>
                   </div>
                   <p className="text-xs text-muted-foreground mb-3 line-clamp-2">{gallery.description}</p>
-                  <Button size="sm" variant="outline" className="w-full text-xs">
-                    View Photos
+                  <Button asChild size="sm" variant="outline" className="w-full text-xs">
+                    <Link to={gallery.url}>
+                      View Photos
+                    </Link>
                   </Button>
                 </CardContent>
               </Card>
@@ -217,7 +219,6 @@ const Gallery = () => {
           </div>
         </div>
 
-        {/* Impact Stats */}
         <div className="bg-secondary/20 rounded-lg p-8 mb-16">
           <h2 className="text-2xl font-bold text-center text-foreground mb-8">Captured Moments of Impact</h2>
           <div className="grid md:grid-cols-4 gap-6 text-center">
@@ -244,7 +245,6 @@ const Gallery = () => {
           </div>
         </div>
 
-        {/* Testimonial */}
         <div className="text-center">
           <div className="max-w-2xl mx-auto">
             <blockquote className="text-lg italic text-muted-foreground mb-4">
@@ -255,7 +255,6 @@ const Gallery = () => {
           </div>
         </div>
       </div>
-
       <Footer />
     </div>
   );
