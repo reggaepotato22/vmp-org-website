@@ -18,17 +18,19 @@ const Gallery = () => {
       description: "Providing livestock care to rural farming communities",
       category: "Medical Care",
       featured: true,
-      url: "https://photos.app.goo.gl/Npm53WWZd6wM8wL19"
+      url: "https://photos.app.goo.gl/Npm53WWZd6wM8wL19",
+      image: "/src/assets/vmphotos/maf4.jpg"
     },
     {
-      title: "Guatemala Mountain Outreach",
-      location: "Quetzaltenango, Guatemala", 
+      title: "Lodwar Mission Outreach",
+      location: "Lodwar, KE",
       date: "January 2024",
       imageCount: 18,
       description: "Mobile clinics serving remote mountain communities",
       category: "Community Outreach",
       featured: true,
-      url: "links will be here"
+      url: "links will be here",
+      image: "/src/assets/vmphotos/cwater.jpg"
     }
   ];
 
@@ -40,16 +42,18 @@ const Gallery = () => {
       imageCount: 32,
       description: "Comprehensive livestock vaccination initiative",
       category: "Medical Care",
-      url: "links will be here"
+      url: "links will be here",
+      image: "/src/assets/vmphotos/cwater.jpg"
     },
     {
       title: "Volunteer Training Workshop",
       location: "VMP Headquarters",
-      date: "October 2023", 
+      date: "October 2023",
       imageCount: 15,
       description: "Preparing new volunteers for international service",
       category: "Training Programs",
-      url: "links will be here"
+      url: "links will be here",
+      image: "/src/assets/vmphotos/cwater.jpg"
     },
     {
       title: "Honduras Emergency Response",
@@ -58,7 +62,8 @@ const Gallery = () => {
       imageCount: 21,
       description: "Post-hurricane veterinary emergency care",
       category: "Medical Care",
-      url: "links will be here"
+      url: "links will be here",
+      image: "/src/assets/vmphotos/cwater.jpg"
     },
     {
       title: "Annual VMP Gala 2023",
@@ -67,7 +72,8 @@ const Gallery = () => {
       imageCount: 28,
       description: "Celebrating another year of faithful service",
       category: "Team Moments",
-      url: "links will be here"
+      url: "links will be here",
+      image: "/src/assets/vmphotos/cwater.jpg"
     },
     {
       title: "Philippines Island Clinics",
@@ -76,7 +82,8 @@ const Gallery = () => {
       imageCount: 26,
       description: "Serving remote island communities",
       category: "Community Outreach",
-      url: "links will be here"
+      url: "links will be here",
+      image: "/src/assets/vmphotos/cwater.jpg"
     },
     {
       title: "Nicaragua Pig Farming Project",
@@ -85,7 +92,8 @@ const Gallery = () => {
       imageCount: 19,
       description: "Supporting sustainable pig farming practices",
       category: "Training Programs",
-      url: "links will be here"
+      url: "links will be here",
+      image: "/src/assets/vmphotos/cwater.jpg"
     }
   ];
 
@@ -134,11 +142,12 @@ const Gallery = () => {
           <div className="grid md:grid-cols-2 gap-8">
             {featuredGalleries.map((gallery, index) => (
               <Card key={index} className="overflow-hidden group cursor-pointer hover:shadow-lg transition-shadow">
-                <div className="h-64 bg-gradient-to-br from-primary/20 to-secondary/20 flex items-center justify-center relative overflow-hidden">
-                  <div className="text-center">
-                    <Camera className="h-16 w-16 text-primary/60 mx-auto mb-2" />
-                    <span className="text-muted-foreground">Featured Gallery</span>
-                  </div>
+                <div className="h-64 relative overflow-hidden">
+                  <img
+                    src={gallery.image}
+                    alt={gallery.title}
+                    className="h-full w-full object-cover group-hover:scale-105 transition-transform duration-300"
+                  />
                   <Badge className="absolute top-4 right-4 bg-primary text-primary-foreground">
                     Featured
                   </Badge>
@@ -180,11 +189,15 @@ const Gallery = () => {
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {recentGalleries.map((gallery, index) => (
               <Card key={index} className="group cursor-pointer hover:shadow-md transition-shadow">
-                <div className="h-48 bg-gradient-to-br from-muted to-secondary/20 flex items-center justify-center">
-                  <div className="text-center">
-                    <Heart className="h-12 w-12 text-primary/60 mx-auto mb-1" />
-                    <span className="text-sm text-muted-foreground">{gallery.imageCount} photos</span>
-                  </div>
+                <div className="h-48 relative overflow-hidden">
+                  <img
+                    src={gallery.image}
+                    alt={gallery.title}
+                    className="h-full w-full object-cover group-hover:scale-105 transition-transform duration-300"
+                  />
+                  <span className="absolute bottom-2 right-2 bg-black/60 text-white text-xs px-2 py-1 rounded">
+                    {gallery.imageCount} photos
+                  </span>
                 </div>
                 <CardContent className="p-4">
                   <Badge variant="outline" className="text-xs mb-2">

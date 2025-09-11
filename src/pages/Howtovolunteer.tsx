@@ -1,8 +1,11 @@
+import { useRef } from "react";
+import { Link } from "react-router-dom";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+
 import { 
   Users, 
   GraduationCap, 
@@ -17,6 +20,13 @@ import {
 } from "lucide-react";
 
 const HowToVolunteer = () => {
+  // ref for Application Process section
+  const applicationRef = useRef<HTMLDivElement | null>(null);
+
+  const scrollToApplication = () => {
+    applicationRef.current?.scrollIntoView({ behavior: "smooth" });
+  };
+
   const steps = [
     {
       step: "1",
@@ -123,14 +133,18 @@ const HowToVolunteer = () => {
             Join our mission to provide essential veterinary care across Africa. 
             Your skills and compassion can make a life-changing difference for animals and communities in need.
           </p>
-          <Button size="lg" className="bg-primary hover:bg-primary/90 text-primary-foreground">
+          <Button 
+            size="lg" 
+            className="bg-primary hover:bg-primary/90 text-primary-foreground"
+            onClick={scrollToApplication}
+          >
             Start Your Application
           </Button>
         </div>
       </section>
 
       {/* Application Process */}
-      <section className="py-16 bg-background">
+      <section ref={applicationRef} className="py-16 bg-background">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold text-foreground mb-4">Application Process</h2>
@@ -261,12 +275,24 @@ const HowToVolunteer = () => {
             making a lasting impact across Africa.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button size="lg" variant="outline" className="bg-white text-primary border-white hover:bg-white/90">
-              Download Application
-            </Button>
-            <Button size="lg" variant="outline" className="bg-transparent text-primary-foreground border-white hover:bg-white/10">
-              Contact Us
-            </Button>
+            {/* Download Application */}
+            <a 
+              href="/files/volunteer-application.pdf" 
+              download 
+              target="_blank" 
+              rel="noopener noreferrer"
+            >
+              <Button size="lg" variant="outline" className="bg-white text-primary border-white hover:bg-white/90">
+                Download Application
+              </Button>
+            </a>
+
+            {/* Contact Us */}
+            <Link to="/contact">
+              <Button size="lg" variant="outline" className="bg-transparent text-primary-foreground border-white hover:bg-white/10">
+                Contact Us
+              </Button>
+            </Link>
           </div>
         </div>
       </section>

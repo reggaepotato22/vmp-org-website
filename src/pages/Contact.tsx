@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
@@ -12,6 +13,10 @@ import { useToast } from "@/hooks/use-toast";
 const Contact = () => {
   const { toast } = useToast();
 
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     toast({
@@ -23,7 +28,6 @@ const Contact = () => {
   return (
     <div className="min-h-screen">
       <Navigation />
-      
       <main className="pt-8 pb-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
@@ -33,9 +37,7 @@ const Contact = () => {
               please fill out the form below. We'll get back to you as soon as possible.
             </p>
           </div>
-
           <div className="grid lg:grid-cols-2 gap-12">
-            {/* Contact Form */}
             <Card className="shadow-medium">
               <CardHeader>
                 <CardTitle className="text-2xl">Send us a Message</CardTitle>
@@ -44,25 +46,12 @@ const Contact = () => {
                 <form onSubmit={handleSubmit} className="space-y-6">
                   <div>
                     <Label htmlFor="name">Name</Label>
-                    <Input 
-                      id="name" 
-                      placeholder="Your Name" 
-                      className="mt-1"
-                      required
-                    />
+                    <Input id="name" placeholder="Your Name" className="mt-1" required />
                   </div>
-                  
                   <div>
                     <Label htmlFor="email">Email</Label>
-                    <Input 
-                      id="email" 
-                      type="email" 
-                      placeholder="Your Email" 
-                      className="mt-1"
-                      required
-                    />
+                    <Input id="email" type="email" placeholder="Your Email" className="mt-1" required />
                   </div>
-                  
                   <div>
                     <Label htmlFor="interest">I'm interested in</Label>
                     <Select>
@@ -79,25 +68,14 @@ const Contact = () => {
                       </SelectContent>
                     </Select>
                   </div>
-                  
                   <div>
                     <Label htmlFor="message">Message</Label>
-                    <Textarea 
-                      id="message" 
-                      placeholder="Tell us more about your inquiry..."
-                      className="mt-1 min-h-[120px]"
-                      required
-                    />
+                    <Textarea id="message" placeholder="Tell us more about your inquiry..." className="mt-1 min-h-[120px]" required />
                   </div>
-                  
-                  <Button type="submit" className="w-full" variant="default">
-                    Submit
-                  </Button>
+                  <Button type="submit" className="w-full" variant="default">Submit</Button>
                 </form>
               </CardContent>
             </Card>
-
-            {/* Contact Information */}
             <div className="space-y-8">
               <Card className="shadow-medium">
                 <CardHeader>
@@ -112,7 +90,6 @@ const Contact = () => {
                       <div className="text-muted-foreground">Ngong Town.</div>
                     </div>
                   </div>
-                  
                   <div className="flex items-center space-x-3">
                     <Phone className="h-5 w-5 text-primary" />
                     <div>
@@ -121,7 +98,6 @@ const Contact = () => {
                       <div className="text-muted-foreground">Mobile +254 719 207 497</div>
                     </div>
                   </div>
-                  
                   <div className="flex items-center space-x-3">
                     <Mail className="h-5 w-5 text-primary" />
                     <div>
@@ -131,29 +107,19 @@ const Contact = () => {
                   </div>
                 </CardContent>
               </Card>
-
               <Card className="shadow-medium">
                 <CardHeader>
                   <CardTitle className="text-xl">Follow Us</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <div className="flex space-x-4">
-                    <a 
-                      href="#" 
-                      className="flex items-center justify-center w-10 h-10 rounded-full bg-primary/10 text-primary hover:bg-primary hover:text-primary-foreground transition-colors"
-                    >
+                    <a href="#" className="flex items-center justify-center w-10 h-10 rounded-full bg-primary/10 text-primary hover:bg-primary hover:text-primary-foreground transition-colors">
                       <Twitter className="h-5 w-5" />
                     </a>
-                    <a 
-                      href="#" 
-                      className="flex items-center justify-center w-10 h-10 rounded-full bg-primary/10 text-primary hover:bg-primary hover:text-primary-foreground transition-colors"
-                    >
+                    <a href="#" className="flex items-center justify-center w-10 h-10 rounded-full bg-primary/10 text-primary hover:bg-primary hover:text-primary-foreground transition-colors">
                       <Facebook className="h-5 w-5" />
                     </a>
-                    <a 
-                      href="#" 
-                      className="flex items-center justify-center w-10 h-10 rounded-full bg-primary/10 text-primary hover:bg-primary hover:text-primary-foreground transition-colors"
-                    >
+                    <a href="#" className="flex items-center justify-center w-10 h-10 rounded-full bg-primary/10 text-primary hover:bg-primary hover:text-primary-foreground transition-colors">
                       <Instagram className="h-5 w-5" />
                     </a>
                   </div>
@@ -162,7 +128,6 @@ const Contact = () => {
                   </p>
                 </CardContent>
               </Card>
-
               <Card className="shadow-medium">
                 <CardContent className="p-6">
                   <div className="text-center">
@@ -170,9 +135,7 @@ const Contact = () => {
                     <p className="text-sm text-muted-foreground mb-4">
                       We respect your privacy and handle your information with care.
                     </p>
-                    <Button variant="outline" size="sm">
-                      View Privacy Policy
-                    </Button>
+                    <Button variant="outline" size="sm">View Privacy Policy</Button>
                   </div>
                 </CardContent>
               </Card>
@@ -180,7 +143,6 @@ const Contact = () => {
           </div>
         </div>
       </main>
-
       <Footer />
     </div>
   );
