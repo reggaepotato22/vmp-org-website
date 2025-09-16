@@ -24,13 +24,13 @@ const Footer = () => {
         <div className="grid md:grid-cols-4 gap-8">
           <div className="md:col-span-2">
             <div className="flex items-center space-x-2 mb-4">
-              <Heart className="h-8 w-8 text-primary" />
-              <span className="text-xl font-bold">Vet Missions</span>
+              
+              <span className="text-xl font-bold">Contact info</span>
             </div>
-            <p className="text-white/80 mb-6 leading-relaxed max-w-md">
+            {/* <p className="text-white/80 mb-6 leading-relaxed max-w-md">
               Providing veterinary care to animals in underserved communities worldwide, 
               sharing God's love and compassion through our service.
-            </p>
+            </p> */}
             <div className="space-y-2 text-sm text-white/80">
               <div>Veterinarians with a Mission Programme</div>
               <div>Ultimate House,</div>
