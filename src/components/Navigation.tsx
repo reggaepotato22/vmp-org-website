@@ -22,12 +22,13 @@ const Navigation = () => {
   };
 
   const navItems = [
+    { name: "Home", path: "/" },
     { name: "About", path: "/about" },
+    { name: "Updates", path: "/news" },
     { name: "Missions", path: "/missions" },
-    { name: "News & Events", path: "/news" },
-    { name: "Contact", path: "/contact" },
     { name: "Gallery", path: "/gallery" },
     { name: "Volunteers", path: "/volunteers" },
+    { name: "Contact", path: "/contact" },
   ];
 
   const isActive = (path: string) => location.pathname === path;

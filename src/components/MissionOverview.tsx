@@ -110,7 +110,6 @@ const MissionOverview = () => {
               </li>
             </ul>
           </div>
-
           <div>
             <h3 className="text-2xl font-bold text-foreground mb-4">Our History</h3>
             <p className="text-muted-foreground leading-relaxed">
