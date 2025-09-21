@@ -4,22 +4,18 @@ import { Star, Quote } from "lucide-react";
 const Testimonials = () => {
   const testimonials = [
     {
-      name: "Dr. George Mulovi",
+      name: "George Mulovi",
       role: "Founder & Lead Veterinarian",
       year: "2022",
       rating: 5,
       content: "My experience with Vet Missions was truly life-changing. The opportunity to use my skills to help animals in need while sharing my faith was incredibly rewarding.",
-      likes: 15,
-      dislikes: 2
     },
     {
-      name: "Dr. Jadiel Muiru   ", 
+      name: "Jadiel Muiru", 
       role: "Volunteer Veterinarian",
       year: "2023",
       rating: 5,
       content: "Vet Missions provides a unique platform for veterinarians to make a global impact. The dedication and compassion of the team are inspiring.",
-      likes: 12,
-      dislikes: 1
     }
   ];
 
@@ -62,12 +58,8 @@ const Testimonials = () => {
                   
                   <div className="flex items-center space-x-4 text-sm text-muted-foreground">
                     <div className="flex items-center">
-                      <span className="mr-1">👍</span>
-                      <span>{testimonial.likes}</span>
                     </div>
                     <div className="flex items-center">
-                      <span className="mr-1">👎</span>
-                      <span>{testimonial.dislikes}</span>
                     </div>
                   </div>
                 </div>
