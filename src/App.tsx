@@ -11,7 +11,10 @@ import Donate from "./pages/Donate";
 import Missions from "./pages/Missions";
 import Gallery from "./pages/Gallery";
 import News from "./pages/News";
-import HowToVolunteer from "./pages/Howtovolunteer";
+import HowToVolunteer from "./pages/HowToVolunteer";
+import Mission2025 from "./pages/missions/2025/Reports";
+import Reports from "./pages/missions/2025/Reports";
+
 // import Stories from "./pages/VolunteerStories";
 
 const queryClient = new QueryClient();
@@ -30,6 +33,11 @@ const App = () => (
           <Route path="/about/overview" element={<MissionOverview />} />
           <Route path="/about/history" element={<MissionOverview />} />
           <Route path="/about/testimonials" element={<MissionOverview />} />
+
+ {/* Mission routes */}
+          <Route path="/missions" element={<Missions />} />
+          <Route path="/missions/2025" element={<Mission2025 />} />
+          <Route path="/missions/2025/mataarba-2025" element={<Reports />} />
 
           {/* Missions is now its own page */}
           <Route path="/missions" element={<Missions />} />
