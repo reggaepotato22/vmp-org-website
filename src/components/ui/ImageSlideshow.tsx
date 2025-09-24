@@ -34,7 +34,7 @@ export const ImageSlideshow: React.FC<ImageSlideshowProps> = ({
   }, [autoPlay, autoPlayInterval, images.length]);
 
   const goToPrevious = () => {
-    setCurrentIndex((prevIndex) => 
+    setCurrentIndex((prevIndex) =>
       prevIndex === 0 ? images.length - 1 : prevIndex - 1
     );
   };
@@ -51,15 +51,21 @@ export const ImageSlideshow: React.FC<ImageSlideshowProps> = ({
 
   return (
     <div className={cn("relative w-full h-96 rounded-lg overflow-hidden bg-muted", className)}>
-      {/* Main Image */}
+      {/* Images with fade transition */}
       <div className="relative w-full h-full">
-        <img
-          src={images[currentIndex].src}
-          alt={images[currentIndex].alt}
-          className="w-full h-full object-cover transition-opacity duration-500"
-        />
-        
-        {/* Overlay gradient for better text visibility */}
+        {images.map((image, index) => (
+          <img
+            key={index}
+            src={image.src}
+            alt={image.alt}
+            className={cn(
+              "absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ease-in-out",
+              index === currentIndex ? "opacity-100" : "opacity-0"
+            )}
+          />
+        ))}
+
+        {/* Overlay gradient for better visibility */}
         <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
       </div>
 
@@ -74,7 +80,7 @@ export const ImageSlideshow: React.FC<ImageSlideshowProps> = ({
           >
             <ChevronLeft className="h-4 w-4" />
           </Button>
-          
+
           <Button
             variant="outline"
             size="icon"
