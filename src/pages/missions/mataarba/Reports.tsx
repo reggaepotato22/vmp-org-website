@@ -1,7 +1,6 @@
 import React from 'react';
 import { Button } from '@/components/ui/button';
-// import { ImageSlideshow } from '@/components/ui/ImageSlideshow';
-import { Link } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom'; // ✅ import both
 import vetWithDogImage from '@/assets/flock.jpg';
 import communityOutreachImage from '@/assets/lodwar.jpg';
 import naturalFigureImage from '@/assets/hero-cross.png';
@@ -11,12 +10,12 @@ const Reports = () => {
   const slideshowImages = [
     {
       src: vetWithDogImage,
-      alt: 'Veterinarian providing care to animals'
+      alt: 'Veterinarian providing care to animals',
     },
     {
       src: communityOutreachImage,
-      alt: 'Community outreach and engagement activities'
-    }
+      alt: 'Community outreach and engagement activities',
+    },
   ];
 
   return (
@@ -25,15 +24,31 @@ const Reports = () => {
         {/* Breadcrumb Navigation */}
         <nav className="mb-6">
           <div className="flex items-center text-sm text-muted-foreground">
-            <Link to="/missions" className="hover:text-foreground transition-colors">
+            <NavLink
+              to="/missions"
+              end
+              className={({ isActive }) =>
+                isActive
+                  ? 'text-foreground font-semibold underline underline-offset-2'
+                  : 'hover:text-foreground transition-colors'
+              }
+            >
               Missions
-            </Link>
+            </NavLink>
             <span className="mx-2">/</span>
-            <Link to="/missions/2025" className="hover:text-foreground transition-colors">
+            <NavLink
+              to="/missions/2025"
+              end
+              className={({ isActive }) =>
+                isActive
+                  ? 'text-foreground font-semibold underline underline-offset-2'
+                  : 'hover:text-foreground transition-colors'
+              }
+            >
               2025
-            </Link>
+            </NavLink>
             <span className="mx-2">/</span>
-            <span className="text-foreground">Mataarba Report</span>
+            <span className="text-foreground font-bold">Mataarba Report</span>
           </div>
         </nav>
 
@@ -50,11 +65,14 @@ const Reports = () => {
             Mission Overview
           </h2>
           <p className="text-muted-foreground leading-relaxed mb-6">
-            The Mataarba Mission 2025 team from July 15th to July 22nd, aimed to provide essential veterinary care and spiritual support to the 
-            Mataarba community. Our team of 12 volunteers including veterinarians, technicians, and support staff, worked tirelessly to address the 
-            health needs of both livestock and pets, while also engaging in community outreach activities.
+            The Mataarba Mission 2025 team from July 15th to July 22nd, aimed to
+            provide essential veterinary care and spiritual support to the
+            Mataarba community. Our team of 12 volunteers including
+            veterinarians, technicians, and support staff, worked tirelessly to
+            address the health needs of both livestock and pets, while also
+            engaging in community outreach activities.
           </p>
-          
+
           {/* Natural Figure Image */}
           <div className="w-full h-64 mb-8 rounded-lg overflow-hidden">
             <img
@@ -70,14 +88,16 @@ const Reports = () => {
           <h2 className="text-xl font-semibold text-foreground mb-4">
             Activities & Outcomes
           </h2>
-          
+
           <h3 className="text-lg font-medium text-foreground mb-3">
             Veterinary Services
           </h3>
           <p className="text-muted-foreground leading-relaxed mb-6">
-            Our veterinary team treated over 300 animals, including cattle, goats, sheep, dogs and cats. Common ailments treated included parasitic 
-            infections, respiratory diseases, and injuries. We also provided vaccinations and performed routine surgical procedures. The total value of 
-            veterinary services provided was estimated at $15,000.
+            Our veterinary team treated over 300 animals, including cattle,
+            goats, sheep, dogs and cats. Common ailments treated included
+            parasitic infections, respiratory diseases, and injuries. We also
+            provided vaccinations and performed routine surgical procedures. The
+            total value of veterinary services provided was estimated at $15,000.
           </p>
 
           {/* Image Slideshow */}
@@ -90,10 +110,14 @@ const Reports = () => {
             Spiritual Outreach
           </h3>
           <p className="text-muted-foreground leading-relaxed">
-            In addition to veterinary care, we conducted daily community gatherings, sharing messages of hope and faith. We engaged in biblical 
-            discussions, participated in local Bible ceremonies, and organized devotions. We also distributed over 200 Bibles and organized evangelistic 
-            opportunities with community members. The team also participated in individual and overall housing, education and spiritual activities, 
-            providing both spiritual and practical support to community members.
+            In addition to veterinary care, we conducted daily community
+            gatherings, sharing messages of hope and faith. We engaged in
+            biblical discussions, participated in local Bible ceremonies, and
+            organized devotions. We also distributed over 200 Bibles and
+            organized evangelistic opportunities with community members. The
+            team also participated in individual and overall housing, education
+            and spiritual activities, providing both spiritual and practical
+            support to community members.
           </p>
         </section>
 
@@ -102,24 +126,30 @@ const Reports = () => {
           <h2 className="text-xl font-semibold text-foreground mb-4">
             Impact on the Community
           </h2>
-          
+
           <h3 className="text-lg font-medium text-foreground mb-3">
             Veterinary
           </h3>
           <p className="text-muted-foreground leading-relaxed mb-4">
-            The mission significantly improved the health and well-being of domestic animals in Mataarba, leading to increased productivity and 
-            reduced animal suffering. Local farmers received valuable training and education, improving their long-term animal husbandry practices and the overall health of 
-            livestock in the community.
+            The mission significantly improved the health and well-being of
+            domestic animals in Mataarba, leading to increased productivity and
+            reduced animal suffering. Local farmers received valuable training
+            and education, improving their long-term animal husbandry practices
+            and the overall health of livestock in the community.
           </p>
 
           <h3 className="text-lg font-medium text-foreground mb-3">
             Spiritual
           </h3>
           <p className="text-muted-foreground leading-relaxed">
-            Our spiritual outreach efforts, including church ceremonies, Bible connections, and materials, had a profound impact on the community. 
-            Many community members expressed desire for spiritual guidance and support, strengthening their faith in Christ and enhancing their understanding of 
-            possibilities for the heart. Our work for Christ brought spiritual relief and strengthened faith for the community. The mission strengthened 
-            relationships between our organizations and the faithful by encouraging connection and spiritual understanding.
+            Our spiritual outreach efforts, including church ceremonies, Bible
+            connections, and materials, had a profound impact on the community.
+            Many community members expressed desire for spiritual guidance and
+            support, strengthening their faith in Christ and enhancing their
+            understanding of possibilities for the heart. Our work for Christ
+            brought spiritual relief and strengthened faith for the community.
+            The mission strengthened relationships between our organizations and
+            the faithful by encouraging connection and spiritual understanding.
           </p>
         </section>
 
@@ -129,9 +159,11 @@ const Reports = () => {
             Challenges
           </h2>
           <p className="text-muted-foreground leading-relaxed">
-            The mission faced several challenges, including limited resources, logistical difficulties in transporting supplies, and language barriers. 
-            Despite these obstacles, the team remained committed and successfully achieved its objectives. We learned valuable lessons that will inform our 
-            planning for future missions.
+            The mission faced several challenges, including limited resources,
+            logistical difficulties in transporting supplies, and language
+            barriers. Despite these obstacles, the team remained committed and
+            successfully achieved its objectives. We learned valuable lessons
+            that will inform our planning for future missions.
           </p>
         </section>
 
@@ -141,11 +173,14 @@ const Reports = () => {
             Conclusion
           </h2>
           <p className="text-muted-foreground leading-relaxed mb-6">
-            The Mataarba Mission 2025 was a resounding success, achieving significant veterinary and spiritual support to the community. The 
-            dedication and hard work of our volunteers made a tangible difference in the lives of both animals and people. We are grateful for this 
-            opportunity to serve and look forward to continuing our partnerships with the Mataarba community.
+            The Mataarba Mission 2025 was a resounding success, achieving
+            significant veterinary and spiritual support to the community. The
+            dedication and hard work of our volunteers made a tangible difference
+            in the lives of both animals and people. We are grateful for this
+            opportunity to serve and look forward to continuing our partnerships
+            with the Mataarba community.
           </p>
-          
+
           <div className="flex flex-col sm:flex-row gap-4">
             <Link to="/missions/2025">
               <Button className="bg-primary text-primary-foreground hover:bg-primary/90">
@@ -153,9 +188,7 @@ const Reports = () => {
               </Button>
             </Link>
             <Link to="/missions">
-              <Button variant="outline">
-                Return to Mission Database
-              </Button>
+              <Button variant="outline">Return to Mission Database</Button>
             </Link>
           </div>
         </section>

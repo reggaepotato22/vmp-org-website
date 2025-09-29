@@ -114,9 +114,9 @@ const Navigation = () => {
                 Volunteers
               </DropdownMenuTrigger>
               <DropdownMenuContent>
-                <DropdownMenuItem onClick={() => handleNavClick("/volunteers/stories")}>
-                  Volunteer Stories
-                </DropdownMenuItem>
+                  {/* <DropdownMenuItem onClick={() => handleNavClick("/volunteers/stories")}>
+                    Volunteer Stories
+                  </DropdownMenuItem> */}
                 <DropdownMenuItem onClick={() => handleNavClick("/volunteers/how-to")}>
                   How to Volunteer
                 </DropdownMenuItem>
