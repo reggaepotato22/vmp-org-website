@@ -11,7 +11,7 @@ const RecentMissions = () => {
         <div className="flex items-center justify-between mb-8">
           <h2 className="text-3xl font-bold">Recent Missions</h2>
           <Link 
-            to="/missions/2025"
+            to="/missions/mataarba"
             onClick={handleLinkClick}
             className="text-blue-600 hover:text-blue-800 transition-colors font-medium"
           >
@@ -22,7 +22,7 @@ const RecentMissions = () => {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {/* Mission 1 - Mataarba */}
           <Link 
-            to="/missions/2025/mataarba-2025"
+            to="/missions/mataarba/mataarba-2025"
             onClick={handleLinkClick}
             className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow"
           >
