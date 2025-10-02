@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
-import heroSlide1 from "@/assets/hero-cross.png";
+import heroSlide1 from "@/assets//vmphotos/prayers.jpg";
 import heroSlide2 from "@/assets/vmphotos/calf.jpg";
 import heroSlide3 from "@/assets/vmphotos/co3.jpg";
 import heroSlide4 from "@/assets/vmphotos/cow.jpg";
@@ -19,7 +19,7 @@ interface Slide {
 }
 
 const slides: Slide[] = [
-  { id: 0, image: heroSlide1, alt: "Hero cross - Veterinary mission work" },
+  { id: 0, image: heroSlide1, alt: "prayers - Veterinary mission work" },
   { id: 1, image: heroSlide2, alt: "Calf receiving veterinary care" },
   { id: 2, image: heroSlide3, alt: "Veterinary team at work" },
   { id: 3, image: heroSlide4, alt: "Cow receiving treatment" },
@@ -133,13 +133,13 @@ const Hero: React.FC = () => {
             underserved communities worldwide.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button
+            {/* <Button
               size="lg"
               className="bg-white text-black hover:bg-white/90"
               onClick={scrollToWhoWeAre}
             >
               Learn More
-            </Button>
+            </Button> */}
           </div>
         </div>
       </div>

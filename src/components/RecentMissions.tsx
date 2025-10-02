@@ -5,6 +5,8 @@ const RecentMissions = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
+  const flockImage = new URL('/src/assets/vmphotos/flock.jpg', import.meta.url).href;
+
   return (
     <section className="py-16 bg-gray-50">
       <div className="container mx-auto px-4">
@@ -15,7 +17,7 @@ const RecentMissions = () => {
             onClick={handleLinkClick}
             className="text-blue-600 hover:text-blue-800 transition-colors font-medium"
           >
-            View all 2025 missions <span className="inline-block">→</span>
+            {/* View all 2025 missions <span className="inline-block">→</span> */}
           </Link>
         </div>
 
@@ -27,7 +29,7 @@ const RecentMissions = () => {
             className="group bg-white rounded-lg shadow-md overflow-hidden transform transition-all duration-300 hover:shadow-xl hover:scale-105 hover:brightness-105"
           >
             <img
-              src="/src/assets/vmphotos/flock.jpg"
+              src={flockImage}
               alt="Mataarba Mission"
               className="w-full h-48 object-cover transition-transform duration-300 group-hover:scale-110"
             />
@@ -50,7 +52,7 @@ const RecentMissions = () => {
             className="group bg-white rounded-lg shadow-md overflow-hidden transform transition-all duration-300 hover:shadow-xl hover:scale-105 hover:brightness-105"
           >
             <img
-              src="/src/assets/vmphotos/flock.jpg"
+              src={flockImage}
               alt="Mission 2"
               className="w-full h-48 object-cover transition-transform duration-300 group-hover:scale-110"
             />
@@ -70,7 +72,7 @@ const RecentMissions = () => {
             className="group bg-white rounded-lg shadow-md overflow-hidden transform transition-all duration-300 hover:shadow-xl hover:scale-105 hover:brightness-105"
           >
             <img
-              src="/src/assets/vmphotos/flock.jpg"
+              src={flockImage}
               alt="Mission 3"
               className="w-full h-48 object-cover transition-transform duration-300 group-hover:scale-110"
             />
@@ -87,15 +89,15 @@ const RecentMissions = () => {
         {/* Bottom link with "3" clickable */}
         <div className="mt-8 text-center">
           <p className="text-gray-600">
-            Showing{" "}
+            Show{" "}
             <Link
               to="/missions"
               onClick={handleLinkClick}
               className="text-blue-600 hover:text-blue-800 font-semibold underline decoration-2 underline-offset-2 transition-colors"
             >
-              3
+              other
             </Link>{" "}
-            recent missions
+            missions
           </p>
         </div>
       </div>

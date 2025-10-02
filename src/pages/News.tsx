@@ -4,81 +4,88 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Calendar, MapPin, Users, ExternalLink, Clock } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const News = () => {
+  const handleLinkClick = () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
   const featuredNews = {
-    title: "VMP Prayer breakfast",
+    title: "VMP Website launched",
     excerpt: "Reflecting on over a decade of transforming communities through faith-based veterinary care, with over 10,000 animals treated across 25+ countries.",
-    date: "March 15, 2024",
-    category: "preparation",
-    image: "/api/placeholder/600/300",
-    readTime: "5 min read"
+    date: "1st October 2025",
+    category: "complete",
+    image: "/src/assets/vmphotos/calf.jpg",
+    readTime: "∞",
+    link: "kenyavetsmission.org",
   };
 
   const recentNews = [
     {
-      title: "Kenya Mission Provides Care for 300+ Livestock Animals",
-      excerpt: "Our recent mission to Mosiro, Narok brought essential veterinary care to rural farming communities, impacting 50+ families.",
-      date: "March 10, 2024",
+      title: "Mataarba Mission",
+      excerpt: " Provided essential veterinary care and spiritual support to the Mataarba community with comprehensive animal health services.",
+      date: "July 15-22, 2025",
       category: "Mission Report",
-      readTime: "3 min read"
+      readTime: "5 min read",
+      link: "/missions/mataarba/mataarba-2025"
     },
-    {
-      title: "Partnership with Local Veterinary Schools",
-      excerpt: "VMP announces collaborative training programs with veterinary institutions in Maasai Mara University.",
-      date: "February 28, 2024", 
-      category: "Partnership",
-      readTime: "4 min read"
-    },
-    {
-      title: "Emergency Response Team Deployed to Maasai Mara",
-      excerpt: "Following recent natural disasters, VMP's rapid response team provided critical care to affected animals.",
-      date: "February 15, 2024",
-      category: "Emergency Response",
-      readTime: "3 min read"
-    },
-    {
-      title: "Volunteer Spotlight: Dr. George Mulovi",
-      excerpt: "Meet Dr. Mulovi, who has served on 8 VMP missions, bringing hope and healing to communities worldwide.",
-      date: "February 5, 2024",
-      category: "Volunteer Story",
-      readTime: "6 min read"
-    }
+    // {
+    //   title: "Partnership with Local Veterinary Schools",
+    //   excerpt: "VMP announces collaborative training programs with veterinary institutions in Maasai Mara University.",
+    //   date: "February 28, 2024", 
+    //   category: "Partnership",
+    //   readTime: "4 min read"
+    // },
+    // {
+    //   title: "Emergency Response Team Deployed to Maasai Mara",
+    //   excerpt: "Following recent natural disasters, VMP's rapid response team provided critical care to affected animals.",
+    //   date: "February 15, 2024",
+    //   category: "Emergency Response",
+    //   readTime: "3 min read"
+    // },
+    // {
+    //   title: "Volunteer Spotlight: Dr. George Mulovi",
+    //   excerpt: "Meet Dr. Mulovi, who has served on 8 VMP missions, bringing hope and healing to communities worldwide.",
+    //   date: "February 5, 2024",
+    //   category: "Volunteer Story",
+    //   readTime: "6 min read"
+    // }
   ];
 
   const upcomingEvents = [
-    {
-      title: "Annual VMP Fundraising Gala",
-      date: "May 18, 2024",
-      time: "6:00 PM",
-      location: "Ole Sereni, Southern Bypass",
-      description: "Join us for an evening of celebration, fellowship, and fundraising for our global missions.",
-      type: "Fundraiser"
-    },
-    {
-      title: "Volunteer Training Workshop",
-      date: "April 22, 2024", 
-      time: "9:00 AM - 4:00 PM",
-      location: "VMP Headquarters",
-      description: "Comprehensive training for new volunteers preparing for international missions.",
-      type: "Training"
-    },
-    {
-      title: "Mission Preparation Meeting - Uganda",
-      date: "April 15, 2024",
-      time: "7:00 PM",
-      location: "Virtual Meeting",
-      description: "Pre-mission briefing for volunteers joining our Uganda livestock health initiative.",
-      type: "Meeting"
-    },
-    {
-      title: "Community Outreach - Kimuka Animal healthcare",
-      date: "April 6, 2024",
-      time: "10:00 AM - 2:00 PM", 
-      location: "Kimuka Animal Shelter",
-      description: "Local volunteer opportunity providing veterinary care at our partner shelter.",
-      type: "Local Service"
-    }
+    // {
+    //   title: "Annual VMP Fundraising Gala",
+    //   date: "May 18, 2024",
+    //   time: "6:00 PM",
+    //   location: "Ole Sereni, Southern Bypass",
+    //   description: "Join us for an evening of celebration, fellowship, and fundraising for our global missions.",
+    //   type: "Fundraiser"
+    // },
+    // {
+    //   title: "Volunteer Training Workshop",
+    //   date: "April 22, 2024", 
+    //   time: "9:00 AM - 4:00 PM",
+    //   location: "VMP Headquarters",
+    //   description: "Comprehensive training for new volunteers preparing for international missions.",
+    //   type: "Training"
+    // },
+    // {
+    //   title: "Mission Preparation Meeting - Uganda",
+    //   date: "April 15, 2024",
+    //   time: "7:00 PM",
+    //   location: "Virtual Meeting",
+    //   description: "Pre-mission briefing for volunteers joining our Uganda livestock health initiative.",
+    //   type: "Meeting"
+    // },
+    // {
+    //   title: "Community Outreach - Kimuka Animal healthcare",
+    //   date: "April 6, 2024",
+    //   time: "10:00 AM - 2:00 PM", 
+    //   location: "Kimuka Animal Shelter",
+    //   description: "Local volunteer opportunity providing veterinary care at our partner shelter.",
+    //   type: "Local Service"
+    // }
   ];
 
   const getCategoryColor = (category: string) => {
@@ -181,20 +188,29 @@ const News = () => {
                     </CardHeader>
                     <CardContent>
                       <p className="text-muted-foreground mb-4">{article.excerpt}</p>
-                      <Button variant="outline" size="sm">
-                        Read More
-                        <ExternalLink className="h-4 w-4 ml-2" />
-                      </Button>
+                      {article.link ? (
+                        <Button asChild variant="outline" size="sm">
+                          <Link to={article.link} onClick={handleLinkClick}>
+                            Read More
+                            <ExternalLink className="h-4 w-4 ml-2" />
+                          </Link>
+                        </Button>
+                      ) : (
+                        <Button variant="outline" size="sm">
+                          Read More
+                          <ExternalLink className="h-4 w-4 ml-2" />
+                        </Button>
+                      )}
                     </CardContent>
                   </Card>
                 ))}
               </div>
               
-              <div className="text-center mt-8">
+              {/* <div className="text-center mt-8">
                 <Button variant="outline" size="lg">
                   View All News Articles
                 </Button>
-              </div>
+              </div> */}
             </div>
           </div>
 
@@ -235,9 +251,12 @@ const News = () => {
               </div>
               
               <div className="text-center mt-6">
-                <Button variant="outline">
+                <p>
+                  No Events available
+                </p>
+                {/* <Button variant="outline">
                   View All Events
-                </Button>
+                </Button> */}
               </div>
             </div>
 

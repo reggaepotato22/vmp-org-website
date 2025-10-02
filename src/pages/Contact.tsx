@@ -16,14 +16,32 @@ const Contact = () => {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
+  // (Moved to top of file
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
+const handleSubmit = (e: React.FormEvent) => {
+  e.preventDefault();
+
+  emailjs.sendForm(
+    "YOUR_SERVICE_ID",
+    "YOUR_TEMPLATE_ID",
+    e.target as HTMLFormElement, // the form element
+    "YOUR_PUBLIC_KEY"    // from EmailJS dashboard
+  )
+  .then(() => {
     toast({
       title: "Message Sent!",
       description: "Thank you for contacting us. We'll get back to you soon.",
     });
-  };
+  })
+  .catch((err) => {
+    toast({
+      title: "Error",
+      description: "There was an issue sending your message.",
+      variant: "destructive",
+    });
+  });
+};
+
 
   return (
     <div className="min-h-screen">

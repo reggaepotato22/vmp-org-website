@@ -9,6 +9,10 @@ import { Link } from "react-router-dom";
 const Gallery = () => {
   const galleryCategories = [];
 
+  // Import images
+  const maf4Image = new URL('/src/assets/vmphotos/maf4.jpg', import.meta.url).href;
+  const cwaterImage = new URL('/src/assets/vmphotos/cwater.jpg', import.meta.url).href;
+
   const featuredGalleries = [
     {
       title: "Kenya Mission 2024",
@@ -19,82 +23,82 @@ const Gallery = () => {
       category: "Medical Care",
       featured: true,
       url: "https://photos.app.goo.gl/Npm53WWZd6wM8wL19",
-      image: "/src/assets/vmphotos/maf4.jpg"
+      image: maf4Image
     },
-    {
-      title: "Lodwar Mission Outreach",
-      location: "Lodwar, KE",
-      date: "January 2024",
-      imageCount: 18,
-      description: "Mobile clinics serving remote mountain communities",
-      category: "Community Outreach",
-      featured: true,
-      url: "links will be here",
-      image: "/src/assets/vmphotos/cwater.jpg"
-    }
+    // {
+    //   title: "Lodwar Mission Outreach",
+    //   location: "Lodwar, KE",
+    //   date: "January 2024",
+    //   imageCount: 18,
+    //   description: "Mobile clinics serving remote mountain communities",
+    //   category: "Community Outreach",
+    //   featured: true,
+    //   url: "links will be here",
+    //   image: cwaterImage
+    // }
   ];
 
   const recentGalleries = [
     {
-      title: "Tanzania Vaccination Program",
-      location: "Arusha, Tanzania",
-      date: "November 2023",
+      title: "",
+      location: "",
+      date: "",
       imageCount: 32,
-      description: "Comprehensive livestock vaccination initiative",
-      category: "Medical Care",
-      url: "links will be here",
-      image: "/src/assets/vmphotos/cwater.jpg"
+      description: "",
+      category: "",
+      url: "",
+      image: cwaterImage
     },
-    {
-      title: "Volunteer Training Workshop",
-      location: "VMP Headquarters",
-      date: "October 2023",
-      imageCount: 15,
-      description: "Preparing new volunteers for international service",
-      category: "Training Programs",
-      url: "links will be here",
-      image: "/src/assets/vmphotos/cwater.jpg"
-    },
-    {
-      title: "Honduras Emergency Response",
-      location: "Tegucigalpa, Honduras",
-      date: "September 2023",
-      imageCount: 21,
-      description: "Post-hurricane veterinary emergency care",
-      category: "Medical Care",
-      url: "links will be here",
-      image: "/src/assets/vmphotos/cwater.jpg"
-    },
-    {
-      title: "Annual VMP Gala 2023",
-      location: "Christian Convention Center",
-      date: "August 2023",
-      imageCount: 28,
-      description: "Celebrating another year of faithful service",
-      category: "Team Moments",
-      url: "links will be here",
-      image: "/src/assets/vmphotos/cwater.jpg"
-    },
-    {
-      title: "Philippines Island Clinics",
-      location: "Mindanao, Philippines",
-      date: "July 2023",
-      imageCount: 26,
-      description: "Serving remote island communities",
-      category: "Community Outreach",
-      url: "links will be here",
-      image: "/src/assets/vmphotos/cwater.jpg"
-    },
-    {
-      title: "Nicaragua Pig Farming Project",
-      location: "León, Nicaragua",
-      date: "June 2023",
-      imageCount: 19,
-      description: "Supporting sustainable pig farming practices",
-      category: "Training Programs",
-      url: "links will be here",
-      image: "/src/assets/vmphotos/cwater.jpg"
-    }
+    // {
+    //   title: "",
+    //   location: "",
+    //   date: "",
+    //   imageCount: 15,
+    //   description: "",
+    //   category: "",
+    //   url: "",
+    //   image: cwaterImage
+    // },
+    // {
+    //   title: "",
+    //   location: "",
+    //   date: "",
+    //   imageCount: 21,
+    //   description: "",
+    //   category: "",
+    //   url: "",
+    //   image: cwaterImage
+    // },
+    // {
+    //   title: "",
+    //   location: "",
+    //   date: "",
+    //   imageCount: 28,
+    //   description: "",
+    //   category: "",
+    //   url: "",
+    //   image: cwaterImage
+    // },
+    // {
+    //   title: "",
+    //   location: "",
+    //   date: "",
+    //   imageCount: 26,
+    //   description: "",
+    //   category: "",
+    //   url: "",
+    //   image: cwaterImage
+    // },
+    // {
+    //   title: "",
+    //   location: "",
+    //   date: "",
+    //   imageCount: 19,
+    //   description: "",
+    //   category: "",
+    //   url: "",
+    //   image: cwaterImage
+    // }
   ];
 
   const testimonialPhotos = [

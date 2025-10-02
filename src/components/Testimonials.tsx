@@ -5,15 +5,15 @@ const Testimonials = () => {
   const testimonials = [
     {
       name: "George Mulovi",
-      role: "Founder & Lead Veterinarian",
+      // role: "Founder & Lead Veterinarian",
       year: "2022",
-      rating: 5,
+      // rating: 5,
       content: "My experience with Vet Missions was truly life-changing. The opportunity to use my skills to help animals in need while sharing my faith was incredibly rewarding.",
     },
     {
       name: "Jadiel Muiru", 
-      role: "Volunteer Veterinarian",
-      year: "2023",
+      role: "Paraprofessional",
+      // year: "",
       rating: 5,
       content: "Vet Missions provides a unique platform for veterinarians to make a global impact. The dedication and compassion of the team are inspiring.",
     }
@@ -70,7 +70,7 @@ const Testimonials = () => {
 
         <div className="text-center mt-12">
           <div className="bg-primary/10 rounded-lg p-8 max-w-md mx-auto">
-            <div className="text-4xl font-bold text-primary mb-2">5000+</div>
+            <div className="text-4xl font-bold text-primary mb-2">2000+</div>
             <div className="text-muted-foreground font-medium">Lives Changed</div>
           </div>
         </div>

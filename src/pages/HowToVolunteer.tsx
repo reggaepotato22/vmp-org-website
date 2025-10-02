@@ -12,7 +12,6 @@ import {
   Heart, 
   Plane, 
   MapPin, 
-  Calendar,
   CheckCircle,
   FileText,
   Clock,
@@ -20,7 +19,6 @@ import {
 } from "lucide-react";
 
 const HowToVolunteer = () => {
-  // ref for Application Process section
   const applicationRef = useRef<HTMLDivElement | null>(null);
 
   const scrollToApplication = () => {
@@ -32,37 +30,37 @@ const HowToVolunteer = () => {
       step: "1",
       title: "Check Eligibility",
       description: "Review our volunteer requirements and ensure you meet the qualifications",
-      icon: <CheckCircle className="h-8 w-8 text-primary" />
+      icon: <CheckCircle className="h-8 w-8 text-blue-600" />
     },
     {
       step: "2", 
       title: "Submit Application",
       description: "Complete our comprehensive volunteer application form with your details and experience",
-      icon: <FileText className="h-8 w-8 text-primary" />
+      icon: <FileText className="h-8 w-8 text-blue-600" />
     },
     {
       step: "3",
       title: "Interview Process",
       description: "Participate in a virtual interview to discuss your motivations and suitability",
-      icon: <Users className="h-8 w-8 text-primary" />
+      icon: <Users className="h-8 w-8 text-blue-600" />
     },
     {
       step: "4",
       title: "Training & Preparation",
       description: "Complete mandatory training modules and prepare for your mission deployment",
-      icon: <GraduationCap className="h-8 w-8 text-primary" />
+      icon: <GraduationCap className="h-8 w-8 text-blue-600" />
     },
     {
       step: "5",
       title: "Mission Assignment",
       description: "Get matched with a mission that aligns with your skills and availability",
-      icon: <MapPin className="h-8 w-8 text-primary" />
+      icon: <MapPin className="h-8 w-8 text-blue-600" />
     },
     {
       step: "6",
       title: "Deploy & Serve",
       description: "Travel to your assigned location and begin making a difference",
-      icon: <Plane className="h-8 w-8 text-primary" />
+      icon: <Plane className="h-8 w-8 text-blue-600" />
     }
   ];
 
@@ -121,21 +119,21 @@ const HowToVolunteer = () => {
       <Navigation />
       
       {/* Hero Section */}
-      <section className="bg-hero-gradient py-16">
+      <section className="bg-news-gradient py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <div className="flex justify-center mb-6">
-            <Heart className="h-16 w-16 text-accent" />
+            <Heart className="h-16 w-16 text-blue-600" />
           </div>
-          <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-6">
+          <h1 className="text-4xl md:text-5xl font-bold text-gray-800 mb-6">
             How to Volunteer
           </h1>
-          <p className="text-xl text-muted-foreground max-w-3xl mx-auto mb-8">
+          <p className="text-xl text-gray-600 max-w-3xl mx-auto mb-8">
             Join our mission to provide essential veterinary care across Africa. 
             Your skills and compassion can make a life-changing difference for animals and communities in need.
           </p>
           <Button 
             size="lg" 
-            className="bg-primary hover:bg-primary/90 text-primary-foreground"
+            className="bg-blue-600 hover:bg-blue-700 text-white"
             onClick={scrollToApplication}
           >
             Start Your Application
@@ -144,18 +142,18 @@ const HowToVolunteer = () => {
       </section>
 
       {/* Application Process */}
-      <section ref={applicationRef} className="py-16 bg-background">
+      <section ref={applicationRef} className="py-16 bg-news-gradient">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-foreground mb-4">Application Process</h2>
-            <p className="text-xl text-muted-foreground">Follow these simple steps to begin your volunteer journey</p>
+            <h2 className="text-3xl font-bold text-gray-800 mb-4">Application Process</h2>
+            <p className="text-xl text-gray-600">Follow these simple steps to begin your volunteer journey</p>
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {steps.map((step, index) => (
               <Card key={index} className="text-center hover:shadow-medium transition-smooth">
                 <CardHeader>
-                  <div className="mx-auto mb-4 w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center">
+                  <div className="mx-auto mb-4 w-16 h-16 bg-blue-50 rounded-full flex items-center justify-center">
                     {step.icon}
                   </div>
                   <div className="mb-2">
@@ -163,10 +161,10 @@ const HowToVolunteer = () => {
                       STEP {step.step}
                     </Badge>
                   </div>
-                  <CardTitle className="text-xl text-foreground">{step.title}</CardTitle>
+                  <CardTitle className="text-xl text-gray-800">{step.title}</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <p className="text-muted-foreground">{step.description}</p>
+                  <p className="text-gray-600">{step.description}</p>
                 </CardContent>
               </Card>
             ))}
@@ -175,18 +173,18 @@ const HowToVolunteer = () => {
       </section>
 
       {/* Requirements */}
-      <section className="py-16 bg-mission-gradient">
+      <section className="py-16 bg-news-gradient">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-foreground mb-4">Volunteer Requirements</h2>
-            <p className="text-xl text-muted-foreground">Ensure you meet our qualifications before applying</p>
+            <h2 className="text-3xl font-bold text-gray-800 mb-4">Volunteer Requirements</h2>
+            <p className="text-xl text-gray-600">Ensure you meet our qualifications before applying</p>
           </div>
           
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
             <Card>
               <CardHeader>
-                <CardTitle className="text-2xl text-foreground flex items-center">
-                  <CheckCircle className="h-6 w-6 text-primary mr-2" />
+                <CardTitle className="text-2xl text-gray-800 flex items-center">
+                  <CheckCircle className="h-6 w-6 text-blue-600 mr-2" />
                   Essential Requirements
                 </CardTitle>
               </CardHeader>
@@ -194,8 +192,8 @@ const HowToVolunteer = () => {
                 <ul className="space-y-3">
                   {requirements.essential.map((req, index) => (
                     <li key={index} className="flex items-start">
-                      <CheckCircle className="h-5 w-5 text-primary mr-3 mt-0.5 flex-shrink-0" />
-                      <span className="text-muted-foreground">{req}</span>
+                      <CheckCircle className="h-5 w-5 text-blue-600 mr-3 mt-0.5 flex-shrink-0" />
+                      <span className="text-gray-600">{req}</span>
                     </li>
                   ))}
                 </ul>
@@ -204,8 +202,8 @@ const HowToVolunteer = () => {
             
             <Card>
               <CardHeader>
-                <CardTitle className="text-2xl text-foreground flex items-center">
-                  <Globe className="h-6 w-6 text-accent mr-2" />
+                <CardTitle className="text-2xl text-gray-800 flex items-center">
+                  <Globe className="h-6 w-6 text-blue-600 mr-2" />
                   Preferred Qualifications
                 </CardTitle>
               </CardHeader>
@@ -213,8 +211,8 @@ const HowToVolunteer = () => {
                 <ul className="space-y-3">
                   {requirements.preferred.map((req, index) => (
                     <li key={index} className="flex items-start">
-                      <CheckCircle className="h-5 w-5 text-accent mr-3 mt-0.5 flex-shrink-0" />
-                      <span className="text-muted-foreground">{req}</span>
+                      <CheckCircle className="h-5 w-5 text-blue-400 mr-3 mt-0.5 flex-shrink-0" />
+                      <span className="text-gray-600">{req}</span>
                     </li>
                   ))}
                 </ul>
@@ -225,11 +223,11 @@ const HowToVolunteer = () => {
       </section>
 
       {/* Mission Types */}
-      <section className="py-16 bg-background">
+      <section className="py-16 bg-news-gradient">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-foreground mb-4">Types of Missions</h2>
-            <p className="text-xl text-muted-foreground">Choose the mission type that matches your skills and interests</p>
+            <h2 className="text-3xl font-bold text-gray-800 mb-4">Types of Missions</h2>
+            <p className="text-xl text-gray-600">Choose the mission type that matches your skills and interests</p>
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -237,22 +235,22 @@ const HowToVolunteer = () => {
               <Card key={index} className="hover:shadow-medium transition-smooth">
                 <CardHeader>
                   <div className="flex justify-between items-start mb-2">
-                    <CardTitle className="text-xl text-foreground">{mission.title}</CardTitle>
+                    <CardTitle className="text-xl text-gray-800">{mission.title}</CardTitle>
                     <div className="text-right">
                       <Badge variant="outline" className="mb-1">
                         <Clock className="h-3 w-3 mr-1" />
                         {mission.duration}
                       </Badge>
-                      <p className="text-xs text-muted-foreground">Commitment: {mission.commitment}</p>
+                      <p className="text-xs text-gray-500">Commitment: {mission.commitment}</p>
                     </div>
                   </div>
-                  <p className="text-muted-foreground">{mission.description}</p>
+                  <p className="text-gray-600">{mission.description}</p>
                 </CardHeader>
                 <CardContent>
-                  <h4 className="font-semibold text-foreground mb-3">Key Activities:</h4>
+                  <h4 className="font-semibold text-gray-800 mb-3">Key Activities:</h4>
                   <div className="grid grid-cols-2 gap-2">
                     {mission.activities.map((activity, idx) => (
-                      <span key={idx} className="text-sm text-muted-foreground bg-secondary px-2 py-1 rounded">
+                      <span key={idx} className="text-sm text-gray-600 bg-blue-50 px-2 py-1 rounded">
                         {activity}
                       </span>
                     ))}
@@ -265,31 +263,29 @@ const HowToVolunteer = () => {
       </section>
 
       {/* Call to Action */}
-      <section className="bg-primary py-16">
+      <section className="bg-news-gradient py-16">
         <div className="max-w-4xl mx-auto text-center px-4 sm:px-6 lg:px-8">
-          <h2 className="text-3xl font-bold text-primary-foreground mb-6">
+          <h2 className="text-3xl font-bold text-gray-800 mb-6">
             Ready to Make a Difference?
           </h2>
-          <p className="text-xl text-primary-foreground/90 mb-8">
+          <p className="text-xl text-gray-600 mb-8">
             Start your application today and join our community of dedicated veterinary volunteers 
             making a lasting impact across Africa.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            {/* Download Application */}
             <a 
               href="/files/volunteer-application.pdf" 
               download 
               target="_blank" 
               rel="noopener noreferrer"
             >
-              <Button size="lg" variant="outline" className="bg-white text-primary border-white hover:bg-white/90">
+              <Button size="lg" className="bg-blue-600 hover:bg-blue-700 text-white">
                 Download Application
               </Button>
             </a>
 
-            {/* Contact Us */}
             <Link to="/contact">
-              <Button size="lg" variant="outline" className="bg-transparent text-primary-foreground border-white hover:bg-white/10">
+              <Button size="lg" variant="outline" className="border-blue-600 text-blue-600 hover:bg-blue-50">
                 Contact Us
               </Button>
             </Link>
