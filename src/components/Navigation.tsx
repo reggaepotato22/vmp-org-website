@@ -67,7 +67,7 @@ const Navigation = () => {
                 About
               </DropdownMenuTrigger>
               <DropdownMenuContent>
-                <DropdownMenuItem onClick={() => handleNavClick("/about#overview")}>
+                {/* <DropdownMenuItem onClick={() => handleNavClick("/about#overview")}>
                   Overview
                 </DropdownMenuItem>
                 <DropdownMenuItem onClick={() => handleNavClick("/about#history")}>
@@ -75,7 +75,7 @@ const Navigation = () => {
                 </DropdownMenuItem>
                 <DropdownMenuItem onClick={() => handleNavClick("/about#testimonials")}>
                   Testimonials
-                </DropdownMenuItem>
+                </DropdownMenuItem> */}
               </DropdownMenuContent>
             </DropdownMenu>
 
@@ -91,15 +91,15 @@ const Navigation = () => {
                 Missions
               </DropdownMenuTrigger>
               <DropdownMenuContent>
-                <DropdownMenuItem onClick={() => handleNavClick("/missions/kenya")}>
+                {/* <DropdownMenuItem onClick={() => handleNavClick("/missions/kenya")}>
                   2025
-                </DropdownMenuItem>
-                <DropdownMenuItem onClick={() => handleNavClick("/missions/uganda")}>
+                </DropdownMenuItem> */}
+                {/* <DropdownMenuItem onClick={() => handleNavClick("/missions/uganda")}>
                   2024
-                </DropdownMenuItem>
-                <DropdownMenuItem onClick={() => handleNavClick("/missions/tanzania")}>
+                </DropdownMenuItem> */}
+                {/* <DropdownMenuItem onClick={() => handleNavClick("/missions/tanzania")}>
                   2023
-                </DropdownMenuItem>
+                </DropdownMenuItem> */}
               </DropdownMenuContent>
             </DropdownMenu>
 

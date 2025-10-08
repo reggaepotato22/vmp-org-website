@@ -133,13 +133,13 @@ const Hero: React.FC = () => {
             underserved communities worldwide.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            {/* <Button
+            <Button
               size="lg"
               className="bg-white text-black hover:bg-white/90"
               onClick={scrollToWhoWeAre}
             >
               Learn More
-            </Button> */}
+            </Button>
           </div>
         </div>
       </div>
