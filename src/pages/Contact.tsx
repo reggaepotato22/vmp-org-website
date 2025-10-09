@@ -38,7 +38,7 @@ const Contact = () => {
       // ✅ Use correct API depending on environment
       const apiUrl =
         import.meta.env.MODE === "development"
-          ? "http://localhost:3001/api/contact" // local backend
+          ? "https://kenyavetsmission.org:3000/api" // local backend
           : "/api/contact"; // production (same domain as your cPanel site)
 
       const response = await fetch(apiUrl, {

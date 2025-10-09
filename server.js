@@ -30,7 +30,7 @@ app.post("/api/contact", async (req, res) => {
       secure: true,
       auth: {
         user: process.env.SMTP_USER,
-        pass: process.env.SMTP_PASSWORD, // Changed from SMTP_PASS
+        pass: process.env.SMTP_PASSWORD,
       },
       tls: {
         rejectUnauthorized: false
