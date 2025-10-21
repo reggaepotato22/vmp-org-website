@@ -75,7 +75,7 @@ const MissionOverview = () => {
         <div id="history" className="mb-16">
           <h3 className="text-2xl font-bold text-foreground mb-4 text-center">Our History</h3>
           <p className="text-muted-foreground leading-relaxed max-w-3xl mx-auto text-center">
-            Founded in 2010 by Dr. Josiah Mandieka, and other directors, Dr. John Mwangi, and Mrs. Phellis Mandieka. Veterinarians with a Mission began with 
+            Founded in 2010 by Dr. Josiah Mandieka, and other directors, Mrs. Phellis Mandieka, Dr. John Mwangi, and Dr. Ezra Saitoti . Veterinarians with a Mission began with 
             a small group of volunteers and a vision to make a difference in the lives of the unreached pastoral communities in Kenya with the gospel of Jesus Christ and veterinary care. Over the years, we 
             have expanded our reach, conducting missions in numerous counties in Kenya and impacting 
             countless lives. Our journey is a testament to the unwavering dedication of our 
@@ -106,7 +106,7 @@ const MissionOverview = () => {
 
         {/* Sponsors Section */}
         <div id="sponsors">
-          <h3 className="text-2xl font-bold text-foreground mb-6 text-center">Our Sponsors</h3>
+          <h3 className="text-2xl font-bold text-foreground mb-6 text-center">Our Partners</h3>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 items-center justify-center">
             {sponsors.map((sponsor, index) => (
               <a

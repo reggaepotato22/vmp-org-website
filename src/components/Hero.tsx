@@ -16,18 +16,84 @@ interface Slide {
   id: number;
   image: string;
   alt: string;
+  title: string;
+  subtitle: string;
+  description: string;
 }
 
 const slides: Slide[] = [
-  { id: 0, image: heroSlide1, alt: "prayers - Veterinary mission work" },
-  { id: 1, image: heroSlide2, alt: "Calf receiving veterinary care" },
-  { id: 2, image: heroSlide3, alt: "Veterinary team at work" },
-  { id: 3, image: heroSlide4, alt: "Cow receiving treatment" },
-  { id: 4, image: heroSlide5, alt: "Veterinary care for cattle" },
-  { id: 5, image: heroSlide6, alt: "Providing water for animals" },
-  { id: 6, image: heroSlide7, alt: "Caring for a flock" },
-  { id: 7, image: heroSlide8, alt: "Mission work in action" },
-  { id: 8, image: heroSlide9, alt: "Veterinary mission team" },
+  { 
+    id: 0, 
+    image: heroSlide1, 
+    alt: "prayers - Veterinary mission work",
+    title: "Enhancing God's Kingdom",
+    subtitle: "Through Compassionate Veterinary Care",
+    description: "Our mission is to provide veterinary care to animals in need, sharing God's love and compassion through our service to underserved communities worldwide."
+  },
+  { 
+    id: 1, 
+    image: heroSlide2, 
+    alt: "Calf receiving veterinary care",
+    title: "Example Title for Slide 2",
+    subtitle: "Example Subtitle Here",
+    description: "Example description text that describes what's happening in this slide and the mission work being done."
+  },
+  { 
+    id: 2, 
+    image: heroSlide3, 
+    alt: "Veterinary team at work",
+    title: "Example Title for Slide 3",
+    subtitle: "Example Subtitle Here",
+    description: "Example description text that describes what's happening in this slide and the mission work being done."
+  },
+  { 
+    id: 3, 
+    image: heroSlide4, 
+    alt: "Cow receiving treatment",
+    title: "Example Title for Slide 4",
+    subtitle: "Example Subtitle Here",
+    description: "Example description text that describes what's happening in this slide and the mission work being done."
+  },
+  { 
+    id: 4, 
+    image: heroSlide5, 
+    alt: "Veterinary care for cattle",
+    title: "Example Title for Slide 5",
+    subtitle: "Example Subtitle Here",
+    description: "Example description text that describes what's happening in this slide and the mission work being done."
+  },
+  { 
+    id: 5, 
+    image: heroSlide6, 
+    alt: "Providing water for animals",
+    title: "Example Title for Slide 6",
+    subtitle: "Example Subtitle Here",
+    description: "Example description text that describes what's happening in this slide and the mission work being done."
+  },
+  { 
+    id: 6, 
+    image: heroSlide7, 
+    alt: "Caring for a flock",
+    title: "Example Title for Slide 7",
+    subtitle: "Example Subtitle Here",
+    description: "Example description text that describes what's happening in this slide and the mission work being done."
+  },
+  { 
+    id: 7, 
+    image: heroSlide8, 
+    alt: "Mission work in action",
+    title: "Example Title for Slide 8",
+    subtitle: "Example Subtitle Here",
+    description: "Example description text that describes what's happening in this slide and the mission work being done."
+  },
+  { 
+    id: 8, 
+    image: heroSlide9, 
+    alt: "Veterinary mission team",
+    title: "Example Title for Slide 9",
+    subtitle: "Example Subtitle Here",
+    description: "Example description text that describes what's happening in this slide and the mission work being done."
+  },
 ];
 
 const Hero: React.FC = () => {
@@ -121,16 +187,14 @@ const Hero: React.FC = () => {
 
       <div className="absolute inset-0 z-10 flex items-center justify-center">
         <div className="text-center text-white px-4 max-w-4xl">
-          <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6 leading-tight">
-            Enhancing God&apos;s Kingdom
+          <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6 leading-tight transition-opacity duration-500">
+            {slides[currentSlide].title}
           </h1>
-          <h2 className="text-xl md:text-2xl lg:text-3xl font-light mb-8 text-white/90">
-            Through Compassionate Veterinary Care
+          <h2 className="text-xl md:text-2xl lg:text-3xl font-light mb-8 text-white/90 transition-opacity duration-500">
+            {slides[currentSlide].subtitle}
           </h2>
-          <p className="text-lg md:text-xl max-w-2xl mx-auto mb-8 text-white/80 leading-relaxed">
-            Our mission is to provide veterinary care to animals in need,
-            sharing God&apos;s love and compassion through our service to
-            underserved communities worldwide.
+          <p className="text-lg md:text-xl max-w-2xl mx-auto mb-8 text-white/80 leading-relaxed transition-opacity duration-500">
+            {slides[currentSlide].description}
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button
