@@ -18,26 +18,26 @@ const Donate = () => {
   const logoImage = new URL('/src/assets/kenyavetsmission-logo.png', import.meta.url).href;
 
   const impactStories = [
-    {
-      amount: "$25",
-      impact: "Provides basic veterinary supplies for treating 5 animals",
-      icon: Heart
-    },
-    {
-      amount: "$50", 
-      impact: "Covers vaccination costs for 10 livestock animals",
-      icon: Users
-    },
-    {
-      amount: "$100",
-      impact: "Funds a full day of mobile clinic operations",
-      icon: Globe
-    },
-    {
-      amount: "$250",
-      impact: "Sponsors a volunteer's mission trip for one week",
-      icon: Gift
-    }
+    // {
+    //   amount: "ABSA KAREN BRANCH",
+    //   impact: "ACCOUNT NUMBER : 2023350141",
+    //   icon: Heart
+    // },
+    // {
+    //   amount: "$50", 
+    //   impact: "Covers vaccination costs for 10 livestock animals",
+    //   icon: Users
+    // },
+    // {
+    //   amount: "$100",
+    //   impact: "Funds a full day of mobile clinic operations",
+    //   icon: Globe
+    // },
+    // {
+    //   amount: "$250",
+    //   impact: "Sponsors a volunteer's mission trip for one week",
+    //   icon: Gift
+    // }
   ];
 
   const donationMethods = [
@@ -59,27 +59,27 @@ const Donate = () => {
   ];
 
   const recentProjects = [
-    {
-      title: "Mosiro water project",
-      description: "Emergency veterinary care for drought-affected communities",
-      raised: 8500,
-      goal: 12000,
-      percentage: 71
-    },
-    {
-      title: "Samburu Vaccination Animal Center",
-      description: "Adding two new mobile units for remote areas",
-      raised: 15200,
-      goal: 20000, 
-      percentage: 76
-    },
-    {
-      title: "Volunteer Training Equipment",
-      description: "Medical equipment and supplies for training programs",
-      raised: 3400,
-      goal: 5000,
-      percentage: 68
-    }
+    // {
+    //   title: "Mosiro water project",
+    //   description: "Emergency veterinary care for drought-affected communities",
+    //   raised: 8500,
+    //   goal: 12000,
+    //   percentage: 0
+    // },
+    // {
+    //   title: "Samburu Vaccination Animal Center",
+    //   description: "Adding two new mobile units for remote areas",
+    //   raised: 15200,
+    //   goal: 20000, 
+    //   percentage: 76
+    // },
+    // {
+    //   title: "Volunteer Training Equipment",
+    //   description: "Medical equipment and supplies for training programs",
+    //   raised: 3400,
+    //   goal: 5000,
+    //   percentage: 68
+    // }
   ];
 
   const handleAmountSelect = (amount: number) => {
@@ -161,7 +161,7 @@ const Donate = () => {
               </div>
             </div>
 
-            {/* Donation Amount Selection */}
+            Donation Amount Selection
             <Card className="mb-8">
               <CardHeader>
                 <CardTitle>Select Donation Amount (USD)</CardTitle>
@@ -265,7 +265,16 @@ const Donate = () => {
 
             {/* Impact Stories */}
             <div className="mb-8">
-              <h2 className="text-2xl font-bold text-foreground mb-6">Your Impact</h2>
+              <h2 className="text-2xl font-bold text-foreground mb-6">
+              <div>Branch Name: ABSA Karen Branch</div>
+              <div>Account Name: Veterinarians With a Mission Programme</div>
+              <div>Account Number: 2023350141</div>
+              <br />
+              <br />
+              <div>Paybill</div>
+              <div>Business Number: 303030</div>
+              <div>Account Number: 2023350141</div>
+              </h2>
               <div className="grid md:grid-cols-2 gap-4">
                 {impactStories.map((story, index) => {
                   const Icon = story.icon;
