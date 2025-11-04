@@ -35,7 +35,7 @@ const Footer = () => {
               <div>Veterinarians with a Mission Programme</div>
               <div>Ultimate House,</div>
               <div>Oloolua Road, Ngong Town.</div>
-              <div className="mt-2">Phone: 020-2430331</div>
+              <div className="mt-2">Phone: 0116-922-908</div>
               <div>Email: veterinarianswithamission@gmail.com</div>
             </div>
           </div>

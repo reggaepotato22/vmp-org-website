@@ -15,18 +15,19 @@ const Navigation = () => {
   const location = useLocation();
   const navigate = useNavigate();
 
-  const handleNavClick = (path: string) => {
+  const handleNavClick = (path) => {
     navigate(path);
     window.scrollTo({ top: 0, behavior: "smooth" });
     setIsMenuOpen(false);
   };
 
-  const isActive = (path: string) => location.pathname === path;
+  const isActive = (path) => location.pathname === path;
 
   return (
     <nav className="bg-background border-b border-border shadow-soft sticky top-0 z-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-16">
+          {/* Logo */}
           <div className="flex items-center">
             <Link
               to="/"
@@ -55,7 +56,7 @@ const Navigation = () => {
               Home
             </button>
 
-            {/* About Dropdown */}
+            {/* ✅ About Dropdown */}
             <DropdownMenu>
               <DropdownMenuTrigger
                 className={`px-3 py-2 text-sm font-medium transition-smooth hover:text-primary ${
@@ -67,42 +68,29 @@ const Navigation = () => {
                 About
               </DropdownMenuTrigger>
               <DropdownMenuContent>
-                {/* <DropdownMenuItem onClick={() => handleNavClick("/about#overview")}>
+                <DropdownMenuItem onClick={() => handleNavClick("/about/overview")}>
                   Overview
                 </DropdownMenuItem>
-                <DropdownMenuItem onClick={() => handleNavClick("/about#history")}>
+                <DropdownMenuItem onClick={() => handleNavClick("/about/history")}>
                   History
                 </DropdownMenuItem>
-                <DropdownMenuItem onClick={() => handleNavClick("/about#testimonials")}>
+                <DropdownMenuItem onClick={() => handleNavClick("/about/testimonials")}>
                   Testimonials
-                </DropdownMenuItem> */}
+                </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
 
-            {/* Other Items */}
-            <DropdownMenu>
-              <DropdownMenuTrigger
-                className={`px-3 py-2 text-sm font-medium transition-smooth hover:text-primary ${
-                  isActive("/missions")
-                    ? "text-primary border-b-2 border-primary"
-                    : "text-muted-foreground"
-                }`}
-              >
-                Missions
-              </DropdownMenuTrigger>
-              <DropdownMenuContent>
-                {/* <DropdownMenuItem onClick={() => handleNavClick("/missions/kenya")}>
-                  2025
-                </DropdownMenuItem> */}
-                {/* <DropdownMenuItem onClick={() => handleNavClick("/missions/uganda")}>
-                  2024
-                </DropdownMenuItem> */}
-                {/* <DropdownMenuItem onClick={() => handleNavClick("/missions/tanzania")}>
-                  2023
-                </DropdownMenuItem> */}
-              </DropdownMenuContent>
-            </DropdownMenu>
+            {/* ✅ Missions — changed from dropdown to clickable button */}
+            <button
+              onClick={() => handleNavClick("/missions")}
+              className={`px-3 py-2 text-sm font-medium transition-smooth hover:text-primary ${
+                isActive("/missions") ? "text-primary border-b-2 border-primary" : "text-muted-foreground"
+              }`}
+            >
+              Missions
+            </button>
 
+            {/* Volunteers Dropdown */}
             <DropdownMenu>
               <DropdownMenuTrigger
                 className={`px-3 py-2 text-sm font-medium transition-smooth hover:text-primary ${
@@ -114,9 +102,6 @@ const Navigation = () => {
                 Volunteers
               </DropdownMenuTrigger>
               <DropdownMenuContent>
-                  {/* <DropdownMenuItem onClick={() => handleNavClick("/volunteers/stories")}>
-                    Volunteer Stories
-                  </DropdownMenuItem> */}
                 <DropdownMenuItem onClick={() => handleNavClick("/volunteers/how-to")}>
                   How to Volunteer
                 </DropdownMenuItem>
@@ -131,6 +116,7 @@ const Navigation = () => {
             >
               Updates
             </button>
+
             <button
               onClick={() => handleNavClick("/gallery")}
               className={`px-3 py-2 text-sm font-medium transition-smooth hover:text-primary ${
@@ -141,6 +127,7 @@ const Navigation = () => {
             >
               Gallery
             </button>
+
             <button
               onClick={() => handleNavClick("/contact")}
               className={`px-3 py-2 text-sm font-medium transition-smooth hover:text-primary ${
@@ -157,7 +144,7 @@ const Navigation = () => {
             </Button>
           </div>
 
-          {/* Mobile menu button */}
+          {/* Mobile Menu Toggle */}
           <div className="md:hidden flex items-center">
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
@@ -169,7 +156,7 @@ const Navigation = () => {
         </div>
       </div>
 
-      {/* Mobile Navigation */}
+      {/* ✅ Mobile Navigation */}
       {isMenuOpen && (
         <div className="md:hidden bg-background border-t border-border shadow-medium">
           <div className="px-2 pt-2 pb-3 space-y-1">
@@ -182,29 +169,40 @@ const Navigation = () => {
               Home
             </button>
 
+            {/* About Section */}
             <div className="space-y-1">
               <p className="px-3 py-2 font-medium text-muted-foreground">About</p>
               <div className="ml-4 space-y-1">
                 <button
-                  onClick={() => handleNavClick("/about#overview")}
+                  onClick={() => handleNavClick("/about/overview")}
                   className="block w-full text-left px-3 py-2 text-base font-medium hover:text-primary"
                 >
                   Overview
                 </button>
                 <button
-                  onClick={() => handleNavClick("/about#history")}
+                  onClick={() => handleNavClick("/about/history")}
                   className="block w-full text-left px-3 py-2 text-base font-medium hover:text-primary"
                 >
                   History
                 </button>
                 <button
-                  onClick={() => handleNavClick("/about#testimonials")}
+                  onClick={() => handleNavClick("/about/testimonials")}
                   className="block w-full text-left px-3 py-2 text-base font-medium hover:text-primary"
                 >
                   Testimonials
                 </button>
               </div>
             </div>
+
+            {/* ✅ Missions (now single clickable) */}
+            <button
+              onClick={() => handleNavClick("/missions")}
+              className={`block w-full text-left px-3 py-2 text-base font-medium transition-smooth hover:text-primary ${
+                isActive("/missions") ? "text-primary bg-secondary" : "text-muted-foreground"
+              }`}
+            >
+              Missions
+            </button>
 
             <button
               onClick={() => handleNavClick("/news")}
@@ -214,6 +212,7 @@ const Navigation = () => {
             >
               Updates
             </button>
+
             <button
               onClick={() => handleNavClick("/gallery")}
               className={`block w-full text-left px-3 py-2 text-base font-medium transition-smooth hover:text-primary ${
@@ -222,6 +221,7 @@ const Navigation = () => {
             >
               Gallery
             </button>
+
             <button
               onClick={() => handleNavClick("/contact")}
               className={`block w-full text-left px-3 py-2 text-base font-medium transition-smooth hover:text-primary ${
