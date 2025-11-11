@@ -1,4 +1,4 @@
-import Navigation from "@/components/Navigation";
+ import Navigation from "@/components/Navigation";
 import Hero from "@/components/Hero";
 import MissionOverview from "@/components/MissionOverview";
 import RecentMissions from "@/components/RecentMissions";
