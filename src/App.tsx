@@ -17,6 +17,8 @@ import News from "./pages/News";
 import HowToVolunteer from "./pages/HowToVolunteer";
 import Mission2025 from "./pages/missions/mataarba/Reports";
 import Reports from "./pages/missions/mataarba/Reports";
+import AdminDashboard from "./pages/AdminDashboard"; // <-- NEW IMPORT
+
 // import Stories from "./pages/VolunteerStories";
 
 const queryClient = new QueryClient();
@@ -48,6 +50,9 @@ const App = () => (
           <Route path="/news" element={<News />} />
           <Route path="/volunteers/how-to" element={<HowToVolunteer />} />
           {/* <Route path="/volunteers/stories" element={<Stories />} /> */}
+
+          {/* ADMINISTRATION ROUTE */}
+          <Route path="/admin" element={<AdminDashboard />} /> {/* <-- NEW ROUTE ADDED */}
           
           {/* Catch-all for 404 */}
           <Route path="*" element={<NotFound />} />
