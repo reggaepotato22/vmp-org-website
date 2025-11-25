@@ -1,5 +1,7 @@
+import Navigation from "@/components/Navigation";
 import { Card, CardContent } from "@/components/ui/card";
 import { Award } from "lucide-react";
+import Footer from "@/components/Footer";
 
 const timeline = [
   {
