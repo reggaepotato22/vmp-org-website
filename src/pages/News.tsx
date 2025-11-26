@@ -5,10 +5,9 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Calendar, MapPin, ExternalLink, Clock } from "lucide-react";
 import { Link } from "react-router-dom";
-import { useNewsContext } from '../context/NewsContext'; // <-- FIX: Changed absolute path to relative path
+import { useNewsContext } from '../context/NewsContext';
 
 const News = () => {
-  // 1. USE CONTEXT TO GET DATA
   const { featuredNews, recentNews, upcomingEvents } = useNewsContext();
 
   const handleLinkClick = () => {
@@ -63,9 +62,24 @@ const News = () => {
               <h2 className="text-2xl font-bold text-foreground mb-6">Featured Story</h2>
               {featuredNews && (
                 <Card className="overflow-hidden">
-                  <div className="h-64 bg-muted flex items-center justify-center">
-                    <span className="text-muted-foreground">Featured Image</span>
-                  </div>
+                  {/* Display uploaded image or placeholder */}
+                  {featuredNews.imageUrl || featuredNews.image ? (
+                    <div className="h-64 overflow-hidden">
+                      <img 
+                        src={featuredNews.imageUrl || featuredNews.image} 
+                        alt={featuredNews.title}
+                        className="w-full h-full object-cover"
+                        onError={(e) => {
+                          e.target.onerror = null;
+                          e.target.src = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="100" height="100"%3E%3Crect fill="%23f0f0f0" width="100" height="100"/%3E%3Ctext fill="%23999" x="50%25" y="50%25" text-anchor="middle" dy=".3em"%3ENo Image%3C/text%3E%3C/svg%3E';
+                        }}
+                      />
+                    </div>
+                  ) : (
+                    <div className="h-64 bg-muted flex items-center justify-center">
+                      <span className="text-muted-foreground">No Image Available</span>
+                    </div>
+                  )}
                   <CardHeader>
                     <div className="flex items-center gap-2 mb-2">
                       <Badge className={getCategoryColor(featuredNews.category)}>
@@ -99,6 +113,19 @@ const News = () => {
               <div className="space-y-6">
                 {recentNews.map((article, index) => (
                   <Card key={article.id || index}>
+                    {/* Display uploaded image for recent news */}
+                    {(article.imageUrl || article.image) && (
+                      <div className="h-48 overflow-hidden">
+                        <img 
+                          src={article.imageUrl || article.image} 
+                          alt={article.title}
+                          className="w-full h-full object-cover"
+                          onError={(e) => {
+                            e.target.style.display = 'none';
+                          }}
+                        />
+                      </div>
+                    )}
                     <CardHeader>
                       <div className="flex items-center gap-2 mb-2">
                         <Badge className={getCategoryColor(article.category)}>
@@ -180,7 +207,7 @@ const News = () => {
               </div>
             </div>
 
-            {/* Newsletter Signup (unchanged) */}
+            {/* Newsletter Signup */}
             <Card>
               <CardHeader>
                 <CardTitle>Stay Connected</CardTitle>

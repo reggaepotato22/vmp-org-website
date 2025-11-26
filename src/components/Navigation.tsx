@@ -17,29 +17,32 @@ const Navigation = () => {
 
   const handleNavClick = (path) => {
     navigate(path);
-    window.scrollTo({ top: 0, behavior: "smooth" });
+    // This is necessary because the navigation is fixed, so content might be under it.
+    window.scrollTo({ top: 0, behavior: "smooth" }); 
     setIsMenuOpen(false);
   };
 
+  // Note: location.pathname is usually lowercase, so path should be checked consistently.
   const isActive = (path) => location.pathname === path;
 
   return (
-    <nav className="bg-background border-b border-border shadow-soft sticky top-0 z-50">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between h-16">
-          {/* Logo */}
+    <nav className="bg-background border-b border-border shadow-soft **fixed top-0 left-0 right-0 z-50 h-16 flex items-center w-full**">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
+        <div className="flex justify-between h-16 items-center">
+          
+          {/* Logo + Text */}
           <div className="flex items-center">
             <Link
               to="/"
               onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-              className="flex items-center space-x-2"
+              className="flex items-center space-x-3"
             >
               <img
                 src={logoImage}
                 alt="kenyavetsmission-logo"
-                className="h-20 w-auto mx-auto mb-1"
+                className="h-10 w-auto object-contain"
               />
-              <span className="text-xl font-bold text-foreground">
+              <span className="text-lg font-semibold whitespace-nowrap">
                 Veterinarians With a Mission Programme
               </span>
             </Link>
@@ -56,7 +59,7 @@ const Navigation = () => {
               Home
             </button>
 
-            {/* ✅ About Dropdown */}
+            {/* About Dropdown */}
             <DropdownMenu>
               <DropdownMenuTrigger
                 className={`px-3 py-2 text-sm font-medium transition-smooth hover:text-primary ${
@@ -80,11 +83,28 @@ const Navigation = () => {
               </DropdownMenuContent>
             </DropdownMenu>
 
-            {/* ✅ Missions — changed from dropdown to clickable button */}
+            {/* Updates (Route corrected to lowercase /news for consistency) */}
+            <button
+              onClick={() => handleNavClick("/news")} 
+              className={`px-3 py-2 text-sm font-medium transition-smooth hover:text-primary ${
+                isActive("/news") ? "text-primary border-b-2 border-primary" : "text-muted-foreground"
+              }`}
+            >
+              Updates
+            </button>
+
+            {/* Donate */}
+            <Button variant="donate" size="sm" onClick={() => handleNavClick("/donate")}>
+              Donate
+            </Button>
+
+            {/* Missions */}
             <button
               onClick={() => handleNavClick("/missions")}
               className={`px-3 py-2 text-sm font-medium transition-smooth hover:text-primary ${
-                isActive("/missions") ? "text-primary border-b-2 border-primary" : "text-muted-foreground"
+                isActive("/missions")
+                  ? "text-primary border-b-2 border-primary"
+                  : "text-muted-foreground"
               }`}
             >
               Missions
@@ -94,7 +114,7 @@ const Navigation = () => {
             <DropdownMenu>
               <DropdownMenuTrigger
                 className={`px-3 py-2 text-sm font-medium transition-smooth hover:text-primary ${
-                  isActive("/volunteers")
+                  location.pathname.startsWith("/volunteers")
                     ? "text-primary border-b-2 border-primary"
                     : "text-muted-foreground"
                 }`}
@@ -108,40 +128,25 @@ const Navigation = () => {
               </DropdownMenuContent>
             </DropdownMenu>
 
-            <button
-              onClick={() => handleNavClick("/news")}
-              className={`px-3 py-2 text-sm font-medium transition-smooth hover:text-primary ${
-                isActive("/news") ? "text-primary border-b-2 border-primary" : "text-muted-foreground"
-              }`}
-            >
-              Updates
-            </button>
-
+            {/* Gallery (Route corrected to lowercase /gallery for consistency) */}
             <button
               onClick={() => handleNavClick("/gallery")}
               className={`px-3 py-2 text-sm font-medium transition-smooth hover:text-primary ${
-                isActive("/gallery")
-                  ? "text-primary border-b-2 border-primary"
-                  : "text-muted-foreground"
+                isActive("/gallery") ? "text-primary border-b-2 border-primary" : "text-muted-foreground"
               }`}
             >
               Gallery
             </button>
 
+            {/* Contact */}
             <button
               onClick={() => handleNavClick("/contact")}
               className={`px-3 py-2 text-sm font-medium transition-smooth hover:text-primary ${
-                isActive("/contact")
-                  ? "text-primary border-b-2 border-primary"
-                  : "text-muted-foreground"
+                isActive("/contact") ? "text-primary bg-secondary" : "text-muted-foreground"
               }`}
             >
               Contact
             </button>
-
-            <Button variant="donate" size="sm" onClick={() => handleNavClick("/donate")}>
-              Donate
-            </Button>
           </div>
 
           {/* Mobile Menu Toggle */}
@@ -156,10 +161,11 @@ const Navigation = () => {
         </div>
       </div>
 
-      {/* ✅ Mobile Navigation */}
+      {/* Mobile Navigation */}
       {isMenuOpen && (
-        <div className="md:hidden bg-background border-t border-border shadow-medium">
+        <div className="md:hidden bg-background border-t border-border shadow-medium **fixed top-16 w-full overflow-y-auto max-h-[calc(100vh-64px)]**">
           <div className="px-2 pt-2 pb-3 space-y-1">
+            
             <button
               onClick={() => handleNavClick("/")}
               className={`block w-full text-left px-3 py-2 text-base font-medium transition-smooth hover:text-primary ${
@@ -169,7 +175,7 @@ const Navigation = () => {
               Home
             </button>
 
-            {/* About Section */}
+            {/* About */}
             <div className="space-y-1">
               <p className="px-3 py-2 font-medium text-muted-foreground">About</p>
               <div className="ml-4 space-y-1">
@@ -194,16 +200,7 @@ const Navigation = () => {
               </div>
             </div>
 
-            {/* ✅ Missions (now single clickable) */}
-            <button
-              onClick={() => handleNavClick("/missions")}
-              className={`block w-full text-left px-3 py-2 text-base font-medium transition-smooth hover:text-primary ${
-                isActive("/missions") ? "text-primary bg-secondary" : "text-muted-foreground"
-              }`}
-            >
-              Missions
-            </button>
-
+            {/* Updates (Route: /news) */}
             <button
               onClick={() => handleNavClick("/news")}
               className={`block w-full text-left px-3 py-2 text-base font-medium transition-smooth hover:text-primary ${
@@ -213,24 +210,7 @@ const Navigation = () => {
               Updates
             </button>
 
-            <button
-              onClick={() => handleNavClick("/gallery")}
-              className={`block w-full text-left px-3 py-2 text-base font-medium transition-smooth hover:text-primary ${
-                isActive("/gallery") ? "text-primary bg-secondary" : "text-muted-foreground"
-              }`}
-            >
-              Gallery
-            </button>
-
-            <button
-              onClick={() => handleNavClick("/contact")}
-              className={`block w-full text-left px-3 py-2 text-base font-medium transition-smooth hover:text-primary ${
-                isActive("/contact") ? "text-primary bg-secondary" : "text-muted-foreground"
-              }`}
-            >
-              Contact
-            </button>
-
+            {/* Donate */}
             <div className="px-3 py-2">
               <Button
                 variant="donate"
@@ -241,6 +221,49 @@ const Navigation = () => {
                 Donate
               </Button>
             </div>
+
+            {/* Missions (Route: /missions) */}
+            <button
+              onClick={() => handleNavClick("/missions")}
+              className={`block w-full text-left px-3 py-2 text-base font-medium transition-smooth hover:text-primary ${
+                isActive("/missions") ? "text-primary bg-secondary" : "text-muted-foreground"
+              }`}
+            >
+              Missions
+            </button>
+
+            {/* Volunteers */}
+            <div className="space-y-1">
+              <p className="px-3 py-2 font-medium text-muted-foreground">Volunteers</p>
+              <div className="ml-4 space-y-1">
+                <button
+                  onClick={() => handleNavClick("/volunteers/how-to")}
+                  className="block w-full text-left px-3 py-2 text-base font-medium hover:text-primary"
+                >
+                  How to Volunteer
+                </button>
+              </div>
+            </div>
+
+            {/* Gallery (Route: /gallery) */}
+            <button
+              onClick={() => handleNavClick("/gallery")}
+              className={`block w-full text-left px-3 py-2 text-base font-medium transition-smooth hover:text-primary ${
+                isActive("/gallery") ? "text-primary bg-secondary" : "text-muted-foreground"
+              }`}
+            >
+              Gallery
+            </button>
+
+            {/* Contact */}
+            <button
+              onClick={() => handleNavClick("/contact")}
+              className={`block w-full text-left px-3 py-2 text-base font-medium transition-smooth hover:text-primary ${
+                isActive("/contact") ? "text-primary bg-secondary" : "text-muted-foreground"
+              }`}
+            >
+              Contact
+            </button>
           </div>
         </div>
       )}

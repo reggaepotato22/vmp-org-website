@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import Navigation from "@/components/Navigation";
-import Footer from "@/components/Footer";
+import Navigation from "../components/Navigation"; // Corrected import path
+import Footer from "../components/Footer"; // Corrected import path
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -35,11 +35,13 @@ const Contact = () => {
     console.log("Submitting form data:", data);
 
     try {
-      // ✅ Use correct API depending on environment
+      // API URL is now correctly configured:
+      // - DEV: Points to the local Node.js server running on port 3001
+      // - PROD: Points to the /api/contact path, which must be proxied to the Node server on your host
       const apiUrl =
         import.meta.env.MODE === "development"
-          ? "https://kenyavetsmission.org:3000/api" // local backend
-          : "/api/contact"; // production (same domain as your cPanel site)
+          ? "http://localhost:3001/api/contact" // CORRECTED: Points to your local Node server: Port 3001 and /api/contact endpoint
+          : "/api/contact"; // production proxy endpoint
 
       const response = await fetch(apiUrl, {
         method: "POST",
@@ -49,7 +51,11 @@ const Contact = () => {
         body: JSON.stringify(data),
       });
 
-      const result = await response.json();
+      // We need to check the response status before trying to parse the JSON, 
+      // as a 500 status (server error) might not return valid JSON.
+      const isJson = response.headers.get('content-type')?.includes('application/json');
+      const result = isJson ? await response.json() : { message: 'Server did not return JSON. Status: ' + response.status };
+      
       console.log("Server response:", result);
 
       if (response.ok) {
@@ -62,7 +68,8 @@ const Contact = () => {
         e.currentTarget.reset();
         setInterest("");
       } else {
-        throw new Error(result.message || "Failed to send message");
+        // If response is not OK (e.g., 400 or 500)
+        throw new Error(result.message || "Failed to send message: " + response.statusText);
       }
     } catch (error) {
       console.error("Error:", error);
@@ -78,9 +85,9 @@ const Contact = () => {
   };
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen pt-16"> {/* Added pt-16 to offset fixed navigation bar */}
       <Navigation />
-      <main className="pt-8 pb-16">
+      <main className="pb-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-4">Contact Us</h1>
@@ -170,7 +177,6 @@ const Contact = () => {
                     <div>
                       <div className="font-semibold">Phone</div>
                       <div className="text-muted-foreground">0116-922-908</div>
-                      {/* <div className="text-muted-foreground">Mobile +254 116 922 908</div> */}
                     </div>
                   </div>
                   <div className="flex items-center space-x-3">

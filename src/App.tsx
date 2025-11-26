@@ -18,6 +18,7 @@ import HowToVolunteer from "./pages/HowToVolunteer";
 import Mission2025 from "./pages/missions/mataarba/Reports";
 import Reports from "./pages/missions/mataarba/Reports";
 import AdminDashboard from "./pages/AdminDashboard"; // <-- NEW IMPORT
+import { NewsProvider } from './context/NewsContext'; // <-- ADD THIS IMPORT
 
 // import Stories from "./pages/VolunteerStories";
 
@@ -29,34 +30,36 @@ const App = () => (
       <Toaster />
       <Sonner />
       <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Index />} />
-          
-          {/* About section with tabs */}
-          <Route path="/about" element={<Navigate to="/about/overview" replace />} />
-          <Route path="/about/overview" element={<Overview />} />
-          <Route path="/about/history" element={<History />} />
-          <Route path="/about/testimonials" element={<Testimonials />} />
-          
-          {/* Mission routes */}
-          <Route path="/missions" element={<Missions />} />
-          <Route path="/missions/mataarba" element={<Mission2025 />} />
-          <Route path="/missions/mataarba/mataarba-2025" element={<Reports />} />
-          
-          {/* Other routes */}
-          <Route path="/contact" element={<Contact />} />
-          <Route path="/donate" element={<Donate />} />
-          <Route path="/gallery" element={<Gallery />} />
-          <Route path="/news" element={<News />} />
-          <Route path="/volunteers/how-to" element={<HowToVolunteer />} />
-          {/* <Route path="/volunteers/stories" element={<Stories />} /> */}
+        <NewsProvider> {/* <-- CRITICAL: Wrapping all routes that need news context */}
+          <Routes>
+            <Route path="/" element={<Index />} />
+            
+            {/* About section with tabs */}
+            <Route path="/about" element={<Navigate to="/about/overview" replace />} />
+            <Route path="/about/overview" element={<Overview />} />
+            <Route path="/about/history" element={<History />} />
+            <Route path="/about/testimonials" element={<Testimonials />} />
+            
+            {/* Mission routes */}
+            <Route path="/missions" element={<Missions />} />
+            <Route path="/missions/mataarba" element={<Mission2025 />} />
+            <Route path="/missions/mataarba/mataarba-2025" element={<Reports />} />
+            
+            {/* Other routes */}
+            <Route path="/contact" element={<Contact />} />
+            <Route path="/donate" element={<Donate />} />
+            <Route path="/gallery" element={<Gallery />} />
+            <Route path="/news" element={<News />} />
+            <Route path="/volunteers/how-to" element={<HowToVolunteer />} />
+            {/* <Route path="/volunteers/stories" element={<Stories />} /> */}
 
-          {/* ADMINISTRATION ROUTE */}
-          <Route path="/admin" element={<AdminDashboard />} /> {/* <-- NEW ROUTE ADDED */}
-          
-          {/* Catch-all for 404 */}
-          <Route path="*" element={<NotFound />} />
-        </Routes>
+            {/* ADMINISTRATION ROUTE */}
+            <Route path="/admin" element={<AdminDashboard />} /> {/* <-- NEW ROUTE ADDED */}
+            
+            {/* Catch-all for 404 */}
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </NewsProvider>
       </BrowserRouter>
     </TooltipProvider>
   </QueryClientProvider>
