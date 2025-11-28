@@ -1,4 +1,11 @@
-import React, { createContext, useContext, useState, useMemo } from 'react';
+import React, { createContext, useContext, useState, useMemo, useEffect } from 'react';
+
+// Local Storage Keys
+const STORAGE_KEYS = {
+  FEATURED: 'vmp_featured_news',
+  RECENT: 'vmp_recent_news',
+  EVENTS: 'vmp_upcoming_events',
+};
 
 // Define initial mock data structure
 const initialFeaturedNews = {
@@ -8,6 +15,7 @@ const initialFeaturedNews = {
   date: "1st October 2025",
   category: "Milestone",
   image: "/src/assets/vmphotos/calf.jpg",
+  imageUrl: "", // For uploaded images
   readTime: "∞",
   link: "kenyavetsmission.org",
 };
@@ -20,7 +28,8 @@ const initialRecentNews = [
     date: "July 15-22, 2025",
     category: "Mission Report",
     readTime: "5 min read",
-    link: "/missions/mataarba/mataarba-2025"
+    link: "/missions/mataarba/mataarba-2025",
+    imageUrl: "", // For uploaded images
   },
   {
     id: 2,
@@ -28,7 +37,8 @@ const initialRecentNews = [
     excerpt: "VMP announces collaborative training programs with veterinary institutions in Maasai Mara University.",
     date: "February 28, 2024", 
     category: "Partnership",
-    readTime: "4 min read"
+    readTime: "4 min read",
+    imageUrl: "", // For uploaded images
   },
 ];
 
@@ -60,12 +70,77 @@ export const useNewsContext = () => {
 };
 
 export const NewsProvider = ({ children }) => {
-  const [featuredNews, setFeaturedNews] = useState(initialFeaturedNews);
-  const [recentNews, setRecentNews] = useState(initialRecentNews);
-  const [upcomingEvents, setUpcomingEvents] = useState(initialUpcomingEvents);
+  // Initialize state from localStorage or use defaults
+  const [featuredNews, setFeaturedNews] = useState(() => {
+    const saved = localStorage.getItem(STORAGE_KEYS.FEATURED);
+    if (saved) {
+      try {
+        return JSON.parse(saved);
+      } catch (e) {
+        console.error('Error parsing saved featured news:', e);
+        return initialFeaturedNews;
+      }
+    }
+    return initialFeaturedNews;
+  });
+
+  const [recentNews, setRecentNews] = useState(() => {
+    const saved = localStorage.getItem(STORAGE_KEYS.RECENT);
+    if (saved) {
+      try {
+        return JSON.parse(saved);
+      } catch (e) {
+        console.error('Error parsing saved recent news:', e);
+        return initialRecentNews;
+      }
+    }
+    return initialRecentNews;
+  });
+
+  const [upcomingEvents, setUpcomingEvents] = useState(() => {
+    const saved = localStorage.getItem(STORAGE_KEYS.EVENTS);
+    if (saved) {
+      try {
+        return JSON.parse(saved);
+      } catch (e) {
+        console.error('Error parsing saved events:', e);
+        return initialUpcomingEvents;
+      }
+    }
+    return initialUpcomingEvents;
+  });
+
+  // Persist to localStorage whenever state changes
+  useEffect(() => {
+    try {
+      localStorage.setItem(STORAGE_KEYS.FEATURED, JSON.stringify(featuredNews));
+      console.log('✅ Featured news saved to localStorage');
+    } catch (e) {
+      console.error('Error saving featured news:', e);
+    }
+  }, [featuredNews]);
+
+  useEffect(() => {
+    try {
+      localStorage.setItem(STORAGE_KEYS.RECENT, JSON.stringify(recentNews));
+      console.log('✅ Recent news saved to localStorage');
+    } catch (e) {
+      console.error('Error saving recent news:', e);
+    }
+  }, [recentNews]);
+
+  useEffect(() => {
+    try {
+      localStorage.setItem(STORAGE_KEYS.EVENTS, JSON.stringify(upcomingEvents));
+      console.log('✅ Events saved to localStorage');
+    } catch (e) {
+      console.error('Error saving events:', e);
+    }
+  }, [upcomingEvents]);
 
   // --- NEWS CRUD OPERATIONS ---
   const updateNews = (updatedArticle) => {
+    console.log('📝 Updating news:', updatedArticle);
     if (updatedArticle.id === 'featured') {
       setFeaturedNews(updatedArticle);
     } else {
@@ -76,25 +151,30 @@ export const NewsProvider = ({ children }) => {
   };
 
   const addNews = (newArticle) => {
+    console.log('➕ Adding news:', newArticle);
     setRecentNews(prev => [{...newArticle, id: Date.now()}, ...prev]);
   };
 
   const deleteNews = (id) => {
+    console.log('🗑️ Deleting news:', id);
     setRecentNews(prev => prev.filter(item => item.id !== id));
   };
 
   // --- EVENTS CRUD OPERATIONS ---
   const updateEvent = (updatedEvent) => {
+    console.log('📝 Updating event:', updatedEvent);
     setUpcomingEvents(prev => 
       prev.map(item => item.id === updatedEvent.id ? updatedEvent : item)
     );
   };
   
   const addEvent = (newEvent) => {
+    console.log('➕ Adding event:', newEvent);
     setUpcomingEvents(prev => [...prev, {...newEvent, id: Date.now()}]);
   };
 
   const deleteEvent = (id) => {
+    console.log('🗑️ Deleting event:', id);
     setUpcomingEvents(prev => prev.filter(item => item.id !== id));
   };
 
