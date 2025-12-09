@@ -2,15 +2,15 @@ import React, { useState, useEffect } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
-import heroSlide1 from "@/assets//vmphotos/prayers.jpg";
-import heroSlide2 from "@/assets/vmphotos/calf.jpg";
-import heroSlide3 from "@/assets/vmphotos/co3.jpg";
-import heroSlide4 from "@/assets/vmphotos/cow.jpg";
-import heroSlide5 from "@/assets/vmphotos/cow2.jpg";
-import heroSlide6 from "@/assets/vmphotos/cwater.jpg";
-import heroSlide7 from "@/assets/vmphotos/flock.jpg";
-import heroSlide8 from "@/assets/vmphotos/maf.jpg";
-import heroSlide9 from "@/assets/vmphotos/maf2.jpg";
+import heroSlide1 from "@/assets//vmphotos/heroslide1.png";
+import heroSlide2 from "@/assets/vmphotos/heroslide2.png";
+import heroSlide3 from "@/assets/vmphotos/heroslide3.png";
+import heroSlide4 from "@/assets/vmphotos/heroslide4.png";
+import heroSlide5 from "@/assets/vmphotos/heroslide5.png";
+import heroSlide6 from "@/assets/vmphotos/heroslide6.png";
+import heroSlide7 from "@/assets/vmphotos/heroslide7.jpg";
+import heroSlide8 from "@/assets/vmphotos/heroslide8.png";
+import heroSlide9 from "@/assets/vmphotos/heroslide9.jpg";
 
 interface Slide {
   id: number;
@@ -26,17 +26,18 @@ const slides: Slide[] = [
     id: 0, 
     image: heroSlide1, 
     alt: "prayers - Veterinary mission work",
-    title: "Enhancing God's Kingdom",
-    subtitle: "Through Compassionate Veterinary Care",
-    description: "Our mission is to provide veterinary care to animals in need, sharing God's love and compassion through our service to underserved communities worldwide."
+    title: "Matthew 28:19-20",
+    // subtitle: "Through Compassionate Veterinary Care",
+    description: "Therefore go and make disciples of all nations, baptizing them in the name of the Father and of the Son and of the Holy Spirit,  and teaching them to obey everything I have commanded  you. And surely I am with you always, to the very end of the age"
   },
+
   { 
     id: 1, 
     image: heroSlide2, 
     alt: "Calf receiving veterinary care",
-    title: "Example Title for Slide 2",
-    subtitle: "Example Subtitle Here",
-    description: "Example description text that describes what's happening in this slide and the mission work being done."
+    title: "Vision and Mission",
+    subtitle: "Vision: To enhance God’s Kingdom on earth",
+    description: "Mission: To share the love of God to mankind through veterinary skills"
   },
   { 
     id: 2, 
