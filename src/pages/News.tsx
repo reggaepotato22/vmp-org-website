@@ -1,240 +1,195 @@
-import Navigation from "@/components/Navigation";
-import Footer from "@/components/Footer";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
-import { Calendar, MapPin, ExternalLink, Clock } from "lucide-react";
-import { Link } from "react-router-dom";
-import { useNewsContext } from '../context/NewsContext';
+// src/context/NewsContext.jsx
+import React, { createContext, useState, useContext } from 'react';
 
-const News = () => {
-  const { featuredNews, recentNews, upcomingEvents } = useNewsContext();
+const NewsContext = createContext();
 
-  const handleLinkClick = () => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  };
+export const useNewsContext = () => {
+  const context = useContext(NewsContext);
+  if (!context) {
+    throw new Error('useNewsContext must be used within a NewsProvider');
+  }
+  return context;
+};
 
-  const getCategoryColor = (category) => {
-    switch (category) {
-      case "Mission Report": return "bg-blue-100 text-blue-800";
-      case "Partnership": return "bg-green-100 text-green-800";
-      case "Emergency Response": return "bg-red-100 text-red-800";
-      case "Volunteer Story": return "bg-purple-100 text-purple-800";
-      case "Milestone": return "bg-yellow-100 text-yellow-800";
-      default: return "bg-gray-100 text-gray-800";
+export const NewsProvider = ({ children }) => {
+  // Featured News State
+  const [featuredNews, setFeaturedNews] = useState({
+    id: 1,
+    title: "Breaking: New Veterinary Clinic Opens in Nairobi",
+    excerpt: "A state-of-the-art veterinary facility brings hope to underserved communities across Kenya.",
+    date: "Nov 15, 2024",
+    category: "Milestone",
+    readTime: "3 min read",
+    imageUrl: "",
+    image: ""
+  });
+
+  // Recent News State
+  const [recentNews, setRecentNews] = useState([
+    {
+      id: 2,
+      title: "Community Outreach Success",
+      excerpt: "Over 200 animals treated in recent mission to rural communities.",
+      date: "Nov 10, 2024",
+      category: "Mission Report",
+      readTime: "2 min read",
+      link: "",
+      imageUrl: "",
+      image: ""
+    }
+  ]);
+
+  // Upcoming Events State
+  const [upcomingEvents, setUpcomingEvents] = useState([
+    {
+      id: 1,
+      title: "Volunteer Training Workshop",
+      date: "Dec 5, 2024",
+      time: "9:00 AM",
+      location: "Main Office, Nairobi",
+      description: "Comprehensive orientation for new volunteers joining our mission.",
+      type: "Training"
+    }
+  ]);
+
+  // Gallery State
+  const [galleries, setGalleries] = useState([
+    {
+      id: 1,
+      title: "Kenya Mission 2024",
+      location: "Nakuru, Kenya",
+      date: "March 2024",
+      imageCount: 24,
+      description: "Providing livestock care to rural farming communities",
+      category: "Medical Care",
+      featured: true,
+      url: "https://photos.app.goo.gl/Npm53WWZd6wM8wL19",
+      coverImage: "",
+      image: ""
+    }
+  ]);
+
+  // Missions State
+  const [missions, setMissions] = useState([
+    {
+      id: 1,
+      year: "2025",
+      title: "Mataarba Mission",
+      location: "Mataarba Community",
+      date: "July 15-22, 2025",
+      team: "12 volunteers",
+      reports: 1,
+      description: "Provided essential veterinary care and spiritual support to the Mataarba community with comprehensive animal health services.",
+      reportUrl: "",
+      reportFile: null
+    },
+    {
+      id: 2,
+      year: "2024",
+      title: "Turkana Outreach",
+      location: "Turkana County",
+      date: "September 10-17, 2024",
+      team: "15 volunteers",
+      reports: 2,
+      description: "Large scale veterinary mission focusing on livestock health and community education programs.",
+      reportUrl: "",
+      reportFile: null
+    }
+  ]);
+
+  // News Functions
+  const updateNews = (updatedNews) => {
+    if (updatedNews.id === featuredNews.id) {
+      setFeaturedNews(updatedNews);
+    } else {
+      setRecentNews(prev => 
+        prev.map(item => item.id === updatedNews.id ? updatedNews : item)
+      );
     }
   };
 
-  const getEventTypeColor = (type) => {
-    switch (type) {
-      case "Fundraiser": return "bg-primary/10 text-primary";
-      case "Training": return "bg-blue-100 text-blue-800";
-      case "Meeting": return "bg-orange-100 text-orange-800";
-      case "Local Service": return "bg-green-100 text-green-800";
-      default: return "bg-gray-100 text-gray-800";
-    }
+  const addNews = (newNews) => {
+    setRecentNews(prev => [...prev, newNews]);
+  };
+
+  const deleteNews = (id) => {
+    setRecentNews(prev => prev.filter(item => item.id !== id));
+  };
+
+  // Event Functions
+  const updateEvent = (updatedEvent) => {
+    setUpcomingEvents(prev =>
+      prev.map(item => item.id === updatedEvent.id ? updatedEvent : item)
+    );
+  };
+
+  const addEvent = (newEvent) => {
+    setUpcomingEvents(prev => [...prev, newEvent]);
+  };
+
+  const deleteEvent = (id) => {
+    setUpcomingEvents(prev => prev.filter(item => item.id !== id));
+  };
+
+  // Gallery Functions
+  const updateGallery = (updatedGallery) => {
+    setGalleries(prev =>
+      prev.map(item => item.id === updatedGallery.id ? updatedGallery : item)
+    );
+  };
+
+  const addGallery = (newGallery) => {
+    setGalleries(prev => [...prev, newGallery]);
+  };
+
+  const deleteGallery = (id) => {
+    setGalleries(prev => prev.filter(item => item.id !== id));
+  };
+
+  // Mission Functions
+  const updateMission = (updatedMission) => {
+    setMissions(prev =>
+      prev.map(item => item.id === updatedMission.id ? updatedMission : item)
+    );
+  };
+
+  const addMission = (newMission) => {
+    setMissions(prev => [...prev, newMission]);
+  };
+
+  const deleteMission = (id) => {
+    setMissions(prev => prev.filter(item => item.id !== id));
+  };
+
+  const value = {
+    // News
+    featuredNews,
+    recentNews,
+    updateNews,
+    addNews,
+    deleteNews,
+    // Events
+    upcomingEvents,
+    updateEvent,
+    addEvent,
+    deleteEvent,
+    // Gallery
+    galleries,
+    updateGallery,
+    addGallery,
+    deleteGallery,
+    // Missions
+    missions,
+    updateMission,
+    addMission,
+    deleteMission
   };
 
   return (
-    <div className="min-h-screen">
-      <Navigation />
-      
-      {/* Hero Section */}
-      <section className="bg-gradient-to-br from-primary/10 to-secondary/10 py-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center">
-            <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-6">
-              News & Events
-            </h1>
-            <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-              Stay updated with our latest missions, partnerships, and upcoming events as we continue enhancing God's Kingdom worldwide.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-        <div className="grid lg:grid-cols-3 gap-8">
-          {/* Main Content */}
-          <div className="lg:col-span-2">
-            {/* Featured Article */}
-            <div className="mb-12">
-              <h2 className="text-2xl font-bold text-foreground mb-6">Featured Story</h2>
-              {featuredNews && (
-                <Card className="overflow-hidden">
-                  {/* Display uploaded image or placeholder */}
-                  {featuredNews.imageUrl || featuredNews.image ? (
-                    <div className="h-64 overflow-hidden">
-                      <img 
-                        src={featuredNews.imageUrl || featuredNews.image} 
-                        alt={featuredNews.title}
-                        className="w-full h-full object-cover"
-                        onError={(e) => {
-                          e.target.onerror = null;
-                          e.target.src = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="100" height="100"%3E%3Crect fill="%23f0f0f0" width="100" height="100"/%3E%3Ctext fill="%23999" x="50%25" y="50%25" text-anchor="middle" dy=".3em"%3ENo Image%3C/text%3E%3C/svg%3E';
-                        }}
-                      />
-                    </div>
-                  ) : (
-                    <div className="h-64 bg-muted flex items-center justify-center">
-                      <span className="text-muted-foreground">No Image Available</span>
-                    </div>
-                  )}
-                  <CardHeader>
-                    <div className="flex items-center gap-2 mb-2">
-                      <Badge className={getCategoryColor(featuredNews.category)}>
-                        {featuredNews.category}
-                      </Badge>
-                      <div className="flex items-center text-sm text-muted-foreground">
-                        <Clock className="h-4 w-4 mr-1" />
-                        {featuredNews.readTime}
-                      </div>
-                    </div>
-                    <CardTitle className="text-2xl">{featuredNews.title}</CardTitle>
-                    <CardDescription className="flex items-center text-sm">
-                      <Calendar className="h-4 w-4 mr-1" />
-                      {featuredNews.date}
-                    </CardDescription>
-                  </CardHeader>
-                  <CardContent>
-                    <p className="text-muted-foreground mb-4">{featuredNews.excerpt}</p>
-                    <Button>
-                      Read Full Article
-                      <ExternalLink className="h-4 w-4 ml-2" />
-                    </Button>
-                  </CardContent>
-                </Card>
-              )}
-            </div>
-
-            {/* Recent News */}
-            <div>
-              <h2 className="text-2xl font-bold text-foreground mb-6">Recent News</h2>
-              <div className="space-y-6">
-                {recentNews.map((article, index) => (
-                  <Card key={article.id || index}>
-                    {/* Display uploaded image for recent news */}
-                    {(article.imageUrl || article.image) && (
-                      <div className="h-48 overflow-hidden">
-                        <img 
-                          src={article.imageUrl || article.image} 
-                          alt={article.title}
-                          className="w-full h-full object-cover"
-                          onError={(e) => {
-                            e.target.style.display = 'none';
-                          }}
-                        />
-                      </div>
-                    )}
-                    <CardHeader>
-                      <div className="flex items-center gap-2 mb-2">
-                        <Badge className={getCategoryColor(article.category)}>
-                          {article.category}
-                        </Badge>
-                        <div className="flex items-center text-sm text-muted-foreground">
-                          <Clock className="h-4 w-4 mr-1" />
-                          {article.readTime}
-                        </div>
-                      </div>
-                      <CardTitle className="text-xl">{article.title}</CardTitle>
-                      <CardDescription className="flex items-center text-sm">
-                        <Calendar className="h-4 w-4 mr-1" />
-                        {article.date}
-                      </CardDescription>
-                    </CardHeader>
-                    <CardContent>
-                      <p className="text-muted-foreground mb-4">{article.excerpt}</p>
-                      {article.link ? (
-                        <Button asChild variant="outline" size="sm">
-                          <Link to={article.link} onClick={handleLinkClick}>
-                            Read More
-                            <ExternalLink className="h-4 w-4 ml-2" />
-                          </Link>
-                        </Button>
-                      ) : (
-                        <Button variant="outline" size="sm">
-                          Read More
-                          <ExternalLink className="h-4 w-4 ml-2" />
-                        </Button>
-                      )}
-                    </CardContent>
-                  </Card>
-                ))}
-              </div>
-            </div>
-          </div>
-
-          {/* Sidebar */}
-          <div className="lg:col-span-1">
-            {/* Upcoming Events */}
-            <div className="mb-8">
-              <h2 className="text-2xl font-bold text-foreground mb-6">Upcoming Events</h2>
-              <div className="space-y-4">
-                {upcomingEvents.map((event, index) => (
-                  <Card key={event.id || index}>
-                    <CardHeader className="pb-3">
-                      <div className="flex items-center gap-2 mb-2">
-                        <Badge className={getEventTypeColor(event.type)}>
-                          {event.type}
-                        </Badge>
-                      </div>
-                      <CardTitle className="text-lg">{event.title}</CardTitle>
-                      <CardDescription className="space-y-1">
-                        <div className="flex items-center text-sm">
-                          <Calendar className="h-3 w-3 mr-1" />
-                          {event.date} at {event.time}
-                        </div>
-                        <div className="flex items-center text-sm">
-                          <MapPin className="h-3 w-3 mr-1" />
-                          {event.location}
-                        </div>
-                      </CardDescription>
-                    </CardHeader>
-                    <CardContent>
-                      <p className="text-sm text-muted-foreground mb-3">{event.description}</p>
-                      <Button size="sm" className="w-full">
-                        Learn More
-                      </Button>
-                    </CardContent>
-                  </Card>
-                ))}
-              </div>
-              
-              <div className="text-center mt-6">
-                {upcomingEvents.length === 0 ? (
-                  <p className='text-muted-foreground'>No Events available</p>
-                ) : null}
-              </div>
-            </div>
-
-            {/* Newsletter Signup */}
-            <Card>
-              <CardHeader>
-                <CardTitle>Stay Connected</CardTitle>
-                <CardDescription>
-                  Subscribe to our newsletter for mission updates and event announcements.
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-3">
-                  <input 
-                    type="email" 
-                    placeholder="Enter your email"
-                    className="w-full px-3 py-2 border border-border rounded-md text-sm"
-                  />
-                  <Button className="w-full">
-                    Subscribe
-                  </Button>
-                </div>
-              </CardContent>
-            </Card>
-          </div>
-        </div>
-      </div>
-
-      <Footer />
-    </div>
+    <NewsContext.Provider value={value}>
+      {children}
+    </NewsContext.Provider>
   );
 };
 
-export default News;
+export default NewsContext;
