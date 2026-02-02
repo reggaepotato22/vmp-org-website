@@ -56,7 +56,7 @@ const Navigation = () => {
             <button
               onClick={() => handleNavClick("/")}
               className={`px-3 py-2 text-sm font-bold tracking-wide transition-colors ${
-                isActive("/") ? "text-primary" : "text-slate-600 hover:text-primary dark:text-slate-300 dark:hover:text-primary"
+                isActive("/") ? "text-blue-600" : "text-slate-600 hover:text-blue-600 dark:text-slate-300 dark:hover:text-blue-600"
               }`}
             >
               HOME
@@ -67,20 +67,20 @@ const Navigation = () => {
               <DropdownMenuTrigger
                 className={`px-3 py-2 text-sm font-bold tracking-wide transition-colors outline-none ${
                   location.pathname.startsWith("/about")
-                    ? "text-primary"
-                    : "text-slate-600 hover:text-primary dark:text-slate-300 dark:hover:text-primary"
+                    ? "text-blue-600"
+                    : "text-slate-600 hover:text-blue-600 dark:text-slate-300 dark:hover:text-blue-600"
                 }`}
               >
                 ABOUT
               </DropdownMenuTrigger>
               <DropdownMenuContent className="w-48 bg-white/95 backdrop-blur-md border-slate-100 shadow-lg animate-in fade-in-0 zoom-in-95 dark:bg-slate-900 dark:border-slate-800">
-                <DropdownMenuItem className="cursor-pointer focus:bg-primary/5 focus:text-primary font-medium dark:focus:bg-slate-800" onClick={() => handleNavClick("/about/overview")}>
+                <DropdownMenuItem className="cursor-pointer focus:bg-blue-50 focus:text-blue-600 font-medium dark:focus:bg-slate-800" onClick={() => handleNavClick("/about/overview")}>
                   Overview
                 </DropdownMenuItem>
-                <DropdownMenuItem className="cursor-pointer focus:bg-primary/5 focus:text-primary font-medium dark:focus:bg-slate-800" onClick={() => handleNavClick("/about/history")}>
+                <DropdownMenuItem className="cursor-pointer focus:bg-blue-50 focus:text-blue-600 font-medium dark:focus:bg-slate-800" onClick={() => handleNavClick("/about/history")}>
                   History
                 </DropdownMenuItem>
-                <DropdownMenuItem className="cursor-pointer focus:bg-primary/5 focus:text-primary font-medium dark:focus:bg-slate-800" onClick={() => handleNavClick("/about/testimonials")}>
+                <DropdownMenuItem className="cursor-pointer focus:bg-blue-50 focus:text-blue-600 font-medium dark:focus:bg-slate-800" onClick={() => handleNavClick("/about/testimonials")}>
                   Testimonials
                 </DropdownMenuItem>
               </DropdownMenuContent>
@@ -90,7 +90,7 @@ const Navigation = () => {
             <button
               onClick={() => handleNavClick("/missions")}
               className={`px-3 py-2 text-sm font-bold tracking-wide transition-colors ${
-                isActive("/missions") ? "text-primary" : "text-slate-600 hover:text-primary dark:text-slate-300 dark:hover:text-primary"
+                isActive("/missions") ? "text-blue-600" : "text-slate-600 hover:text-blue-600 dark:text-slate-300 dark:hover:text-blue-600"
               }`}
             >
               MISSIONS
@@ -100,15 +100,15 @@ const Navigation = () => {
             <DropdownMenu>
               <DropdownMenuTrigger
                 className={`px-3 py-2 text-sm font-bold tracking-wide transition-colors outline-none ${
-                  location.pathname.startsWith("/volunteers")
-                    ? "text-primary"
-                    : "text-slate-600 hover:text-primary dark:text-slate-300 dark:hover:text-primary"
+                  location.pathname.startsWith("/volunteer")
+                    ? "text-blue-600"
+                    : "text-slate-600 hover:text-blue-600 dark:text-slate-300 dark:hover:text-blue-600"
                 }`}
               >
                 VOLUNTEERS
               </DropdownMenuTrigger>
               <DropdownMenuContent className="w-48 bg-white/95 backdrop-blur-md border-slate-100 shadow-lg animate-in fade-in-0 zoom-in-95 dark:bg-slate-900 dark:border-slate-800">
-                <DropdownMenuItem className="cursor-pointer focus:bg-primary/5 focus:text-primary font-medium dark:focus:bg-slate-800" onClick={() => handleNavClick("/volunteers/how-to")}>
+                <DropdownMenuItem className="cursor-pointer focus:bg-blue-50 focus:text-blue-600 font-medium dark:focus:bg-slate-800" onClick={() => handleNavClick("/volunteer")}>
                   How to Volunteer
                 </DropdownMenuItem>
               </DropdownMenuContent>
@@ -118,7 +118,7 @@ const Navigation = () => {
             <button
               onClick={() => handleNavClick("/news")} 
               className={`px-3 py-2 text-sm font-bold tracking-wide transition-colors ${
-                isActive("/news") ? "text-primary" : "text-slate-600 hover:text-primary dark:text-slate-300 dark:hover:text-primary"
+                isActive("/news") ? "text-blue-600" : "text-slate-600 hover:text-blue-600 dark:text-slate-300 dark:hover:text-blue-600"
               }`}
             >
               UPDATES
@@ -128,7 +128,7 @@ const Navigation = () => {
             <button
               onClick={() => handleNavClick("/gallery")}
               className={`px-3 py-2 text-sm font-bold tracking-wide transition-colors ${
-                isActive("/gallery") ? "text-primary" : "text-slate-600 hover:text-primary dark:text-slate-300 dark:hover:text-primary"
+                isActive("/gallery") ? "text-blue-600" : "text-slate-600 hover:text-blue-600 dark:text-slate-300 dark:hover:text-blue-600"
               }`}
             >
               GALLERY
@@ -138,7 +138,7 @@ const Navigation = () => {
             <button
               onClick={() => handleNavClick("/contact")}
               className={`px-3 py-2 text-sm font-bold tracking-wide transition-colors ${
-                isActive("/contact") ? "text-primary" : "text-slate-600 hover:text-primary dark:text-slate-300 dark:hover:text-primary"
+                isActive("/contact") ? "text-blue-600" : "text-slate-600 hover:text-blue-600 dark:text-slate-300 dark:hover:text-blue-600"
               }`}
             >
               CONTACT
@@ -149,14 +149,14 @@ const Navigation = () => {
               variant="ghost"
               size="icon"
               onClick={toggleTheme}
-              className="text-slate-600 hover:text-primary dark:text-slate-300 dark:hover:text-primary"
+              className="text-slate-600 hover:text-blue-600 dark:text-slate-300 dark:hover:text-blue-600"
             >
               {settings.theme === 'dark' ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
             </Button>
 
             {/* Donate */}
             <Button 
-              className="bg-primary hover:bg-primary/90 text-white font-bold px-6 shadow-md hover:shadow-lg transition-all transform hover:-translate-y-0.5"
+              className="bg-amber-400 hover:bg-amber-500 text-slate-900 font-bold px-6 shadow-md hover:shadow-lg transition-all transform hover:-translate-y-0.5"
               size="default" 
               onClick={() => handleNavClick("/donate")}
             >
@@ -171,14 +171,14 @@ const Navigation = () => {
               variant="ghost"
               size="icon"
               onClick={toggleTheme}
-              className="text-slate-600 hover:text-primary dark:text-slate-300 dark:hover:text-primary"
+              className="text-slate-600 hover:text-blue-600 dark:text-slate-300 dark:hover:text-blue-600"
             >
               {settings.theme === 'dark' ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
             </Button>
 
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="text-slate-600 hover:text-primary transition-colors p-2 dark:text-slate-300"
+              className="text-slate-600 hover:text-blue-600 transition-colors p-2 dark:text-slate-300"
             >
               {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
             </button>
@@ -193,7 +193,7 @@ const Navigation = () => {
             <button
               onClick={() => handleNavClick("/")}
               className={`block w-full text-left px-4 py-3 text-base font-semibold rounded-md ${
-                isActive("/") ? "bg-primary/5 text-primary" : "text-slate-600 hover:bg-slate-50 dark:text-slate-300 dark:hover:bg-slate-900"
+                isActive("/") ? "bg-blue-50 text-blue-600" : "text-slate-600 hover:bg-slate-50 dark:text-slate-300 dark:hover:bg-slate-900"
               }`}
             >
               HOME
@@ -203,19 +203,19 @@ const Navigation = () => {
               <p className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">About</p>
               <button
                 onClick={() => handleNavClick("/about/overview")}
-                className="block w-full text-left py-2 text-sm font-medium text-slate-600 hover:text-primary dark:text-slate-300"
+                className="block w-full text-left py-2 text-sm font-medium text-slate-600 hover:text-blue-600 dark:text-slate-300"
               >
                 Overview
               </button>
               <button
                 onClick={() => handleNavClick("/about/history")}
-                className="block w-full text-left py-2 text-sm font-medium text-slate-600 hover:text-primary dark:text-slate-300"
+                className="block w-full text-left py-2 text-sm font-medium text-slate-600 hover:text-blue-600 dark:text-slate-300"
               >
                 History
               </button>
               <button
                 onClick={() => handleNavClick("/about/testimonials")}
-                className="block w-full text-left py-2 text-sm font-medium text-slate-600 hover:text-primary dark:text-slate-300"
+                className="block w-full text-left py-2 text-sm font-medium text-slate-600 hover:text-blue-600 dark:text-slate-300"
               >
                 Testimonials
               </button>
@@ -224,7 +224,7 @@ const Navigation = () => {
             <button
               onClick={() => handleNavClick("/missions")}
               className={`block w-full text-left px-4 py-3 text-base font-semibold rounded-md ${
-                isActive("/missions") ? "bg-primary/5 text-primary" : "text-slate-600 hover:bg-slate-50 dark:text-slate-300 dark:hover:bg-slate-900"
+                isActive("/missions") ? "bg-blue-50 text-blue-600" : "text-slate-600 hover:bg-slate-50 dark:text-slate-300 dark:hover:bg-slate-900"
               }`}
             >
               MISSIONS
@@ -234,7 +234,7 @@ const Navigation = () => {
               <p className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">Volunteers</p>
               <button
                 onClick={() => handleNavClick("/volunteers/how-to")}
-                className="block w-full text-left py-2 text-sm font-medium text-slate-600 hover:text-primary dark:text-slate-300"
+                className="block w-full text-left py-2 text-sm font-medium text-slate-600 hover:text-blue-600 dark:text-slate-300"
               >
                 How to Volunteer
               </button>
@@ -243,7 +243,7 @@ const Navigation = () => {
             <button
               onClick={() => handleNavClick("/news")}
               className={`block w-full text-left px-4 py-3 text-base font-semibold rounded-md ${
-                isActive("/news") ? "bg-primary/5 text-primary" : "text-slate-600 hover:bg-slate-50 dark:text-slate-300 dark:hover:bg-slate-900"
+                isActive("/news") ? "bg-blue-50 text-blue-600" : "text-slate-600 hover:bg-slate-50 dark:text-slate-300 dark:hover:bg-slate-900"
               }`}
             >
               UPDATES
@@ -252,7 +252,7 @@ const Navigation = () => {
             <button
               onClick={() => handleNavClick("/gallery")}
               className={`block w-full text-left px-4 py-3 text-base font-semibold rounded-md ${
-                isActive("/gallery") ? "bg-primary/5 text-primary" : "text-slate-600 hover:bg-slate-50 dark:text-slate-300 dark:hover:bg-slate-900"
+                isActive("/gallery") ? "bg-blue-50 text-blue-600" : "text-slate-600 hover:bg-slate-50 dark:text-slate-300 dark:hover:bg-slate-900"
               }`}
             >
               GALLERY
@@ -261,14 +261,14 @@ const Navigation = () => {
             <button
               onClick={() => handleNavClick("/contact")}
               className={`block w-full text-left px-4 py-3 text-base font-semibold rounded-md ${
-                isActive("/contact") ? "bg-primary/5 text-primary" : "text-slate-600 hover:bg-slate-50 dark:text-slate-300 dark:hover:bg-slate-900"
+                isActive("/contact") ? "bg-blue-50 text-blue-600" : "text-slate-600 hover:bg-slate-50 dark:text-slate-300 dark:hover:bg-slate-900"
               }`}
             >
               CONTACT
             </button>
 
             <div className="pt-4 px-4">
-              <Button className="w-full bg-primary font-bold shadow-md" onClick={() => handleNavClick("/donate")}>
+              <Button className="w-full bg-blue-600 font-bold shadow-md" onClick={() => handleNavClick("/donate")}>
                 GIVE
               </Button>
             </div>

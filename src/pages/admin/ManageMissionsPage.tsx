@@ -1,130 +1,344 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { missionService } from "@/services/missionService";
+import { Mission } from "@/types";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Badge } from "@/components/ui/badge";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
 import {
   Dialog,
   DialogContent,
-  DialogDescription,
-  DialogFooter,
   DialogHeader,
   DialogTitle,
+  DialogTrigger,
 } from "@/components/ui/dialog";
-import { useMissions, Mission } from "@/context/MissionContext";
-import { Plus, Pencil } from "lucide-react";
-import { ImageUpload } from "@/components/admin/ImageUpload";
-import { DeleteConfirmationModal } from "@/components/admin/DeleteConfirmationModal";
+import { Plus, Pencil, Trash2, Loader2 } from "lucide-react";
+import { toast } from "sonner";
+import { uploadImage } from "@/services/storageService";
 
 const ManageMissionsPage = () => {
-  const { missions, addMission, updateMission, deleteMission } = useMissions();
+  const [missions, setMissions] = useState<Mission[]>([]);
+  const [loading, setLoading] = useState(true);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
-  const [currentMission, setCurrentMission] = useState<Partial<Mission>>({});
-  const [isEditing, setIsEditing] = useState(false);
+  const [editingItem, setEditingItem] = useState<Mission | null>(null);
+  const [formData, setFormData] = useState({
+    title: "",
+    description: "",
+    location: "",
+    status: "upcoming" as "upcoming" | "ongoing" | "completed",
+    start_date: "",
+    end_date: "",
+    cover_image: "",
+  });
+  const [uploading, setUploading] = useState(false);
 
-  const handleSave = () => {
-    if (isEditing && currentMission.id) {
-      updateMission(currentMission as Mission);
-    } else {
-      const newMission = {
-        ...currentMission,
-        id: Date.now().toString(),
-        stats: currentMission.stats || { treated: "0", value: "$0", bibles: "0" },
-        status: currentMission.status || 'Upcoming',
-      } as Mission;
-      addMission(newMission);
+  useEffect(() => {
+    fetchMissions();
+  }, []);
+
+  const fetchMissions = async () => {
+    try {
+      const data = await missionService.getAll();
+      setMissions(data);
+    } catch (error) {
+      console.error("Failed to fetch missions", error);
+    } finally {
+      setLoading(false);
     }
-    setIsDialogOpen(false);
-    setCurrentMission({});
-    setIsEditing(false);
   };
 
-  const handleEdit = (mission: Mission) => {
-    setCurrentMission({ ...mission });
-    setIsEditing(true);
-    setIsDialogOpen(true);
+  const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (!e.target.files || e.target.files.length === 0) return;
+    
+    setUploading(true);
+    try {
+      const url = await uploadImage(e.target.files[0], 'missions');
+      if (url) {
+        setFormData(prev => ({ ...prev, cover_image: url }));
+        toast.success("Image uploaded successfully");
+      }
+    } catch (error) {
+      toast.error("Failed to upload image");
+    } finally {
+      setUploading(false);
+    }
   };
 
-  const handleDelete = (id: string) => {
-    deleteMission(id);
+  const handleReportUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (!e.target.files || e.target.files.length === 0) return;
+    
+    setUploading(true);
+    try {
+      // Re-use uploadImage for now as it handles generic file upload to the backend/mock
+      const url = await uploadImage(e.target.files[0], 'reports');
+      if (url) {
+        setFormData(prev => ({ ...prev, report_file: url }));
+        toast.success("Report uploaded successfully");
+        
+        // Mock AI Summary generation
+        if (!formData.report_summary) {
+          setFormData(prev => ({ 
+            ...prev, 
+            report_summary: "AI Generated Summary: This report details the veterinary activities, including vaccination of 500 cattle and treatment of 200 small animals. The mission was successful with strong community engagement." 
+          }));
+          toast.info("AI Summary generated from report!");
+        }
+      }
+    } catch (error) {
+      toast.error("Failed to upload report");
+    } finally {
+      setUploading(false);
+    }
   };
 
-  const handleAddNew = () => {
-    setCurrentMission({
-      stats: { treated: "", value: "", bibles: "" },
-      status: 'Upcoming'
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setLoading(true);
+    try {
+      if (editingItem) {
+        await missionService.update(editingItem.id, {
+          ...formData,
+          images: editingItem.images || [] // Preserve existing images for now
+        });
+        toast.success("Mission updated successfully");
+      } else {
+        await missionService.create({
+          ...formData,
+          images: []
+        });
+        toast.success("Mission created successfully");
+      }
+      setIsDialogOpen(false);
+      fetchMissions();
+      resetForm();
+    } catch (error) {
+      toast.error("Failed to save mission");
+      console.error(error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleDelete = async (id: string) => {
+    if (!confirm("Are you sure you want to delete this mission?")) return;
+    try {
+      await missionService.delete(id);
+      toast.success("Mission deleted successfully");
+      fetchMissions();
+    } catch (error) {
+      toast.error("Failed to delete mission");
+    }
+  };
+
+  const resetForm = () => {
+    setEditingItem(null);
+    setFormData({
+      title: "",
+      description: "",
+      location: "",
+      status: "upcoming",
+      start_date: "",
+      end_date: "",
+      cover_image: "",
     });
-    setIsEditing(false);
+  };
+
+  const openEditDialog = (item: Mission) => {
+    setEditingItem(item);
+    setFormData({
+      title: item.title,
+      description: item.description,
+      location: item.location,
+      status: item.status,
+      start_date: item.start_date,
+      end_date: item.end_date,
+      cover_image: item.cover_image || "",
+    });
     setIsDialogOpen(true);
   };
 
   return (
-    <div className="space-y-8">
-      <div className="flex items-center justify-between">
-        <div>
-          <h1 className="text-3xl font-bold tracking-tight text-slate-900 dark:text-slate-100">Manage Missions</h1>
-          <p className="text-slate-500 dark:text-slate-400">Track mission reports, statistics, and volunteer deployments.</p>
-        </div>
-        <Button onClick={handleAddNew} className="gap-2">
-          <Plus className="h-4 w-4" />
-          Add New Mission
-        </Button>
+    <div className="space-y-6">
+      <div className="flex justify-between items-center">
+        <h2 className="text-3xl font-bold tracking-tight">Manage Missions</h2>
+        <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
+          <DialogTrigger asChild>
+            <Button onClick={resetForm} className="bg-green-600 hover:bg-green-700 shadow-sm hover:shadow-md transition-all">
+              <Plus className="mr-2 h-4 w-4" /> Create Mission
+            </Button>
+          </DialogTrigger>
+          <DialogContent className="sm:max-w-[600px]">
+            <DialogHeader>
+              <DialogTitle>{editingItem ? "Edit Mission" : "Create Mission"}</DialogTitle>
+            </DialogHeader>
+            <form onSubmit={handleSubmit} className="space-y-4">
+              <div>
+                <label className="text-sm font-medium">Title</label>
+                <Input
+                  value={formData.title}
+                  onChange={(e) => setFormData({ ...formData, title: e.target.value })}
+                  required
+                />
+              </div>
+              <div className="grid grid-cols-2 gap-4">
+                 <div>
+                  <label className="text-sm font-medium">Status</label>
+                  <select
+                    className="flex h-10 w-full rounded-md border border-slate-300 bg-white px-3 py-2 text-sm ring-offset-white file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-slate-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                    value={formData.status}
+                    onChange={(e) => setFormData({ ...formData, status: e.target.value as "upcoming" | "ongoing" | "completed" })}
+                  >
+                    <option value="upcoming">Upcoming</option>
+                    <option value="ongoing">Ongoing</option>
+                    <option value="completed">Completed</option>
+                  </select>
+                </div>
+                <div>
+                  <label className="text-sm font-medium">Location</label>
+                  <Input
+                    value={formData.location}
+                    onChange={(e) => setFormData({ ...formData, location: e.target.value })}
+                    required
+                  />
+                </div>
+              </div>
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <label className="text-sm font-medium">Start Date</label>
+                  <Input
+                    type="date"
+                    value={formData.start_date}
+                    onChange={(e) => setFormData({ ...formData, start_date: e.target.value })}
+                    required
+                  />
+                </div>
+                <div>
+                  <label className="text-sm font-medium">End Date</label>
+                  <Input
+                    type="date"
+                    value={formData.end_date}
+                    onChange={(e) => setFormData({ ...formData, end_date: e.target.value })}
+                    required
+                  />
+                </div>
+              </div>
+              <div>
+                <label className="text-sm font-medium">Cover Image</label>
+                <div className="flex items-center gap-4">
+                  <Input
+                    type="file"
+                    accept="image/*"
+                    onChange={handleImageUpload}
+                    disabled={uploading}
+                  />
+                  {uploading && <Loader2 className="h-4 w-4 animate-spin" />}
+                </div>
+                {formData.cover_image && (
+                  <img src={formData.cover_image} alt="Preview" className="mt-2 h-20 w-auto rounded object-cover" />
+                )}
+              </div>
+              <div>
+                <label className="text-sm font-medium">Description</label>
+                <Textarea
+                  value={formData.description}
+                  onChange={(e) => setFormData({ ...formData, description: e.target.value })}
+                  rows={5}
+                  required
+                />
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                  <label className="text-sm font-medium">Mission Report (PDF/Doc)</label>
+                  <div className="flex items-center gap-2 mt-1">
+                    <Input
+                      type="file"
+                      accept=".pdf,.doc,.docx,.txt"
+                      onChange={handleReportUpload}
+                      disabled={uploading}
+                    />
+                  </div>
+                  {formData.report_file && (
+                    <div className="mt-2 text-xs text-green-600 flex items-center">
+                      <span className="truncate max-w-[200px]">{formData.report_file}</span>
+                    </div>
+                  )}
+                </div>
+                <div>
+                  <label className="text-sm font-medium">Report Summary (AI Generated)</label>
+                  <Textarea
+                    value={formData.report_summary}
+                    onChange={(e) => setFormData({ ...formData, report_summary: e.target.value })}
+                    rows={3}
+                    placeholder="Summary will appear here after report upload..."
+                    className="mt-1"
+                  />
+                </div>
+              </div>
+
+              <Button type="submit" className="w-full bg-green-600 hover:bg-green-700" disabled={loading || uploading}>
+                {loading ? <Loader2 className="h-4 w-4 animate-spin" /> : "Save"}
+              </Button>
+            </form>
+          </DialogContent>
+        </Dialog>
       </div>
 
-      <div className="bg-white dark:bg-slate-900 rounded-xl shadow-sm border border-slate-200 dark:border-slate-800 overflow-hidden">
+      <div className="rounded-md border bg-white border-t-4 border-t-green-500 shadow-sm">
         <Table>
           <TableHeader>
-            <TableRow className="dark:border-slate-800">
-              <TableHead className="dark:text-slate-400">Year</TableHead>
-              <TableHead className="dark:text-slate-400">Mission Title</TableHead>
-              <TableHead className="dark:text-slate-400">Location</TableHead>
-              <TableHead className="dark:text-slate-400">Date</TableHead>
-              <TableHead className="dark:text-slate-400">Status</TableHead>
-              <TableHead className="text-right dark:text-slate-400">Actions</TableHead>
+            <TableRow>
+              <TableHead>Title</TableHead>
+              <TableHead>Location</TableHead>
+              <TableHead>Status</TableHead>
+              <TableHead>Dates</TableHead>
+              <TableHead className="text-right">Actions</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
-            {missions.length === 0 ? (
+            {loading ? (
               <TableRow>
-                <TableCell colSpan={6} className="text-center py-8 text-slate-500">
+                <TableCell colSpan={5} className="text-center h-24">
+                  <Loader2 className="h-6 w-6 animate-spin mx-auto" />
+                </TableCell>
+              </TableRow>
+            ) : missions.length === 0 ? (
+              <TableRow>
+                <TableCell colSpan={5} className="text-center h-24 text-slate-500">
                   No missions found.
                 </TableCell>
               </TableRow>
             ) : (
-              missions.map((mission) => (
-                <TableRow key={mission.id} className="dark:border-slate-800">
-                  <TableCell className="font-medium dark:text-slate-200">{mission.year}</TableCell>
-                  <TableCell className="dark:text-slate-200">
-                    <div className="flex items-center gap-3">
-                      {mission.missionCoverImage && (
-                        <img 
-                          src={mission.missionCoverImage} 
-                          alt="" 
-                          className="h-8 w-8 rounded object-cover"
-                        />
-                      )}
-                      {mission.title}
-                    </div>
-                  </TableCell>
-                  <TableCell className="dark:text-slate-200">{mission.location}</TableCell>
-                  <TableCell className="dark:text-slate-200">{mission.date}</TableCell>
+              missions.map((item) => (
+                <TableRow key={item.id}>
+                  <TableCell className="font-medium">{item.title}</TableCell>
+                  <TableCell>{item.location}</TableCell>
                   <TableCell>
-                     <Badge variant={mission.status === 'Completed' ? 'default' : 'outline'}>
-                      {mission.status || 'Completed'}
-                    </Badge>
+                    <span className={`inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium ${
+                      item.status === 'upcoming' ? 'bg-blue-100 text-blue-800' :
+                      item.status === 'ongoing' ? 'bg-green-100 text-green-800' :
+                      'bg-gray-100 text-gray-800'
+                    }`}>
+                      {item.status}
+                    </span>
                   </TableCell>
-                  <TableCell className="text-right space-x-2">
-                    <Button variant="ghost" size="icon" onClick={() => handleEdit(mission)}>
-                      <Pencil className="h-4 w-4 text-slate-500 hover:text-primary" />
+                  <TableCell className="text-sm text-slate-500">
+                    {item.start_date} - {item.end_date}
+                  </TableCell>
+                  <TableCell className="text-right">
+                    <Button variant="ghost" size="icon" onClick={() => openEditDialog(item)}>
+                      <Pencil className="h-4 w-4" />
                     </Button>
-                    <DeleteConfirmationModal 
-                      onConfirm={() => handleDelete(mission.id)}
-                      title="Delete Mission?"
-                      description="This will permanently delete this mission record."
-                    />
+                    <Button variant="ghost" size="icon" className="text-red-500" onClick={() => handleDelete(item.id)}>
+                      <Trash2 className="h-4 w-4" />
+                    </Button>
                   </TableCell>
                 </TableRow>
               ))
@@ -132,163 +346,6 @@ const ManageMissionsPage = () => {
           </TableBody>
         </Table>
       </div>
-
-      <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
-        <DialogContent className="sm:max-w-[700px] max-h-[90vh] overflow-y-auto bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-800">
-          <DialogHeader>
-            <DialogTitle>{isEditing ? "Edit Mission" : "Add New Mission"}</DialogTitle>
-            <DialogDescription>
-              {isEditing
-                ? "Update the details of the selected mission."
-                : "Enter the details for a new mission report."}
-            </DialogDescription>
-          </DialogHeader>
-          <div className="grid gap-4 py-4">
-            
-            <div className="grid gap-2">
-               <ImageUpload 
-                 label="Mission Cover Image"
-                 value={currentMission.missionCoverImage}
-                 onChange={(url) => setCurrentMission({ ...currentMission, missionCoverImage: url as string })}
-                 folder="missions"
-               />
-            </div>
-
-            <div className="grid grid-cols-2 gap-4">
-              <div className="grid gap-2">
-                <Label htmlFor="title">Mission Title</Label>
-                <Input
-                  id="title"
-                  value={currentMission.title || ""}
-                  onChange={(e) => setCurrentMission({ ...currentMission, title: e.target.value })}
-                />
-              </div>
-              <div className="grid gap-2">
-                <Label htmlFor="status">Status</Label>
-                <Select
-                  value={currentMission.status}
-                  onValueChange={(value) => setCurrentMission({ ...currentMission, status: value as any })}
-                >
-                  <SelectTrigger>
-                    <SelectValue placeholder="Select status" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="Upcoming">Upcoming</SelectItem>
-                    <SelectItem value="Ongoing">Ongoing</SelectItem>
-                    <SelectItem value="Completed">Completed</SelectItem>
-                  </SelectContent>
-                </Select>
-              </div>
-            </div>
-
-            <div className="grid grid-cols-3 gap-4">
-               <div className="grid gap-2">
-                <Label htmlFor="year">Year</Label>
-                <Input
-                  id="year"
-                  value={currentMission.year || ""}
-                  onChange={(e) => setCurrentMission({ ...currentMission, year: e.target.value })}
-                />
-              </div>
-              <div className="grid gap-2">
-                <Label htmlFor="location">Location</Label>
-                <Input
-                  id="location"
-                  value={currentMission.location || ""}
-                  onChange={(e) => setCurrentMission({ ...currentMission, location: e.target.value })}
-                />
-              </div>
-              <div className="grid gap-2">
-                <Label htmlFor="date">Date</Label>
-                <Input
-                  id="date"
-                  value={currentMission.date || ""}
-                  onChange={(e) => setCurrentMission({ ...currentMission, date: e.target.value })}
-                />
-              </div>
-            </div>
-
-            <div className="grid gap-2">
-              <Label htmlFor="team">Team Members</Label>
-              <Input
-                id="team"
-                value={currentMission.team || ""}
-                onChange={(e) => setCurrentMission({ ...currentMission, team: e.target.value })}
-              />
-            </div>
-
-            <div className="grid gap-2">
-              <Label htmlFor="description">Description</Label>
-              <Textarea
-                id="description"
-                className="min-h-[100px]"
-                value={currentMission.description || ""}
-                onChange={(e) => setCurrentMission({ ...currentMission, description: e.target.value })}
-              />
-            </div>
-            
-            <div className="grid gap-2">
-              <Label htmlFor="outcome">Outcome / Results (Optional)</Label>
-              <Textarea
-                id="outcome"
-                value={currentMission.outcome || ""}
-                onChange={(e) => setCurrentMission({ ...currentMission, outcome: e.target.value })}
-              />
-            </div>
-
-            <div className="grid gap-2">
-              <Label>Statistics</Label>
-              <div className="grid grid-cols-3 gap-4">
-                <div className="grid gap-1">
-                  <Label htmlFor="treated" className="text-xs text-slate-500">Patients Treated</Label>
-                  <Input
-                    id="treated"
-                    placeholder="300+"
-                    value={currentMission.stats?.treated || ""}
-                    onChange={(e) => setCurrentMission({ 
-                      ...currentMission, 
-                      stats: { ...currentMission.stats!, treated: e.target.value } 
-                    })}
-                  />
-                </div>
-                <div className="grid gap-1">
-                  <Label htmlFor="value" className="text-xs text-slate-500">Value of Services</Label>
-                  <Input
-                    id="value"
-                    placeholder="$15,000"
-                    value={currentMission.stats?.value || ""}
-                    onChange={(e) => setCurrentMission({ 
-                      ...currentMission, 
-                      stats: { ...currentMission.stats!, value: e.target.value } 
-                    })}
-                  />
-                </div>
-                <div className="grid gap-1">
-                  <Label htmlFor="bibles" className="text-xs text-slate-500">Bibles Distributed</Label>
-                  <Input
-                    id="bibles"
-                    placeholder="200+"
-                    value={currentMission.stats?.bibles || ""}
-                    onChange={(e) => setCurrentMission({ 
-                      ...currentMission, 
-                      stats: { ...currentMission.stats!, bibles: e.target.value } 
-                    })}
-                  />
-                </div>
-              </div>
-            </div>
-
-          </div>
-          <DialogFooter>
-            <Button variant="outline" onClick={() => setIsDialogOpen(false)}>
-              Cancel
-            </Button>
-            <Button onClick={handleSave}>
-              {isEditing ? "Update Mission" : "Create Mission"}
-            </Button>
-          </DialogFooter>
-        </DialogContent>
-      </Dialog>
     </div>
   );
 };

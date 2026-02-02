@@ -19,18 +19,18 @@ const Reports = () => {
   ];
 
   return (
-    <main className="min-h-screen bg-background pt-20">
+    <main className="min-h-screen bg-white pt-20">
       <div className="container mx-auto px-4 py-8 max-w-4xl">
         {/* Breadcrumb Navigation */}
         <nav className="mb-6">
-          <div className="flex items-center text-sm text-muted-foreground">
+          <div className="flex items-center text-sm text-slate-500">
             <NavLink
               to="/missions"
               end
               className={({ isActive }) =>
                 isActive
-                  ? 'text-foreground font-semibold underline underline-offset-2'
-                  : 'hover:text-foreground transition-colors'
+                  ? 'text-slate-900 font-semibold underline underline-offset-2'
+                  : 'hover:text-slate-900 transition-colors'
               }
             >
               Missions
@@ -41,30 +41,30 @@ const Reports = () => {
               end
               className={({ isActive }) =>
                 isActive
-                  ? 'text-foreground font-semibold underline underline-offset-2'
-                  : 'hover:text-foreground transition-colors'
+                  ? 'text-slate-900 font-semibold underline underline-offset-2'
+                  : 'hover:text-slate-900 transition-colors'
               }
             >
               2025
             </NavLink>
             <span className="mx-2">/</span>
-            <span className="text-foreground font-bold">Mataarba Report</span>
+            <span className="text-slate-900 font-bold">Mataarba Report</span>
           </div>
         </nav>
 
         {/* Header */}
         <header className="mb-8">
-          <h1 className="text-3xl font-bold text-foreground mb-2">
+          <h1 className="text-3xl font-bold text-slate-900 mb-2">
             Mataarba Mission 2025 Report
           </h1>
         </header>
 
         {/* Mission Overview */}
         <section className="mb-8">
-          <h2 className="text-xl font-semibold text-foreground mb-4">
+          <h2 className="text-xl font-semibold text-slate-900 mb-4">
             Mission Overview
           </h2>
-          <p className="text-muted-foreground leading-relaxed mb-6">
+          <p className="text-slate-500 leading-relaxed mb-6">
             The Mataarba Mission 2025 team from July 15th to July 22nd, aimed to
             provide essential veterinary care and spiritual support to the
             Mataarba community. Our team of 12 volunteers including
@@ -85,14 +85,14 @@ const Reports = () => {
 
         {/* Activities & Outcomes */}
         <section className="mb-8">
-          <h2 className="text-xl font-semibold text-foreground mb-4">
+          <h2 className="text-xl font-semibold text-slate-900 mb-4">
             Activities & Outcomes
           </h2>
 
-          <h3 className="text-lg font-medium text-foreground mb-3">
+          <h3 className="text-lg font-medium text-slate-900 mb-3">
             Veterinary Services
           </h3>
-          <p className="text-muted-foreground leading-relaxed mb-6">
+          <p className="text-slate-500 leading-relaxed mb-6">
             Our veterinary team treated over 300 animals, including cattle,
             goats, sheep, dogs and cats. Common ailments treated included
             parasitic infections, respiratory diseases, and injuries. We also
@@ -106,10 +106,10 @@ const Reports = () => {
 
         {/* Spiritual Outreach */}
         <section className="mb-8">
-          <h3 className="text-lg font-medium text-foreground mb-3">
+          <h3 className="text-lg font-medium text-slate-900 mb-3">
             Spiritual Outreach
           </h3>
-          <p className="text-muted-foreground leading-relaxed">
+          <p className="text-slate-500 leading-relaxed">
             In addition to veterinary care, we conducted daily community
             gatherings, sharing messages of hope and faith. We engaged in
             biblical discussions, participated in local Bible ceremonies, and
@@ -123,14 +123,14 @@ const Reports = () => {
 
         {/* Impact on the Community */}
         <section className="mb-8">
-          <h2 className="text-xl font-semibold text-foreground mb-4">
+          <h2 className="text-xl font-semibold text-slate-900 mb-4">
             Impact on the Community
           </h2>
 
-          <h3 className="text-lg font-medium text-foreground mb-3">
+          <h3 className="text-lg font-medium text-slate-900 mb-3">
             Veterinary
           </h3>
-          <p className="text-muted-foreground leading-relaxed mb-4">
+          <p className="text-slate-500 leading-relaxed mb-4">
             The mission significantly improved the health and well-being of
             domestic animals in Mataarba, leading to increased productivity and
             reduced animal suffering. Local farmers received valuable training
@@ -138,10 +138,10 @@ const Reports = () => {
             and the overall health of livestock in the community.
           </p>
 
-          <h3 className="text-lg font-medium text-foreground mb-3">
+          <h3 className="text-lg font-medium text-slate-900 mb-3">
             Spiritual
           </h3>
-          <p className="text-muted-foreground leading-relaxed">
+          <p className="text-slate-500 leading-relaxed">
             Our spiritual outreach efforts, including church ceremonies, Bible
             connections, and materials, had a profound impact on the community.
             Many community members expressed desire for spiritual guidance and
@@ -155,10 +155,10 @@ const Reports = () => {
 
         {/* Challenges */}
         <section className="mb-8">
-          <h2 className="text-xl font-semibold text-foreground mb-4">
+          <h2 className="text-xl font-semibold text-slate-900 mb-4">
             Challenges
           </h2>
-          <p className="text-muted-foreground leading-relaxed">
+          <p className="text-slate-500 leading-relaxed">
             The mission faced several challenges, including limited resources,
             logistical difficulties in transporting supplies, and language
             barriers. Despite these obstacles, the team remained committed and
@@ -169,10 +169,10 @@ const Reports = () => {
 
         {/* Conclusion */}
         <section className="mb-8">
-          <h2 className="text-xl font-semibold text-foreground mb-4">
+          <h2 className="text-xl font-semibold text-slate-900 mb-4">
             Conclusion
           </h2>
-          <p className="text-muted-foreground leading-relaxed mb-6">
+          <p className="text-slate-500 leading-relaxed mb-6">
             The Mataarba Mission 2025 was a resounding success, achieving
             significant veterinary and spiritual support to the community. The
             dedication and hard work of our volunteers made a tangible difference
@@ -183,7 +183,7 @@ const Reports = () => {
 
           <div className="flex flex-col sm:flex-row gap-4">
             <Link to="/missions/2025">
-              <Button className="bg-primary text-primary-foreground hover:bg-primary/90">
+              <Button className="bg-blue-600 text-white hover:bg-blue-700">
                 Return to 2025 Missions
               </Button>
             </Link>

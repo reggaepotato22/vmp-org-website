@@ -68,18 +68,18 @@ const Overview = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-white">
       <Navigation />
       
       <main className="pt-20">
         {/* Hero Section */}
-        <section className="relative bg-gradient-to-br from-primary/10 via-primary/5 to-background py-20">
+        <section className="relative bg-gradient-to-br from-blue-100 via-blue-50 to-white py-20">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center max-w-4xl mx-auto">
-              <h1 className="text-4xl md:text-6xl font-bold text-foreground mb-6">
+              <h1 className="text-4xl md:text-6xl font-bold text-slate-900 mb-6">
                 Who We Are
               </h1>
-              <p className="text-xl md:text-2xl text-muted-foreground leading-relaxed">
+              <p className="text-xl md:text-2xl text-slate-500 leading-relaxed">
                 Veterinarians with a Mission Programme is a faith-based organization dedicated 
                 to providing veterinary care to animals in underserved communities worldwide.
               </p>
@@ -88,20 +88,20 @@ const Overview = () => {
         </section>
 
         {/* Stats Section */}
-        <section className="py-16 bg-card">
+        <section className="py-16 bg-slate-50">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
               {stats.map((stat, index) => {
                 const Icon = stat.icon;
                 return (
                   <div key={index} className="text-center">
-                    <div className="bg-background rounded-full w-20 h-20 flex items-center justify-center mx-auto mb-4 shadow-lg">
+                    <div className="bg-white rounded-full w-20 h-20 flex items-center justify-center mx-auto mb-4 shadow-lg">
                       <Icon className={`h-10 w-10 ${stat.color}`} />
                     </div>
-                    <div className="text-3xl md:text-4xl font-bold text-foreground mb-2">
+                    <div className="text-3xl md:text-4xl font-bold text-slate-900 mb-2">
                       {stat.value}
                     </div>
-                    <div className="text-sm md:text-base text-muted-foreground">
+                    <div className="text-sm md:text-base text-slate-500">
                       {stat.label}
                     </div>
                   </div>
@@ -112,18 +112,18 @@ const Overview = () => {
         </section>
 
         {/* Mission & Vision Section */}
-        <section className="py-20 bg-background">
+        <section className="py-20 bg-white">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="grid md:grid-cols-2 gap-12">
               <Card className="border-2 hover:shadow-xl transition-shadow">
                 <CardContent className="p-8">
                   <div className="flex items-center mb-6">
-                    <div className="bg-primary/10 rounded-lg p-3 mr-4">
-                      <Target className="h-8 w-8 text-primary" />
+                    <div className="bg-blue-100 rounded-lg p-3 mr-4">
+                      <Target className="h-8 w-8 text-blue-600" />
                     </div>
-                    <h2 className="text-3xl font-bold text-foreground">Our Mission</h2>
+                    <h2 className="text-3xl font-bold text-slate-900">Our Mission</h2>
                   </div>
-                  <p className="text-lg text-muted-foreground leading-relaxed">
+                  <p className="text-lg text-slate-500 leading-relaxed">
                     To improve animal health and welfare in underserved communities while promoting 
                     public health and sharing the love of Christ through compassionate veterinary service. 
                     We are committed to making a lasting impact on the lives of both animals and the 
@@ -135,12 +135,12 @@ const Overview = () => {
               <Card className="border-2 hover:shadow-xl transition-shadow">
                 <CardContent className="p-8">
                   <div className="flex items-center mb-6">
-                    <div className="bg-primary/10 rounded-lg p-3 mr-4">
-                      <Eye className="h-8 w-8 text-primary" />
+                    <div className="bg-blue-100 rounded-lg p-3 mr-4">
+                      <Eye className="h-8 w-8 text-blue-600" />
                     </div>
-                    <h2 className="text-3xl font-bold text-foreground">Our Vision</h2>
+                    <h2 className="text-3xl font-bold text-slate-900">Our Vision</h2>
                   </div>
-                  <p className="text-lg text-muted-foreground leading-relaxed">
+                  <p className="text-lg text-slate-500 leading-relaxed">
                     A world where every animal receives quality veterinary care, and every community 
                     has access to the knowledge and resources needed to maintain healthy, thriving 
                     livestock. We envision empowered communities transforming their futures through 
@@ -153,11 +153,11 @@ const Overview = () => {
         </section>
 
         {/* Core Values Section */}
-        <section className="py-20 bg-muted/30">
+        <section className="py-20 bg-slate-100/30">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-16">
-              <h2 className="text-4xl font-bold text-foreground mb-4">Our Core Values</h2>
-              <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+              <h2 className="text-4xl font-bold text-slate-900 mb-4">Our Core Values</h2>
+              <p className="text-xl text-slate-500 max-w-3xl mx-auto">
                 The principles that guide everything we do
               </p>
             </div>
@@ -168,11 +168,11 @@ const Overview = () => {
                 return (
                   <Card key={index} className="hover:shadow-xl transition-all hover:-translate-y-1">
                     <CardContent className="p-6">
-                      <div className="bg-primary/10 rounded-lg w-14 h-14 flex items-center justify-center mb-4">
-                        <Icon className="h-7 w-7 text-primary" />
+                      <div className="bg-blue-100 rounded-lg w-14 h-14 flex items-center justify-center mb-4">
+                        <Icon className="h-7 w-7 text-blue-600" />
                       </div>
-                      <h3 className="text-xl font-bold text-foreground mb-3">{value.title}</h3>
-                      <p className="text-muted-foreground leading-relaxed">
+                      <h3 className="text-xl font-bold text-slate-900 mb-3">{value.title}</h3>
+                      <p className="text-slate-500 leading-relaxed">
                         {value.description}
                       </p>
                     </CardContent>
@@ -184,11 +184,11 @@ const Overview = () => {
         </section>
 
         {/* Impact Areas Section */}
-        <section className="py-20 bg-background">
+        <section className="py-20 bg-white">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-16">
-              <h2 className="text-4xl font-bold text-foreground mb-4">Our Impact Areas</h2>
-              <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+              <h2 className="text-4xl font-bold text-slate-900 mb-4">Our Impact Areas</h2>
+              <p className="text-xl text-slate-500 max-w-3xl mx-auto">
                 Comprehensive programs designed to create lasting change
               </p>
             </div>
@@ -197,15 +197,15 @@ const Overview = () => {
               {impactAreas.map((area, index) => (
                 <Card key={index} className="border-2 hover:shadow-xl transition-shadow">
                   <CardContent className="p-8">
-                    <h3 className="text-2xl font-bold text-foreground mb-4">{area.title}</h3>
-                    <p className="text-muted-foreground mb-6 leading-relaxed">
+                    <h3 className="text-2xl font-bold text-slate-900 mb-4">{area.title}</h3>
+                    <p className="text-slate-500 mb-6 leading-relaxed">
                       {area.description}
                     </p>
                     <ul className="space-y-3">
                       {area.points.map((point, idx) => (
                         <li key={idx} className="flex items-start">
-                          <CheckCircle2 className="h-5 w-5 text-primary mr-3 flex-shrink-0 mt-0.5" />
-                          <span className="text-muted-foreground">{point}</span>
+                          <CheckCircle2 className="h-5 w-5 text-blue-600 mr-3 flex-shrink-0 mt-0.5" />
+                          <span className="text-slate-500">{point}</span>
                         </li>
                       ))}
                     </ul>
@@ -217,7 +217,7 @@ const Overview = () => {
         </section>
 
         {/* Call to Action */}
-        <section className="py-20 bg-primary text-primary-foreground">
+        <section className="py-20 bg-blue-600 text-white">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
             <h2 className="text-3xl md:text-4xl font-bold mb-6">
               Join Us in Making a Difference
@@ -228,13 +228,13 @@ const Overview = () => {
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <a 
                 href="/volunteers/how-to" 
-                className="px-8 py-3 bg-background text-foreground rounded-lg font-semibold hover:shadow-xl transition-all"
+                className="px-8 py-3 bg-white text-slate-900 rounded-lg font-semibold hover:shadow-xl transition-all"
               >
                 Become a Volunteer
               </a>
               <a 
                 href="/donate" 
-                className="px-8 py-3 bg-primary-foreground/20 text-primary-foreground border-2 border-primary-foreground rounded-lg font-semibold hover:bg-primary-foreground/30 transition-all"
+                className="px-8 py-3 bg-white/20 text-white border-2 border-white rounded-lg font-semibold hover:bg-white/30 transition-all"
               >
                 Support Our Mission
               </a>

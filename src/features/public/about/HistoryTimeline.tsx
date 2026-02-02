@@ -51,11 +51,11 @@ const HistoryTimeline = () => {
             {timeline.map((item, index) => (
                 <div key={index} className="relative pl-8 md:pl-12 group">
                     {/* Dot */}
-                    <div className="absolute -left-[11px] top-1 bg-white border-4 border-primary w-6 h-6 rounded-full group-hover:scale-125 transition-transform duration-300" />
+                    <div className="absolute -left-[11px] top-1 bg-white border-4 border-blue-600 w-6 h-6 rounded-full group-hover:scale-125 transition-transform duration-300" />
                     
                     <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-4">
                         <div className="md:w-1/4">
-                            <span className="text-2xl font-bold text-primary block">{item.year}</span>
+                            <span className="text-2xl font-bold text-blue-600 block">{item.year}</span>
                         </div>
                         <div className="md:w-3/4">
                             <h3 className="text-xl font-bold text-slate-800 mb-2">{item.title}</h3>

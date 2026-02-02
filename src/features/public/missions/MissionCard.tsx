@@ -3,29 +3,40 @@ import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card"
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { Badge } from "@/components/ui/badge";
+import { Mission } from "@/types";
+import { format } from "date-fns";
 
-export interface MissionProps {
-  id: string | number;
-  title: string;
-  description: string;
-  location: string;
-  date: string;
-  imageUrl: string;
-  category?: string;
+interface MissionCardProps {
+  mission: Mission;
 }
 
-const MissionCard = ({ id, title, description, location, date, imageUrl, category = "Outreach" }: MissionProps) => {
+const MissionCard = ({ mission }: MissionCardProps) => {
+  const { id, title, description, location, start_date, end_date, cover_image, status } = mission;
+  
+  const formatDate = () => {
+    try {
+      if (!start_date) return "";
+      const start = format(new Date(start_date), "MMM yyyy");
+      if (!end_date) return start;
+      const end = format(new Date(end_date), "MMM yyyy");
+      return start === end ? start : `${start} - ${end}`;
+    } catch (e) {
+      return start_date;
+    }
+  };
+
   return (
     <Card className="overflow-hidden flex flex-col h-full hover:shadow-xl transition-all duration-300 group border-slate-100">
       <div className="relative h-48 overflow-hidden">
         <img 
-          src={imageUrl} 
+          src={cover_image || "/placeholder-mission.jpg"} 
           alt={title} 
           className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+          loading="lazy"
         />
         <div className="absolute top-4 right-4">
-            <Badge className="bg-white/90 text-primary hover:bg-white font-bold backdrop-blur-sm">
-                {category}
+            <Badge className="bg-white/90 text-primary hover:bg-white font-bold backdrop-blur-sm capitalize">
+                {status}
             </Badge>
         </div>
       </div>
@@ -34,7 +45,7 @@ const MissionCard = ({ id, title, description, location, date, imageUrl, categor
         <div className="flex items-center space-x-4 text-xs text-slate-500 mb-2">
             <div className="flex items-center">
                 <Calendar className="h-3 w-3 mr-1 text-secondary" />
-                {date}
+                {formatDate()}
             </div>
             <div className="flex items-center">
                 <MapPin className="h-3 w-3 mr-1 text-secondary" />
@@ -47,9 +58,7 @@ const MissionCard = ({ id, title, description, location, date, imageUrl, categor
       </CardHeader>
       
       <CardContent className="flex-grow">
-        <p className="text-slate-600 text-sm line-clamp-3 leading-relaxed">
-          {description}
-        </p>
+        <div className="text-slate-600 text-sm line-clamp-3 leading-relaxed" dangerouslySetInnerHTML={{ __html: description }} />
       </CardContent>
       
       <CardFooter className="pt-0">

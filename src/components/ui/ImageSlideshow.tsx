@@ -50,7 +50,7 @@ export const ImageSlideshow: React.FC<ImageSlideshowProps> = ({
   if (images.length === 0) return null;
 
   return (
-    <div className={cn("relative w-full h-96 rounded-lg overflow-hidden bg-muted", className)}>
+    <div className={cn("relative w-full h-96 rounded-lg overflow-hidden bg-slate-100", className)}>
       {/* Images with fade transition */}
       <div className="relative w-full h-full">
         {images.map((image, index) => (
@@ -75,7 +75,7 @@ export const ImageSlideshow: React.FC<ImageSlideshowProps> = ({
           <Button
             variant="outline"
             size="icon"
-            className="absolute left-4 top-1/2 -translate-y-1/2 bg-background/80 hover:bg-background/90 border-border/50"
+            className="absolute left-4 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white/90 border-slate-200/50"
             onClick={goToPrevious}
           >
             <ChevronLeft className="h-4 w-4" />
@@ -84,7 +84,7 @@ export const ImageSlideshow: React.FC<ImageSlideshowProps> = ({
           <Button
             variant="outline"
             size="icon"
-            className="absolute right-4 top-1/2 -translate-y-1/2 bg-background/80 hover:bg-background/90 border-border/50"
+            className="absolute right-4 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white/90 border-slate-200/50"
             onClick={goToNext}
           >
             <ChevronRight className="h-4 w-4" />
@@ -101,8 +101,8 @@ export const ImageSlideshow: React.FC<ImageSlideshowProps> = ({
               className={cn(
                 "w-2 h-2 rounded-full transition-all duration-300",
                 index === currentIndex
-                  ? "bg-primary scale-125"
-                  : "bg-background/60 hover:bg-background/80"
+                  ? "bg-blue-600 scale-125"
+                  : "bg-white/60 hover:bg-white/80"
               )}
               onClick={() => goToSlide(index)}
             />
@@ -112,7 +112,7 @@ export const ImageSlideshow: React.FC<ImageSlideshowProps> = ({
 
       {/* Image Counter */}
       {images.length > 1 && (
-        <div className="absolute top-4 right-4 bg-background/80 text-foreground px-2 py-1 rounded text-sm">
+        <div className="absolute top-4 right-4 bg-white/80 text-slate-900 px-2 py-1 rounded text-sm">
           {currentIndex + 1} / {images.length}
         </div>
       )}

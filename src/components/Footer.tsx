@@ -21,15 +21,15 @@ const Footer = () => {
   };
 
   return (
-    <footer className="bg-foreground text-white">
+    <footer className="bg-slate-100 dark:bg-slate-900 text-slate-900 dark:text-slate-100 border-t border-slate-200 dark:border-slate-800 transition-colors duration-300">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="grid md:grid-cols-4 gap-8">
           <div className="md:col-span-2">
             <div className="flex items-center space-x-2 mb-4">
               <span className="text-xl font-bold">Contact info</span>
             </div>
-            <div className="space-y-2 text-sm text-white/80">
-              <div className="font-semibold text-white">{settings.siteTitle || "Veterinarians with a Mission Programme"}</div>
+            <div className="space-y-2 text-sm text-slate-600 dark:text-slate-400">
+              <div className="font-semibold text-slate-900 dark:text-slate-200">{settings.siteTitle || "Veterinarians with a Mission Programme"}</div>
               <div>Ultimate House,</div>
               <div>Oloolua Road, Ngong Town.</div>
               <div className="mt-2">Phone: 0116-922-908</div>
@@ -44,7 +44,7 @@ const Footer = () => {
                 <li key={link.name}>
                   <Link 
                     to={link.path} 
-                    className="text-white/80 hover:text-white transition-colors"
+                    className="text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors"
                   >
                     {link.name}
                   </Link>
@@ -60,7 +60,7 @@ const Footer = () => {
                 <li key={link.name}>
                   <Link 
                     to={link.path} 
-                    className="text-white/80 hover:text-white transition-colors"
+                    className="text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors"
                   >
                     {link.name}
                   </Link>
@@ -72,17 +72,17 @@ const Footer = () => {
               <h4 className="font-semibold mb-3">Follow Us</h4>
               <div className="flex space-x-4">
                 {settings.socialLinks.twitter && (
-                  <a href={settings.socialLinks.twitter} target="_blank" rel="noopener noreferrer" className="text-white/80 hover:text-white transition-colors">
+                  <a href={settings.socialLinks.twitter} target="_blank" rel="noopener noreferrer" className="text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors">
                     <Twitter className="h-5 w-5" />
                   </a>
                 )}
                 {settings.socialLinks.facebook && (
-                  <a href={settings.socialLinks.facebook} target="_blank" rel="noopener noreferrer" className="text-white/80 hover:text-white transition-colors">
+                  <a href={settings.socialLinks.facebook} target="_blank" rel="noopener noreferrer" className="text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors">
                     <Facebook className="h-5 w-5" />
                   </a>
                 )}
                 {settings.socialLinks.instagram && (
-                  <a href={settings.socialLinks.instagram} target="_blank" rel="noopener noreferrer" className="text-white/80 hover:text-white transition-colors">
+                  <a href={settings.socialLinks.instagram} target="_blank" rel="noopener noreferrer" className="text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors">
                     <Instagram className="h-5 w-5" />
                   </a>
                 )}
@@ -91,7 +91,7 @@ const Footer = () => {
           </div>
         </div>
 
-        <div className="border-t border-white/20 mt-8 pt-8 text-center text-white/60 text-sm">
+        <div className="border-t border-slate-200 dark:border-slate-800 mt-8 pt-8 text-center text-slate-500 dark:text-slate-500 text-sm">
           © {currentYear} {settings.siteTitle || "veterinarianswithamissionprogramme.org"}  All rights reserved.
         </div>
       </div>

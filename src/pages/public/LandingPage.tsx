@@ -1,13 +1,39 @@
 import Hero from "@/features/public/home/Hero";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { Heart, Users, MapPin, Calendar, ArrowRight, Quote } from "lucide-react";
+import { Heart, Users, MapPin, Calendar, ArrowRight, Quote, Loader2 } from "lucide-react";
 import { Link } from "react-router-dom";
 import NewsCard from "@/features/public/news/NewsCard";
-import { newsData } from "@/data/news";
+import { useEffect, useState } from "react";
+import { homepageService } from "@/services/homepageService";
+import { newsService } from "@/services/newsService";
+import { Testimonial, NewsItem } from "@/types";
 
 const LandingPage = () => {
-  const featuredUpdates = newsData.slice(0, 3);
+  const [testimonials, setTestimonials] = useState<Testimonial[]>([]);
+  const [featuredUpdates, setFeaturedUpdates] = useState<NewsItem[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const [testimonialsData, newsData] = await Promise.all([
+          homepageService.getTestimonials(),
+          newsService.getAll()
+        ]);
+        
+        setTestimonials(testimonialsData);
+        // Take top 3 news items
+        setFeaturedUpdates(newsData.slice(0, 3));
+      } catch (error) {
+        console.error("Failed to fetch landing page data", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   return (
     <div className="flex flex-col min-h-screen">
@@ -66,8 +92,8 @@ const LandingPage = () => {
                 alt="Our History" 
                 className="w-full h-full object-cover"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex items-end p-8">
-                <p className="text-white font-medium">Serving since 2010</p>
+              <div className="absolute inset-0 bg-gradient-to-t from-white/90 to-transparent flex items-end p-8">
+                <p className="text-slate-900 font-medium">Serving since 2010</p>
               </div>
             </div>
             <div>
@@ -86,9 +112,11 @@ const LandingPage = () => {
                 </p>
               </div>
               <div className="mt-8">
-                <Button variant="outline" className="gap-2">
-                  Read More About Us <ArrowRight className="h-4 w-4" />
-                </Button>
+                <Link to="/about">
+                  <Button variant="outline" className="gap-2">
+                    Read More About Us <ArrowRight className="h-4 w-4" />
+                  </Button>
+                </Link>
               </div>
             </div>
           </div>
@@ -103,110 +131,95 @@ const LandingPage = () => {
               <h2 className="text-3xl font-heading font-bold text-slate-900 mb-4">Featured Missions & News</h2>
               <p className="text-slate-600 max-w-2xl">See how we are transforming communities through veterinary care.</p>
             </div>
-            <Link to="/missions" className="hidden md:flex text-primary font-medium hover:text-primary/80 items-center gap-2">
-              View All Missions <ArrowRight className="h-4 w-4" />
+            <Link to="/news" className="hidden md:flex text-primary font-medium hover:text-primary/80 items-center gap-2">
+              View All News <ArrowRight className="h-4 w-4" />
             </Link>
           </div>
           
-          <div className="grid md:grid-cols-3 gap-8">
-             {/* Using NewsCards as Mission Cards for now since they share structure */}
-             {featuredUpdates.map((news) => (
-               <NewsCard key={news.id} item={news} />
-             ))}
-          </div>
+          {loading ? (
+             <div className="flex justify-center py-12">
+                <Loader2 className="h-8 w-8 animate-spin text-primary" />
+             </div>
+          ) : (
+            <div className="grid md:grid-cols-3 gap-8">
+              {featuredUpdates.length > 0 ? (
+                featuredUpdates.map((news) => (
+                  <NewsCard key={news.id} item={news} />
+                ))
+              ) : (
+                <div className="col-span-3 text-center py-12 text-slate-500">
+                  No updates available yet.
+                </div>
+              )}
+            </div>
+          )}
           
           <div className="mt-8 text-center md:hidden">
-            <Link to="/missions" className="text-primary font-medium hover:text-primary/80 inline-flex items-center gap-2">
-              View All Missions <ArrowRight className="h-4 w-4" />
+            <Link to="/news" className="text-primary font-medium hover:text-primary/80 inline-flex items-center gap-2">
+              View All News <ArrowRight className="h-4 w-4" />
             </Link>
           </div>
         </div>
       </section>
 
       {/* Testimonials Section */}
-      <section className="py-20 bg-primary text-white relative overflow-hidden">
-        {/* Decorative background pattern */}
-        <div className="absolute inset-0 opacity-10 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-white via-transparent to-transparent" />
-        
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-heading font-bold mb-4">What People Say</h2>
-            <p className="text-blue-100 max-w-2xl mx-auto">Hear from our dedicated team members and volunteers about their transformative experiences.</p>
+      {testimonials.length > 0 && (
+        <section className="py-20 bg-blue-50 text-slate-900 relative overflow-hidden">
+          {/* Decorative background pattern */}
+          <div className="absolute inset-0 opacity-10 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-blue-200 via-transparent to-transparent" />
+          
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div className="text-center mb-16">
+              <h2 className="text-3xl md:text-4xl font-heading font-bold mb-4">What People Say</h2>
+              <p className="text-slate-600 max-w-2xl mx-auto">Hear from our dedicated team members and volunteers about their transformative experiences.</p>
+            </div>
+
+            <div className="grid md:grid-cols-2 gap-8">
+              {testimonials.map((testimonial) => (
+                <Card key={testimonial.id} className="bg-white border border-slate-200 text-slate-900 shadow-sm">
+                  <CardContent className="p-8">
+                    <Quote className="h-8 w-8 text-primary mb-4 opacity-80" />
+                    <p className="text-lg mb-6 leading-relaxed font-medium text-slate-700">
+                      "{testimonial.content}"
+                    </p>
+                    <div className="flex items-center gap-4">
+                      {testimonial.image_url && (
+                        <img 
+                          src={testimonial.image_url} 
+                          alt={testimonial.name} 
+                          className="h-12 w-12 rounded-full object-cover" 
+                        />
+                      )}
+                      <div>
+                        <div className="font-bold text-lg">{testimonial.name}</div>
+                        <div className="text-primary text-sm">{testimonial.role}</div>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
           </div>
-
-          <div className="grid md:grid-cols-2 gap-8">
-            <Card className="bg-white/10 border-none text-white backdrop-blur-sm">
-              <CardContent className="p-8">
-                <Quote className="h-8 w-8 text-accent mb-4 opacity-80" />
-                <p className="text-lg mb-6 leading-relaxed font-medium">
-                  "Vet Missions transformed our community by bringing veterinary care and hope through Christ’s love."
-                </p>
-                <div>
-                  <div className="font-bold text-lg">Dr. Josiah Mandieka</div>
-                  <div className="text-blue-200 text-sm">Founder</div>
-                </div>
-              </CardContent>
-            </Card>
-
-            <Card className="bg-white/10 border-none text-white backdrop-blur-sm">
-              <CardContent className="p-8">
-                <Quote className="h-8 w-8 text-accent mb-4 opacity-80" />
-                <p className="text-lg mb-6 leading-relaxed font-medium">
-                  "Their compassion and dedication not only saved animals but also touched lives with God’s message."
-                </p>
-                <div>
-                  <div className="font-bold text-lg">Dr. Ezra Saitoti</div>
-                  <div className="text-blue-200 text-sm">Director</div>
-                </div>
-              </CardContent>
-            </Card>
-
-            <Card className="bg-white/10 border-none text-white backdrop-blur-sm">
-              <CardContent className="p-8">
-                <Quote className="h-8 w-8 text-accent mb-4 opacity-80" />
-                <p className="text-lg mb-6 leading-relaxed font-medium">
-                  "My experience with Vet Missions was truly life-changing. The opportunity to use my skills to help animals in need while sharing my faith was incredibly rewarding."
-                </p>
-                <div>
-                  <div className="font-bold text-lg">George Mulovi</div>
-                  <div className="text-blue-200 text-sm">Volunteer, 2022</div>
-                </div>
-              </CardContent>
-            </Card>
-
-            <Card className="bg-white/10 border-none text-white backdrop-blur-sm">
-              <CardContent className="p-8">
-                <Quote className="h-8 w-8 text-accent mb-4 opacity-80" />
-                <p className="text-lg mb-6 leading-relaxed font-medium">
-                  "Vet Missions provides a unique platform for veterinarians to make a global impact. The dedication and compassion of the team are inspiring."
-                </p>
-                <div>
-                  <div className="font-bold text-lg">Jadiel Muiru</div>
-                  <div className="text-blue-200 text-sm">Paraprofessional</div>
-                </div>
-              </CardContent>
-            </Card>
-          </div>
-        </div>
-      </section>
+        </section>
+      )}
 
       {/* Call to Action */}
-      <section className="py-20 bg-slate-900 text-white text-center">
+      <section className="py-20 bg-blue-50 text-slate-900 text-center">
         <div className="max-w-4xl mx-auto px-4">
           <h2 className="text-3xl md:text-4xl font-heading font-bold mb-6">
             Join Us in Making a Difference
           </h2>
-          <p className="text-xl text-slate-300 mb-8">
+          <p className="text-xl text-slate-600 mb-8">
             Whether through donation, volunteering, or prayer, your support helps us reach more communities.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link to="/donate">
-              <Button size="lg" className="bg-accent hover:bg-accent/90 text-white font-bold px-8 w-full sm:w-auto">
+              <Button size="lg" className="bg-amber-400 hover:bg-amber-500 text-slate-900 font-bold px-8 w-full sm:w-auto">
                 Donate Now
               </Button>
             </Link>
             <Link to="/volunteer">
-              <Button size="lg" variant="outline" className="border-white text-white hover:bg-white hover:text-slate-900 w-full sm:w-auto">
+              <Button size="lg" variant="outline" className="border-slate-900 text-slate-900 hover:bg-slate-200 hover:text-slate-900 w-full sm:w-auto">
                 Become a Volunteer
               </Button>
             </Link>

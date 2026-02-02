@@ -37,7 +37,7 @@ const testimonials = [
 
 const Testimonials = () => {
   return (
-    <section className="py-20 bg-primary/5">
+    <section className="py-20 bg-blue-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
           <h2 className="text-3xl md:text-4xl font-heading font-bold text-slate-800 mb-4">
@@ -61,17 +61,17 @@ const Testimonials = () => {
                 <div className="h-full">
                   <Card className="h-full border-none shadow-sm hover:shadow-md transition-shadow">
                     <CardContent className="p-8 flex flex-col h-full">
-                      <Quote className="h-10 w-10 text-primary/20 mb-6" />
+                      <Quote className="h-10 w-10 text-blue-200 mb-6" />
                       <p className="text-slate-600 mb-6 flex-grow italic leading-relaxed">
                         "{testimonial.content}"
                       </p>
                       <div className="mt-auto flex items-center space-x-4">
-                        <div className="w-10 h-10 bg-secondary/10 rounded-full flex items-center justify-center text-secondary">
+                        <div className="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center text-green-600">
                             <User className="h-5 w-5" />
                         </div>
                         <div>
                           <h4 className="font-bold text-slate-800 text-sm">{testimonial.name}</h4>
-                          <p className="text-xs text-primary font-medium">{testimonial.role}</p>
+                          <p className="text-xs text-blue-600 font-medium">{testimonial.role}</p>
                           <p className="text-xs text-slate-400">{testimonial.location}</p>
                         </div>
                       </div>

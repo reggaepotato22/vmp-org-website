@@ -90,22 +90,22 @@ const Testimonials = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-white">
       <Navigation />
       
       <main className="pt-20">
         {/* Hero Section */}
-        <section className="relative bg-gradient-to-br from-primary/10 via-primary/5 to-background py-20">
+        <section className="relative bg-gradient-to-br from-blue-100 via-blue-50 to-white py-20">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center max-w-4xl mx-auto">
-              <div className="inline-flex items-center justify-center bg-primary/10 rounded-full px-6 py-2 mb-6">
-                <Quote className="h-5 w-5 text-primary mr-2" />
-                <span className="text-primary font-semibold">What People Say</span>
+              <div className="inline-flex items-center justify-center bg-blue-100 rounded-full px-6 py-2 mb-6">
+                <Quote className="h-5 w-5 text-blue-600 mr-2" />
+                <span className="text-blue-600 font-semibold">What People Say</span>
               </div>
-              <h1 className="text-4xl md:text-6xl font-bold text-foreground mb-6">
+              <h1 className="text-4xl md:text-6xl font-bold text-slate-900 mb-6">
                 Stories of Impact
               </h1>
-              <p className="text-xl md:text-2xl text-muted-foreground leading-relaxed">
+              <p className="text-xl md:text-2xl text-slate-500 leading-relaxed">
                 Real experiences from volunteers, communities, and partners touched by our mission
               </p>
             </div>
@@ -113,20 +113,20 @@ const Testimonials = () => {
         </section>
 
         {/* Stats Bar */}
-        <section className="py-12 bg-card">
+        <section className="py-12 bg-slate-50">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
               {stats.map((stat, index) => {
                 const Icon = stat.icon;
                 return (
                   <div key={index} className="text-center">
-                    <div className="bg-primary/10 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-3">
-                      <Icon className="h-8 w-8 text-primary" />
+                    <div className="bg-blue-100 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-3">
+                      <Icon className="h-8 w-8 text-blue-600" />
                     </div>
-                    <div className="text-3xl font-bold text-foreground mb-1">
+                    <div className="text-3xl font-bold text-slate-900 mb-1">
                       {stat.number}
                     </div>
-                    <div className="text-sm text-muted-foreground">
+                    <div className="text-sm text-slate-500">
                       {stat.label}
                     </div>
                   </div>
@@ -137,14 +137,14 @@ const Testimonials = () => {
         </section>
 
         {/* Quick Impact Quotes */}
-        <section className="py-16 bg-primary/5">
+        <section className="py-16 bg-blue-50">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="grid md:grid-cols-3 gap-8">
               {impactQuotes.map((item, index) => (
                 <div key={index} className="text-center">
-                  <Quote className="h-10 w-10 text-primary mx-auto mb-4 opacity-50" />
-                  <p className="text-2xl font-bold text-foreground mb-2">{item.quote}</p>
-                  <p className="text-muted-foreground">— {item.author}</p>
+                  <Quote className="h-10 w-10 text-blue-600 mx-auto mb-4 opacity-50" />
+                  <p className="text-2xl font-bold text-slate-900 mb-2">{item.quote}</p>
+                  <p className="text-slate-500">— {item.author}</p>
                 </div>
               ))}
             </div>
@@ -152,13 +152,13 @@ const Testimonials = () => {
         </section>
 
         {/* Main Testimonials Section */}
-        <section className="py-20 bg-background">
+        <section className="py-20 bg-white">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-16">
-              <h2 className="text-4xl font-bold text-foreground mb-4">
+              <h2 className="text-4xl font-bold text-slate-900 mb-4">
                 Hear From Our Community
               </h2>
-              <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+              <p className="text-xl text-slate-500 max-w-3xl mx-auto">
                 Voices of transformation from volunteers, beneficiaries, and partners
               </p>
             </div>
@@ -175,13 +175,13 @@ const Testimonials = () => {
                     </div>
 
                     {/* Highlight Badge */}
-                    <div className="inline-block bg-primary/10 text-primary px-3 py-1 rounded-full text-xs font-semibold mb-4">
+                    <div className="inline-block bg-blue-100 text-blue-600 px-3 py-1 rounded-full text-xs font-semibold mb-4">
                       {testimonial.highlight}
                     </div>
 
                     {/* Quote */}
-                    <Quote className="h-8 w-8 text-primary/20 mb-4" />
-                    <blockquote className="text-foreground mb-6 leading-relaxed">
+                    <Quote className="h-8 w-8 text-blue-600/20 mb-4" />
+                    <blockquote className="text-slate-900 mb-6 leading-relaxed">
                       "{testimonial.content}"
                     </blockquote>
 
@@ -189,13 +189,13 @@ const Testimonials = () => {
                     <div className="flex items-start border-t pt-4">
                       <div className="text-4xl mr-4">{testimonial.image}</div>
                       <div className="flex-1">
-                        <div className="font-bold text-foreground">{testimonial.name}</div>
-                        <div className="text-sm text-muted-foreground">{testimonial.role}</div>
-                        <div className="flex items-center text-xs text-muted-foreground mt-1">
+                        <div className="font-bold text-slate-900">{testimonial.name}</div>
+                        <div className="text-sm text-slate-500">{testimonial.role}</div>
+                        <div className="flex items-center text-xs text-slate-500 mt-1">
                           <MapPin className="h-3 w-3 mr-1" />
                           {testimonial.location}
                         </div>
-                        <div className="text-xs text-muted-foreground mt-1">
+                        <div className="text-xs text-slate-500 mt-1">
                           {testimonial.year}
                         </div>
                       </div>
@@ -208,15 +208,15 @@ const Testimonials = () => {
         </section>
 
         {/* Impact Statement Section */}
-        <section className="py-20 bg-muted/30">
+        <section className="py-20 bg-slate-50">
           <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-            <Card className="border-2 border-primary/20">
+            <Card className="border-2 border-blue-600/20">
               <CardContent className="p-12 text-center">
-                <Quote className="h-16 w-16 text-primary/30 mx-auto mb-6" />
-                <blockquote className="text-3xl font-bold text-foreground mb-6 leading-relaxed">
+                <Quote className="h-16 w-16 text-blue-600/30 mx-auto mb-6" />
+                <blockquote className="text-3xl font-bold text-slate-900 mb-6 leading-relaxed">
                   "VMP doesn't just treat animals—they transform communities, empower people, and spread hope through compassionate service."
                 </blockquote>
-                <div className="text-xl text-muted-foreground">
+                <div className="text-xl text-slate-500">
                   — Common sentiment from communities we serve
                 </div>
               </CardContent>
@@ -225,13 +225,13 @@ const Testimonials = () => {
         </section>
 
         {/* Video Testimonials Placeholder */}
-        <section className="py-20 bg-background">
+        <section className="py-20 bg-white">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-12">
-              <h2 className="text-4xl font-bold text-foreground mb-4">
+              <h2 className="text-4xl font-bold text-slate-900 mb-4">
                 Video Testimonials
               </h2>
-              <p className="text-xl text-muted-foreground">
+              <p className="text-xl text-slate-500">
                 Watch stories of transformation in action
               </p>
             </div>
@@ -239,17 +239,17 @@ const Testimonials = () => {
             <div className="grid md:grid-cols-3 gap-8">
               {[1, 2, 3].map((item) => (
                 <Card key={item} className="overflow-hidden hover:shadow-xl transition-shadow">
-                  <div className="bg-muted h-48 flex items-center justify-center">
+                  <div className="bg-slate-100 h-48 flex items-center justify-center">
                     <div className="text-center">
-                      <div className="bg-primary rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-3">
-                        <Heart className="h-8 w-8 text-primary-foreground" />
+                      <div className="bg-blue-600 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-3">
+                        <Heart className="h-8 w-8 text-white" />
                       </div>
-                      <p className="text-muted-foreground text-sm">Video Testimonial {item}</p>
+                      <p className="text-slate-500 text-sm">Video Testimonial {item}</p>
                     </div>
                   </div>
                   <CardContent className="p-4">
-                    <h3 className="font-semibold text-foreground">Community Impact Story</h3>
-                    <p className="text-sm text-muted-foreground">Coming soon...</p>
+                    <h3 className="font-semibold text-slate-900">Community Impact Story</h3>
+                    <p className="text-sm text-slate-500">Coming soon...</p>
                   </CardContent>
                 </Card>
               ))}
@@ -258,7 +258,7 @@ const Testimonials = () => {
         </section>
 
         {/* Call to Action */}
-        <section className="py-20 bg-primary text-primary-foreground">
+        <section className="py-20 bg-blue-600 text-white">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
             <h2 className="text-3xl md:text-4xl font-bold mb-6">
               Write Your Own Story With Us
@@ -269,13 +269,13 @@ const Testimonials = () => {
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <a 
                 href="/volunteers/how-to" 
-                className="px-8 py-3 bg-background text-foreground rounded-lg font-semibold hover:shadow-xl transition-all"
+                className="px-8 py-3 bg-white text-slate-900 rounded-lg font-semibold hover:shadow-xl transition-all"
               >
                 Share Your Experience
               </a>
               <a 
                 href="/contact" 
-                className="px-8 py-3 bg-primary-foreground/20 text-primary-foreground border-2 border-primary-foreground rounded-lg font-semibold hover:bg-primary-foreground/30 transition-all"
+                className="px-8 py-3 bg-white/20 text-white border-2 border-white rounded-lg font-semibold hover:bg-white/30 transition-all"
               >
                 Contact Us
               </a>

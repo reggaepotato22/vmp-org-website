@@ -6,45 +6,70 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import type { CarouselApi } from "@/components/ui/carousel";
+import { homepageService } from "@/services/homepageService";
+import { HeroSlide } from "@/types";
 
-// Import images
+// Import images for fallback
 import heroSlide1 from "@/assets/vmphotos/heroslide1.png";
 import heroSlide2 from "@/assets/vmphotos/heroslide2.png";
 import heroSlide3 from "@/assets/vmphotos/heroslide3.png";
-import heroSlide4 from "@/assets/vmphotos/heroslide4.png";
-import heroSlide5 from "@/assets/vmphotos/heroslide5.png";
-import heroSlide6 from "@/assets/vmphotos/heroslide6.png";
-import heroSlide7 from "@/assets/vmphotos/heroslide7.jpg";
-import heroSlide8 from "@/assets/vmphotos/heroslide8.png";
-import heroSlide9 from "@/assets/vmphotos/heroslide9.jpg";
 
-const slides = [
+const defaultSlides = [
   {
-    id: 1,
+    id: "default-1",
     image: heroSlide1,
     title: "Veterinarians with a Mission Programme",
     description: "Transforming lives through veterinary care and the love of Christ.",
+    order_index: 0,
+    active: true
   },
   {
-    id: 2,
+    id: "default-2",
     image: heroSlide2,
     title: "Matthew 28:19-20",
-    description: "Therefore go and make disciples of all nations, baptizing them in the name of the Father and of the Son and of the Holy Spirit, and teaching them to obey everything I have commanded you. And surely I am with you always, to the very end of the age",
+    description: "Therefore go and make disciples of all nations...",
+    order_index: 1,
+    active: true
   },
   {
-    id: 3,
+    id: "default-3",
     image: heroSlide3,
     title: "Compassion in Action",
     description: "Reaching out to underserved communities with professional veterinary care and spiritual support.",
+    order_index: 2,
+    active: true
   },
 ];
 
 const Hero = () => {
   const [api, setApi] = useState<CarouselApi>();
+  const [slides, setSlides] = useState<HeroSlide[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchSlides = async () => {
+      try {
+        const data = await homepageService.getSlides();
+        // If we have active slides from DB, use them. Otherwise fallback to defaults.
+        const activeSlides = data.filter(s => s.active !== false);
+        if (activeSlides.length > 0) {
+          setSlides(activeSlides);
+        } else {
+          setSlides(defaultSlides as HeroSlide[]);
+        }
+      } catch (error) {
+        console.error("Failed to fetch slides", error);
+        setSlides(defaultSlides as HeroSlide[]);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchSlides();
+  }, []);
 
   useEffect(() => {
     if (!api) {
@@ -58,6 +83,10 @@ const Hero = () => {
     return () => clearInterval(intervalId);
   }, [api]);
 
+  if (loading) {
+     return <div className="w-full h-[600px] md:h-[700px] bg-slate-900 animate-pulse" />;
+  }
+
   return (
     <div className="relative w-full h-[600px] md:h-[700px] bg-slate-900 overflow-hidden group">
       <Carousel
@@ -67,53 +96,42 @@ const Hero = () => {
         }}
         className="w-full h-full"
       >
-        <CarouselContent>
+        <CarouselContent className="-ml-0">
           {slides.map((slide) => (
-            <CarouselItem key={slide.id} className="relative w-full h-[600px] md:h-[700px]">
-              {/* Background Image */}
-              <div 
-                className="absolute inset-0 bg-cover bg-center"
-                style={{ backgroundImage: `url(${slide.image})` }}
-              >
-                {/* Overlay Gradient */}
-                <div className="absolute inset-0 bg-gradient-to-t from-slate-900/90 via-slate-900/40 to-transparent" />
-              </div>
-
-              {/* Content */}
-              <div className="relative h-full flex items-center justify-center text-center px-4">
-                <div className="max-w-4xl mx-auto space-y-6 animate-in fade-in slide-in-from-bottom-8 duration-1000">
-                  <h1 className="text-4xl md:text-6xl font-heading font-bold text-white leading-tight drop-shadow-lg">
-                    {slide.title}
-                  </h1>
-                  <p className="text-lg md:text-xl text-slate-200 max-w-2xl mx-auto leading-relaxed drop-shadow-md">
-                    {slide.description}
-                  </p>
-                  <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4">
-                    <Link to="/donate">
-                      <Button 
-                        size="lg" 
-                        className="bg-accent hover:bg-accent/90 text-white font-bold text-lg px-8 py-6 rounded-full shadow-lg hover:shadow-accent/20 transition-all hover:-translate-y-1"
-                      >
-                        Donate Now
+            <CarouselItem key={slide.id} className="pl-0 h-full">
+              <div className="relative w-full h-full">
+                <img
+                  src={slide.image}
+                  alt={slide.title}
+                  className="w-full h-full object-cover"
+                />
+                {/* Enhanced Gradient Overlay */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent" />
+                
+                <div className="absolute inset-0 flex items-center justify-center text-center p-4">
+                  <div className="max-w-4xl space-y-6 animate-in fade-in zoom-in duration-1000 slide-in-from-bottom-10">
+                    <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-white drop-shadow-lg tracking-tight leading-tight">
+                      {slide.title}
+                    </h1>
+                    <p className="text-lg md:text-2xl text-slate-100 max-w-2xl mx-auto drop-shadow-md font-light">
+                      {slide.description}
+                    </p>
+                    <div className="pt-4 flex flex-col sm:flex-row gap-4 justify-center">
+                      <Button asChild size="lg" className="bg-blue-600 hover:bg-blue-700 text-white border-none shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-200 text-lg px-8 py-6 h-auto rounded-full">
+                        <Link to="/donate">Donate Now</Link>
                       </Button>
-                    </Link>
-                    <Link to="/missions">
-                      <Button 
-                        size="lg" 
-                        variant="outline" 
-                        className="bg-white/10 hover:bg-white/20 text-white border-white/30 backdrop-blur-sm font-bold text-lg px-8 py-6 rounded-full"
-                      >
-                        Our Missions
+                      <Button asChild variant="outline" size="lg" className="bg-white/10 hover:bg-white/20 text-white border-2 border-white/50 hover:border-white backdrop-blur-sm shadow-lg text-lg px-8 py-6 h-auto rounded-full">
+                        <Link to="/missions">Our Missions</Link>
                       </Button>
-                    </Link>
+                    </div>
                   </div>
                 </div>
               </div>
             </CarouselItem>
           ))}
         </CarouselContent>
-        <CarouselPrevious className="left-4 bg-white/10 border-white/20 text-white hover:bg-white/20 hidden md:flex" />
-        <CarouselNext className="right-4 bg-white/10 border-white/20 text-white hover:bg-white/20 hidden md:flex" />
+        <CarouselPrevious className="left-4 bg-black/30 hover:bg-black/50 text-white border-none h-12 w-12" />
+        <CarouselNext className="right-4 bg-black/30 hover:bg-black/50 text-white border-none h-12 w-12" />
       </Carousel>
     </div>
   );

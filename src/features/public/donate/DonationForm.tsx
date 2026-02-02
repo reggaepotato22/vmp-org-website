@@ -61,7 +61,7 @@ const DonationForm = () => {
                 key={val}
                 type="button"
                 variant={amount === val && !customAmount ? "default" : "outline"}
-                className={amount === val && !customAmount ? "bg-primary text-white" : "border-slate-200"}
+                className={amount === val && !customAmount ? "bg-blue-100 text-blue-900 border-blue-200 font-bold hover:bg-blue-200 hover:text-blue-900" : "border-slate-200 text-slate-700"}
                 onClick={() => {
                   setAmount(val);
                   setCustomAmount("");

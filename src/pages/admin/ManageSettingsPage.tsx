@@ -97,17 +97,17 @@ const ManageSettingsPage = () => {
             <div className="flex items-center justify-between rounded-lg border p-4">
               <div className="space-y-0.5">
                 <Label className="text-base">Dark Mode</Label>
-                <div className="text-sm text-muted-foreground">
+                <div className="text-sm text-slate-500">
                   Toggle system-wide dark mode.
                 </div>
               </div>
               <div className="flex items-center gap-2">
-                <Sun className="h-4 w-4 text-muted-foreground" />
+                <Sun className="h-4 w-4 text-slate-500" />
                 <Switch
                   checked={settings.theme === 'dark'}
                   onCheckedChange={toggleTheme}
                 />
-                <Moon className="h-4 w-4 text-muted-foreground" />
+                <Moon className="h-4 w-4 text-slate-500" />
               </div>
             </div>
           </CardContent>

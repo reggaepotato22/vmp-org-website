@@ -28,7 +28,7 @@ const FlutterwaveDonate = ({
   }
 
   const config = {
-    public_key: "FLWPUBK_TEST-xxxxxxxxxxxxxxxxxxxxx-X", // TODO: Replace with env variable
+    public_key: import.meta.env.VITE_FLUTTERWAVE_PUBLIC_KEY || "FLWPUBK_TEST-xxxxxxxxxxxxxxxxxxxxx-X",
     tx_ref: `VMP-${donationType}-${Date.now()}`,
     amount: amount,
     currency: paymentMethod === "mpesa" ? "KES" : "USD",
@@ -77,8 +77,8 @@ const FlutterwaveDonate = ({
             ${disabled 
                 ? "bg-slate-200 text-slate-400 cursor-not-allowed" 
                 : paymentMethod === "mpesa"
-                    ? "bg-green-600 hover:bg-green-700 text-white shadow-md hover:shadow-lg"
-                    : "bg-blue-600 hover:bg-blue-700 text-white shadow-md hover:shadow-lg"
+                    ? "bg-green-400 hover:bg-green-500 text-slate-900 shadow-md hover:shadow-lg"
+                    : "bg-blue-400 hover:bg-blue-500 text-slate-900 shadow-md hover:shadow-lg"
             }
         `}
       >

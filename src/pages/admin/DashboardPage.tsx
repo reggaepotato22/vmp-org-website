@@ -1,146 +1,190 @@
+import { useEffect, useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Users, FileText, Calendar, DollarSign, TrendingUp, Activity, Image as ImageIcon } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { useNavigate } from "react-router-dom";
+import { newsService } from '@/services/newsService';
+import { missionService } from '@/services/missionService';
+import { galleryService } from '@/services/galleryService';
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
+import { Users, FileText, Image as ImageIcon, TrendingUp } from 'lucide-react';
+
+const mockData = [
+  { name: 'Jan', visits: 4000 },
+  { name: 'Feb', visits: 3000 },
+  { name: 'Mar', visits: 2000 },
+  { name: 'Apr', visits: 2780 },
+  { name: 'May', visits: 1890 },
+  { name: 'Jun', visits: 2390 },
+  { name: 'Jul', visits: 3490 },
+];
 
 const DashboardPage = () => {
-  const navigate = useNavigate();
+  const [stats, setStats] = useState({
+    news: 0,
+    missions: 0,
+    gallery: 0
+  });
 
-  // Mock Stats
-  const stats = [
-    {
-      title: "Total Donations",
-      value: "$45,231.89",
-      change: "+20.1% from last month",
-      icon: DollarSign,
-      color: "text-green-600",
-      bg: "bg-green-50"
-    },
-    {
-      title: "Active Volunteers",
-      value: "124",
-      change: "+12 new this month",
-      icon: Users,
-      color: "text-blue-600",
-      bg: "bg-blue-50"
-    },
-    {
-      title: "Mission Reports",
-      value: "24",
-      change: "All reports up to date",
-      icon: FileText,
-      color: "text-purple-600",
-      bg: "bg-purple-50"
-    },
-    {
-      title: "Upcoming Events",
-      value: "3",
-      change: "Next event in 5 days",
-      icon: Calendar,
-      color: "text-orange-600",
-      bg: "bg-orange-50"
-    }
-  ];
+  useEffect(() => {
+    const fetchStats = async () => {
+      try {
+        const [news, missions, gallery] = await Promise.all([
+          newsService.getAll().catch(() => []),
+          missionService.getAll().catch(() => []),
+          galleryService.getAll().catch(() => [])
+        ]);
+        setStats({
+          news: news.length,
+          missions: missions.length,
+          gallery: gallery.length
+        });
+      } catch (error) {
+        console.error("Failed to fetch stats", error);
+        // We could set an error state here, but for now we'll just log it
+        // and keep the stats at 0.
+      }
+    };
+    fetchStats();
+  }, []);
 
   return (
-    <div className="space-y-8">
-      <div className="flex items-center justify-between">
-        <div>
-            <h1 className="text-3xl font-bold tracking-tight text-slate-900">Dashboard</h1>
-            <p className="text-slate-500">Welcome back to the Kenya Vets Mission admin panel.</p>
-        </div>
-        <div className="flex gap-2">
-            <Button>Download Report</Button>
-        </div>
+    <div className="space-y-6">
+      <h2 className="text-3xl font-bold tracking-tight">Dashboard</h2>
+      
+      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+        <Card className="border-l-4 border-l-blue-500 shadow-md hover:shadow-lg transition-shadow">
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+            <CardTitle className="text-sm font-medium text-slate-600">Total News & Stories</CardTitle>
+            <div className="p-2 bg-blue-100 rounded-full">
+              <FileText className="h-4 w-4 text-blue-600" />
+            </div>
+          </CardHeader>
+          <CardContent>
+            <div className="text-2xl font-bold text-slate-900">{stats.news}</div>
+          </CardContent>
+        </Card>
+        <Card className="border-l-4 border-l-green-500 shadow-md hover:shadow-lg transition-shadow">
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+            <CardTitle className="text-sm font-medium text-slate-600">Total Missions</CardTitle>
+            <div className="p-2 bg-green-100 rounded-full">
+              <Users className="h-4 w-4 text-green-600" />
+            </div>
+          </CardHeader>
+          <CardContent>
+            <div className="text-2xl font-bold text-slate-900">{stats.missions}</div>
+          </CardContent>
+        </Card>
+        <Card className="border-l-4 border-l-purple-500 shadow-md hover:shadow-lg transition-shadow">
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+            <CardTitle className="text-sm font-medium text-slate-600">Gallery Images</CardTitle>
+            <div className="p-2 bg-purple-100 rounded-full">
+              <ImageIcon className="h-4 w-4 text-purple-600" />
+            </div>
+          </CardHeader>
+          <CardContent>
+            <div className="text-2xl font-bold text-slate-900">{stats.gallery}</div>
+          </CardContent>
+        </Card>
+        <Card className="border-l-4 border-l-orange-500 shadow-md hover:shadow-lg transition-shadow">
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+            <CardTitle className="text-sm font-medium text-slate-600">Monthly Visitors</CardTitle>
+            <div className="p-2 bg-orange-100 rounded-full">
+              <TrendingUp className="h-4 w-4 text-orange-600" />
+            </div>
+          </CardHeader>
+          <CardContent>
+            <div className="text-2xl font-bold text-slate-900">+2,350</div>
+            <p className="text-xs text-slate-500 mt-1">+18% from last month</p>
+          </CardContent>
+        </Card>
       </div>
 
+      {/* Quick Actions */}
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-        {stats.map((stat, i) => {
-            const Icon = stat.icon;
-            return (
-                <Card key={i} className="border-slate-200 shadow-sm">
-                    <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                        <CardTitle className="text-sm font-medium text-slate-600">
-                            {stat.title}
-                        </CardTitle>
-                        <div className={`h-8 w-8 rounded-full flex items-center justify-center ${stat.bg}`}>
-                            <Icon className={`h-4 w-4 ${stat.color}`} />
-                        </div>
-                    </CardHeader>
-                    <CardContent>
-                        <div className="text-2xl font-bold text-slate-900">{stat.value}</div>
-                        <p className="text-xs text-slate-500 mt-1">
-                            {stat.change}
-                        </p>
-                    </CardContent>
-                </Card>
-            );
-        })}
+        <a href="/admin/news" className="block p-4 bg-white border border-slate-200 rounded-lg shadow-sm hover:border-blue-500 hover:ring-1 hover:ring-blue-500 transition-all cursor-pointer group">
+          <div className="flex items-center space-x-3">
+            <div className="p-2 bg-blue-50 rounded-lg group-hover:bg-blue-100 transition-colors">
+              <FileText className="h-5 w-5 text-blue-600" />
+            </div>
+            <div>
+              <h3 className="font-semibold text-slate-900">Add News</h3>
+              <p className="text-sm text-slate-500">Post a new update</p>
+            </div>
+          </div>
+        </a>
+        <a href="/admin/missions" className="block p-4 bg-white border border-slate-200 rounded-lg shadow-sm hover:border-green-500 hover:ring-1 hover:ring-green-500 transition-all cursor-pointer group">
+          <div className="flex items-center space-x-3">
+            <div className="p-2 bg-green-50 rounded-lg group-hover:bg-green-100 transition-colors">
+              <Users className="h-5 w-5 text-green-600" />
+            </div>
+            <div>
+              <h3 className="font-semibold text-slate-900">Add Mission</h3>
+              <p className="text-sm text-slate-500">Create new mission</p>
+            </div>
+          </div>
+        </a>
+        <a href="/admin/gallery" className="block p-4 bg-white border border-slate-200 rounded-lg shadow-sm hover:border-purple-500 hover:ring-1 hover:ring-purple-500 transition-all cursor-pointer group">
+          <div className="flex items-center space-x-3">
+            <div className="p-2 bg-purple-50 rounded-lg group-hover:bg-purple-100 transition-colors">
+              <ImageIcon className="h-5 w-5 text-purple-600" />
+            </div>
+            <div>
+              <h3 className="font-semibold text-slate-900">Upload Photos</h3>
+              <p className="text-sm text-slate-500">Add to gallery</p>
+            </div>
+          </div>
+        </a>
       </div>
 
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-7">
-        {/* Recent Activity */}
-        <Card className="col-span-4 shadow-sm">
-            <CardHeader>
-                <CardTitle>Recent Activity</CardTitle>
-            </CardHeader>
-            <CardContent>
-                <div className="space-y-8">
-                    {[
-                        { user: "Sarah Johnson", action: "submitted a new volunteer application", time: "2 hours ago" },
-                        { user: "Admin", action: "updated the Mataarba Mission report", time: "5 hours ago" },
-                        { user: "John Doe", action: "donated $50.00 via M-Pesa", time: "1 day ago" },
-                        { user: "System", action: "automated backup completed", time: "1 day ago" },
-                    ].map((item, i) => (
-                        <div key={i} className="flex items-center">
-                            <div className="h-9 w-9 rounded-full bg-slate-100 flex items-center justify-center mr-4 border border-slate-200">
-                                <Activity className="h-4 w-4 text-slate-500" />
-                            </div>
-                            <div className="space-y-1">
-                                <p className="text-sm font-medium leading-none text-slate-800">
-                                    <span className="font-bold">{item.user}</span> {item.action}
-                                </p>
-                                <p className="text-xs text-slate-500">
-                                    {item.time}
-                                </p>
-                            </div>
-                        </div>
-                    ))}
-                </div>
-            </CardContent>
+        <Card className="col-span-4">
+          <CardHeader>
+            <CardTitle>Traffic Overview</CardTitle>
+          </CardHeader>
+          <CardContent className="pl-2">
+            <ResponsiveContainer width="100%" height={350}>
+              <BarChart data={mockData}>
+                <CartesianGrid strokeDasharray="3 3" />
+                <XAxis dataKey="name" stroke="#888888" fontSize={12} tickLine={false} axisLine={false} />
+                <YAxis stroke="#888888" fontSize={12} tickLine={false} axisLine={false} tickFormatter={(value) => `${value}`} />
+                <Tooltip />
+                <Bar dataKey="visits" fill="#adfa1d" radius={[4, 4, 0, 0]} className="fill-blue-600" />
+              </BarChart>
+            </ResponsiveContainer>
+          </CardContent>
         </Card>
-
-        {/* Quick Actions */}
-        <Card className="col-span-3 shadow-sm">
-            <CardHeader>
-                <CardTitle>Quick Actions</CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-4">
-                <Button 
-                    variant="outline" 
-                    className="w-full justify-start h-12 text-slate-600 hover:text-primary hover:border-primary/50 hover:bg-blue-50"
-                    onClick={() => navigate("/admin/news")}
-                >
-                    <FileText className="mr-2 h-4 w-4" />
-                    Post New Story
-                </Button>
-                <Button 
-                    variant="outline" 
-                    className="w-full justify-start h-12 text-slate-600 hover:text-primary hover:border-primary/50 hover:bg-blue-50"
-                    onClick={() => navigate("/admin/gallery")}
-                >
-                    <ImageIcon className="mr-2 h-4 w-4" />
-                    Upload Gallery Photos
-                </Button>
-                <Button 
-                    variant="outline" 
-                    className="w-full justify-start h-12 text-slate-600 hover:text-primary hover:border-primary/50 hover:bg-blue-50"
-                    onClick={() => navigate("/admin/users")}
-                >
-                    <Users className="mr-2 h-4 w-4" />
-                    Manage Users
-                </Button>
-            </CardContent>
+        
+        <Card className="col-span-3">
+          <CardHeader>
+            <CardTitle>Recent Activity</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="space-y-8">
+              <div className="flex items-center">
+                <span className="relative flex h-2 w-2 mr-2">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-sky-400 opacity-75"></span>
+                  <span className="relative inline-flex rounded-full h-2 w-2 bg-sky-500"></span>
+                </span>
+                <div className="ml-4 space-y-1">
+                  <p className="text-sm font-medium leading-none">New Donation</p>
+                  <p className="text-sm text-slate-500">Isabella Nguyen donated $50.00</p>
+                </div>
+                <div className="ml-auto font-medium">Just now</div>
+              </div>
+              <div className="flex items-center">
+                 <div className="ml-4 space-y-1">
+                  <p className="text-sm font-medium leading-none">New Mission Created</p>
+                  <p className="text-sm text-slate-500">Turkana 2026 Mission</p>
+                </div>
+                <div className="ml-auto font-medium">2h ago</div>
+              </div>
+               <div className="flex items-center">
+                 <div className="ml-4 space-y-1">
+                  <p className="text-sm font-medium leading-none">New News Article</p>
+                  <p className="text-sm text-slate-500">Vet Mission Success</p>
+                </div>
+                <div className="ml-auto font-medium">5h ago</div>
+              </div>
+            </div>
+          </CardContent>
         </Card>
       </div>
     </div>

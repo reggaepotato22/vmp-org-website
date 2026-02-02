@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Menu, X, ChevronDown } from "lucide-react";
+import { Menu, X, ChevronDown, Moon, Sun } from "lucide-react";
 import logoImage from "@/assets/kenyavetsmission-logo.png";
 import {
   DropdownMenu,
@@ -14,6 +14,7 @@ import { cn } from "@/lib/utils";
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [theme, setTheme] = useState<'light' | 'dark'>('light');
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -22,8 +23,31 @@ const Navbar = () => {
       setScrolled(window.scrollY > 20);
     };
     window.addEventListener("scroll", handleScroll);
+    
+    // Check local storage or system preference
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme === 'dark' || (!savedTheme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+      setTheme('dark');
+      document.documentElement.classList.add('dark');
+    } else {
+      setTheme('light');
+      document.documentElement.classList.remove('dark');
+    }
+
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  const toggleTheme = () => {
+    if (theme === 'light') {
+      setTheme('dark');
+      document.documentElement.classList.add('dark');
+      localStorage.setItem('theme', 'dark');
+    } else {
+      setTheme('light');
+      document.documentElement.classList.remove('dark');
+      localStorage.setItem('theme', 'light');
+    }
+  };
 
   const handleNavClick = (path: string) => {
     navigate(path);
@@ -38,8 +62,8 @@ const Navbar = () => {
       className={cn(
         "fixed top-0 left-0 right-0 z-50 transition-all duration-300 w-full",
         scrolled
-          ? "bg-white/95 backdrop-blur-md shadow-sm h-20 border-b border-slate-100"
-          : "bg-white h-24 border-b border-transparent"
+          ? "bg-white/95 dark:bg-slate-900/95 backdrop-blur-md shadow-sm h-20 border-b border-slate-100 dark:border-slate-800"
+          : "bg-white dark:bg-slate-900 h-24 border-b border-transparent"
       )}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-full">
@@ -54,15 +78,15 @@ const Navbar = () => {
               src={logoImage}
               alt="Kenya Vets Mission"
               className={cn(
-                "transition-all duration-300 object-contain",
+                "transition-all duration-300 object-contain dark:brightness-0 dark:invert",
                 scrolled ? "h-12" : "h-16"
               )}
             />
             <div className="hidden sm:flex flex-col">
-              <span className="text-primary font-heading font-bold text-lg leading-tight">
+              <span className="text-primary font-heading font-bold text-lg leading-tight dark:text-blue-400">
                 Veterinarians With
               </span>
-              <span className="text-secondary font-heading font-bold text-lg leading-tight">
+              <span className="text-secondary font-heading font-bold text-lg leading-tight dark:text-blue-200">
                 A Mission Programme
               </span>
             </div>
@@ -73,8 +97,8 @@ const Navbar = () => {
             <button
               onClick={() => handleNavClick("/")}
               className={cn(
-                "text-sm font-medium transition-colors hover:text-primary",
-                isActive("/") ? "text-primary font-bold" : "text-slate-600"
+                "text-sm font-medium transition-colors hover:text-primary dark:hover:text-blue-400",
+                isActive("/") ? "text-primary font-bold dark:text-blue-400" : "text-slate-600 dark:text-slate-300"
               )}
             >
               Home
@@ -83,22 +107,22 @@ const Navbar = () => {
             <DropdownMenu>
               <DropdownMenuTrigger
                 className={cn(
-                  "flex items-center text-sm font-medium transition-colors hover:text-primary focus:outline-none",
+                  "flex items-center text-sm font-medium transition-colors hover:text-primary dark:hover:text-blue-400 focus:outline-none",
                   location.pathname.startsWith("/about")
-                    ? "text-primary font-bold"
-                    : "text-slate-600"
+                    ? "text-primary font-bold dark:text-blue-400"
+                    : "text-slate-600 dark:text-slate-300"
                 )}
               >
                 About <ChevronDown className="ml-1 h-4 w-4" />
               </DropdownMenuTrigger>
-              <DropdownMenuContent className="bg-white border-slate-100 shadow-lg">
-                <DropdownMenuItem onClick={() => handleNavClick("/about/overview")}>
+              <DropdownMenuContent className="bg-white dark:bg-slate-800 border-slate-100 dark:border-slate-700 shadow-lg">
+                <DropdownMenuItem onClick={() => handleNavClick("/about/overview")} className="dark:text-slate-200 dark:focus:bg-slate-700">
                   Overview
                 </DropdownMenuItem>
-                <DropdownMenuItem onClick={() => handleNavClick("/about/history")}>
+                <DropdownMenuItem onClick={() => handleNavClick("/about/history")} className="dark:text-slate-200 dark:focus:bg-slate-700">
                   History
                 </DropdownMenuItem>
-                <DropdownMenuItem onClick={() => handleNavClick("/about/testimonials")}>
+                <DropdownMenuItem onClick={() => handleNavClick("/about/testimonials")} className="dark:text-slate-200 dark:focus:bg-slate-700">
                   Testimonials
                 </DropdownMenuItem>
               </DropdownMenuContent>
@@ -107,25 +131,18 @@ const Navbar = () => {
             <button
               onClick={() => handleNavClick("/news")}
               className={cn(
-                "text-sm font-medium transition-colors hover:text-primary",
-                isActive("/news") ? "text-primary font-bold" : "text-slate-600"
+                "text-sm font-medium transition-colors hover:text-primary dark:hover:text-blue-400",
+                isActive("/news") ? "text-primary font-bold dark:text-blue-400" : "text-slate-600 dark:text-slate-300"
               )}
             >
               Updates
             </button>
 
-            <Button
-              onClick={() => handleNavClick("/donate")}
-              className="bg-accent hover:bg-accent/90 text-white font-bold rounded-full px-6 shadow-lg shadow-accent/20 transition-all hover:-translate-y-0.5"
-            >
-              Donate
-            </Button>
-
             <button
               onClick={() => handleNavClick("/missions")}
               className={cn(
-                "text-sm font-medium transition-colors hover:text-primary",
-                isActive("/missions") ? "text-primary font-bold" : "text-slate-600"
+                "text-sm font-medium transition-colors hover:text-primary dark:hover:text-blue-400",
+                isActive("/missions") ? "text-primary font-bold dark:text-blue-400" : "text-slate-600 dark:text-slate-300"
               )}
             >
               Missions
@@ -134,8 +151,8 @@ const Navbar = () => {
             <button
               onClick={() => handleNavClick("/volunteer")}
               className={cn(
-                "text-sm font-medium transition-colors hover:text-primary",
-                isActive("/volunteer") ? "text-primary font-bold" : "text-slate-600"
+                "text-sm font-medium transition-colors hover:text-primary dark:hover:text-blue-400",
+                isActive("/volunteer") ? "text-primary font-bold dark:text-blue-400" : "text-slate-600 dark:text-slate-300"
               )}
             >
               Volunteers
@@ -144,8 +161,8 @@ const Navbar = () => {
             <button
               onClick={() => handleNavClick("/gallery")}
               className={cn(
-                "text-sm font-medium transition-colors hover:text-primary",
-                isActive("/gallery") ? "text-primary font-bold" : "text-slate-600"
+                "text-sm font-medium transition-colors hover:text-primary dark:hover:text-blue-400",
+                isActive("/gallery") ? "text-primary font-bold dark:text-blue-400" : "text-slate-600 dark:text-slate-300"
               )}
             >
               Gallery
@@ -154,19 +171,33 @@ const Navbar = () => {
             <button
               onClick={() => handleNavClick("/contact")}
               className={cn(
-                "text-sm font-medium transition-colors hover:text-primary",
-                isActive("/contact") ? "text-primary font-bold" : "text-slate-600"
+                "text-sm font-medium transition-colors hover:text-primary dark:hover:text-blue-400",
+                isActive("/contact") ? "text-primary font-bold dark:text-blue-400" : "text-slate-600 dark:text-slate-300"
               )}
             >
               Contact
             </button>
+
+            <Button variant="ghost" size="icon" onClick={toggleTheme} className="text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">
+              {theme === 'light' ? <Moon className="h-5 w-5" /> : <Sun className="h-5 w-5" />}
+            </Button>
+
+            <Button
+              onClick={() => handleNavClick("/donate")}
+              className="bg-amber-400 hover:bg-amber-500 text-slate-900 font-bold rounded-full px-6 shadow-lg transition-all hover:-translate-y-0.5"
+            >
+              Donate
+            </Button>
           </div>
 
           {/* Mobile Menu Button */}
-          <div className="md:hidden">
+          <div className="md:hidden flex items-center space-x-4">
+            <Button variant="ghost" size="icon" onClick={toggleTheme} className="text-slate-600 dark:text-slate-300">
+              {theme === 'light' ? <Moon className="h-5 w-5" /> : <Sun className="h-5 w-5" />}
+            </Button>
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="text-slate-600 hover:text-primary transition-colors"
+              className="text-slate-600 dark:text-slate-300 hover:text-primary dark:hover:text-blue-400 transition-colors"
             >
               {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
             </button>
@@ -176,71 +207,71 @@ const Navbar = () => {
 
       {/* Mobile Menu */}
       {isMenuOpen && (
-        <div className="md:hidden bg-white border-b border-slate-100 shadow-lg absolute w-full left-0 top-full">
+        <div className="md:hidden bg-white dark:bg-slate-900 border-b border-slate-100 dark:border-slate-800 shadow-lg absolute w-full left-0 top-full">
           <div className="px-4 py-4 space-y-4 flex flex-col">
             <button
               onClick={() => handleNavClick("/")}
-              className="text-left px-3 py-2 text-base font-medium text-slate-600 hover:text-primary hover:bg-slate-50 rounded-md"
+              className="text-left px-3 py-2 text-base font-medium text-slate-600 dark:text-slate-300 hover:text-primary dark:hover:text-blue-400 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-md"
             >
               Home
             </button>
             <div className="px-3 py-2 space-y-2">
-              <span className="text-sm font-bold text-slate-400 uppercase tracking-wider">About</span>
+              <span className="text-sm font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider">About</span>
               <button
                 onClick={() => handleNavClick("/about/overview")}
-                className="block w-full text-left pl-4 text-base text-slate-600 hover:text-primary"
+                className="block w-full text-left pl-4 text-base text-slate-600 dark:text-slate-300 hover:text-primary dark:hover:text-blue-400"
               >
                 Overview
               </button>
               <button
                 onClick={() => handleNavClick("/about/history")}
-                className="block w-full text-left pl-4 text-base text-slate-600 hover:text-primary"
+                className="block w-full text-left pl-4 text-base text-slate-600 dark:text-slate-300 hover:text-primary dark:hover:text-blue-400"
               >
                 History
               </button>
               <button
                 onClick={() => handleNavClick("/about/testimonials")}
-                className="block w-full text-left pl-4 text-base text-slate-600 hover:text-primary"
+                className="block w-full text-left pl-4 text-base text-slate-600 dark:text-slate-300 hover:text-primary dark:hover:text-blue-400"
               >
                 Testimonials
               </button>
             </div>
             <button
               onClick={() => handleNavClick("/news")}
-              className="text-left px-3 py-2 text-base font-medium text-slate-600 hover:text-primary hover:bg-slate-50 rounded-md"
+              className="text-left px-3 py-2 text-base font-medium text-slate-600 dark:text-slate-300 hover:text-primary dark:hover:text-blue-400 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-md"
             >
               Updates
             </button>
-            <Button
-              onClick={() => handleNavClick("/donate")}
-              className="w-full bg-accent hover:bg-accent/90 text-white font-bold rounded-full"
-            >
-              Donate
-            </Button>
             <button
               onClick={() => handleNavClick("/missions")}
-              className="text-left px-3 py-2 text-base font-medium text-slate-600 hover:text-primary hover:bg-slate-50 rounded-md"
+              className="text-left px-3 py-2 text-base font-medium text-slate-600 dark:text-slate-300 hover:text-primary dark:hover:text-blue-400 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-md"
             >
               Missions
             </button>
             <button
               onClick={() => handleNavClick("/volunteer")}
-              className="text-left px-3 py-2 text-base font-medium text-slate-600 hover:text-primary hover:bg-slate-50 rounded-md"
+              className="text-left px-3 py-2 text-base font-medium text-slate-600 dark:text-slate-300 hover:text-primary dark:hover:text-blue-400 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-md"
             >
               Volunteers
             </button>
             <button
               onClick={() => handleNavClick("/gallery")}
-              className="text-left px-3 py-2 text-base font-medium text-slate-600 hover:text-primary hover:bg-slate-50 rounded-md"
+              className="text-left px-3 py-2 text-base font-medium text-slate-600 dark:text-slate-300 hover:text-primary dark:hover:text-blue-400 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-md"
             >
               Gallery
             </button>
             <button
               onClick={() => handleNavClick("/contact")}
-              className="text-left px-3 py-2 text-base font-medium text-slate-600 hover:text-primary hover:bg-slate-50 rounded-md"
+              className="text-left px-3 py-2 text-base font-medium text-slate-600 dark:text-slate-300 hover:text-primary dark:hover:text-blue-400 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-md"
             >
               Contact
             </button>
+            <Button
+              onClick={() => handleNavClick("/donate")}
+              className="w-full bg-amber-400 hover:bg-amber-500 text-slate-900 font-bold rounded-full"
+            >
+              Donate
+            </Button>
           </div>
         </div>
       )}

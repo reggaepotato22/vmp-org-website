@@ -62,13 +62,13 @@ const VolunteerPage = () => {
     <div className="min-h-screen bg-slate-50 pb-20">
       
       {/* Hero */}
-      <section className="bg-primary text-white pt-24 pb-20 relative overflow-hidden">
-        <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1559027615-cd4628902d4a?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80')] bg-cover bg-center opacity-10 mix-blend-overlay"></div>
+      <section className="bg-blue-50 text-slate-900 pt-24 pb-20 relative overflow-hidden">
+        <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1559027615-cd4628902d4a?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80')] bg-cover bg-center opacity-5 mix-blend-overlay"></div>
         <div className="container mx-auto px-4 relative z-10 text-center">
             <h1 className="text-4xl md:text-5xl font-heading font-bold mb-6">
                 Volunteer With Us
             </h1>
-            <p className="text-xl text-blue-100 max-w-2xl mx-auto leading-relaxed mb-8">
+            <p className="text-xl text-slate-600 max-w-2xl mx-auto leading-relaxed mb-8">
                 Join a community of dedicated professionals using their veterinary skills to serve God and transform lives.
             </p>
             <Button size="lg" variant="secondary" onClick={scrollToApplication} className="font-bold">
@@ -91,7 +91,7 @@ const VolunteerPage = () => {
                 const Icon = s.icon;
                 return (
                     <div key={i} className="bg-white p-8 rounded-xl shadow-sm border border-slate-100 relative hover:shadow-md transition-shadow">
-                        <div className="absolute -top-4 -left-4 w-10 h-10 bg-secondary text-white rounded-full flex items-center justify-center font-bold text-lg shadow-sm">
+                        <div className="absolute -top-4 -left-4 w-10 h-10 bg-emerald-100 text-slate-900 rounded-full flex items-center justify-center font-bold text-lg shadow-sm">
                             {s.step}
                         </div>
                         <div className="w-12 h-12 bg-blue-50 rounded-full flex items-center justify-center mb-6 text-primary">
@@ -142,13 +142,13 @@ const VolunteerPage = () => {
       </section>
 
       {/* CTA / Application Form Placeholder */}
-      <section id="application" ref={applicationRef} className="py-20 bg-slate-900 text-white text-center">
+      <section id="application" ref={applicationRef} className="py-20 bg-blue-50 text-slate-900 text-center border-t border-slate-200">
         <div className="container mx-auto px-4 max-w-3xl">
             <h2 className="text-3xl md:text-4xl font-heading font-bold mb-6">Ready to Serve?</h2>
-            <p className="text-xl text-slate-300 mb-8 leading-relaxed">
+            <p className="text-xl text-slate-600 mb-8 leading-relaxed">
                 We're excited to have you join our mission. Click below to contact us and start your application process.
             </p>
-            <Button size="lg" className="bg-accent hover:bg-accent/90 text-white font-bold px-8 py-6 text-lg shadow-lg shadow-accent/20 w-full sm:w-auto" asChild>
+            <Button size="lg" className="bg-amber-400 hover:bg-amber-500 text-slate-900 font-bold px-8 py-6 text-lg shadow-lg w-full sm:w-auto" asChild>
                 <Link to="/contact">Contact Us to Apply</Link>
             </Button>
         </div>

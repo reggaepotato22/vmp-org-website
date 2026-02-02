@@ -7,13 +7,13 @@ const DonatePage = () => {
     <div className="flex flex-col min-h-screen bg-slate-50">
       
       {/* Hero Section */}
-      <section className="bg-primary text-white pt-20 pb-32 relative overflow-hidden">
-        <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80')] bg-cover bg-center opacity-10 mix-blend-overlay"></div>
+      <section className="bg-blue-50 text-slate-900 pt-20 pb-32 relative overflow-hidden">
+        <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80')] bg-cover bg-center opacity-5 mix-blend-overlay"></div>
         <div className="container mx-auto px-4 text-center relative z-10">
             <h1 className="text-4xl md:text-5xl font-heading font-bold mb-6">
                 Support Our Mission
             </h1>
-            <p className="text-lg md:text-xl text-blue-100 max-w-2xl mx-auto leading-relaxed">
+            <p className="text-lg md:text-xl text-slate-600 max-w-2xl mx-auto leading-relaxed">
                 Your generosity empowers us to provide essential veterinary care, training, and hope to communities that need it most.
             </p>
         </div>

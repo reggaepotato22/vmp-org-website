@@ -1,155 +1,247 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { newsService } from "@/services/newsService";
+import { NewsItem } from "@/types";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { Badge } from "@/components/ui/badge";
-import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
 import {
   Dialog,
   DialogContent,
-  DialogDescription,
-  DialogFooter,
   DialogHeader,
   DialogTitle,
+  DialogTrigger,
 } from "@/components/ui/dialog";
-import { Plus, Pencil, Search } from "lucide-react";
-import { useNewsContext, NewsItem } from "@/context/NewsContext";
-import { ImageUpload } from "@/components/admin/ImageUpload";
-import { DeleteConfirmationModal } from "@/components/admin/DeleteConfirmationModal";
+import { Plus, Pencil, Trash2, Loader2 } from "lucide-react";
+import { toast } from "sonner";
+import { uploadImage } from "@/services/storageService";
+import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.snow.css';
 
 const ManageNewsPage = () => {
-  const { recentNews, addNews, updateNews, deleteNews } = useNewsContext();
-  const [searchQuery, setSearchQuery] = useState("");
+  const [news, setNews] = useState<NewsItem[]>([]);
+  const [loading, setLoading] = useState(true);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
-  const [isEditing, setIsEditing] = useState(false);
-  const [currentItem, setCurrentItem] = useState<Partial<NewsItem>>({});
+  const [editingItem, setEditingItem] = useState<NewsItem | null>(null);
+  const [formData, setFormData] = useState({
+    title: "",
+    content: "",
+    category: "news" as "news" | "event",
+    date: new Date().toISOString().split("T")[0],
+    image_url: "",
+  });
+  const [uploading, setUploading] = useState(false);
 
-  const filteredNews = recentNews.filter((item) =>
-    item.title.toLowerCase().includes(searchQuery.toLowerCase())
-  );
+  useEffect(() => {
+    fetchNews();
+  }, []);
 
-  const handleAddNew = () => {
-    setCurrentItem({
-      category: "Mission Report",
-      date: new Date().toLocaleDateString("en-US", {
-        year: "numeric",
-        month: "short",
-        day: "numeric",
-      }),
-      status: "Draft",
-      author: "Admin",
-    });
-    setIsEditing(false);
-    setIsDialogOpen(true);
-  };
-
-  const handleEdit = (item: NewsItem) => {
-    setCurrentItem({ ...item });
-    setIsEditing(true);
-    setIsDialogOpen(true);
-  };
-
-  const handleDelete = (id: string | number) => {
-    deleteNews(id);
-  };
-
-  const handleSave = () => {
-    if (isEditing && currentItem.id) {
-      updateNews(currentItem as NewsItem);
-    } else {
-      const newItem = {
-        ...currentItem,
-        id: Date.now().toString(),
-      } as NewsItem;
-      addNews(newItem);
+  const fetchNews = async () => {
+    try {
+      const data = await newsService.getAll();
+      setNews(data);
+    } catch (error) {
+      console.error("Failed to fetch news", error);
+    } finally {
+      setLoading(false);
     }
-    setIsDialogOpen(false);
-    setCurrentItem({});
-    setIsEditing(false);
   };
 
-  const handleChange = (key: keyof NewsItem, value: string) => {
-    setCurrentItem((prev) => ({ ...prev, [key]: value }));
+  const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (!e.target.files || e.target.files.length === 0) return;
+    
+    setUploading(true);
+    try {
+      const url = await uploadImage(e.target.files[0], 'news');
+      if (url) {
+        setFormData(prev => ({ ...prev, image_url: url }));
+        toast.success("Image uploaded successfully");
+      }
+    } catch (error) {
+      toast.error("Failed to upload image");
+    } finally {
+      setUploading(false);
+    }
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setLoading(true);
+    try {
+      if (editingItem) {
+        await newsService.update(editingItem.id, formData);
+        toast.success("News updated successfully");
+      } else {
+        await newsService.create(formData);
+        toast.success("News created successfully");
+      }
+      setIsDialogOpen(false);
+      fetchNews();
+      resetForm();
+    } catch (error) {
+      toast.error("Failed to save news");
+      console.error(error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleDelete = async (id: string) => {
+    if (!confirm("Are you sure you want to delete this item?")) return;
+    try {
+      await newsService.delete(id);
+      toast.success("News deleted successfully");
+      fetchNews();
+    } catch (error) {
+      toast.error("Failed to delete news");
+    }
+  };
+
+  const resetForm = () => {
+    setEditingItem(null);
+    setFormData({
+      title: "",
+      content: "",
+      category: "news",
+      date: new Date().toISOString().split("T")[0],
+      image_url: "",
+    });
+  };
+
+  const openEditDialog = (item: NewsItem) => {
+    setEditingItem(item);
+    setFormData({
+      title: item.title,
+      content: item.content,
+      category: item.category,
+      date: item.date,
+      image_url: item.image_url || "",
+    });
+    setIsDialogOpen(true);
   };
 
   return (
-    <div className="space-y-8">
-      <div className="flex items-center justify-between">
-        <div>
-          <h1 className="text-3xl font-bold tracking-tight text-slate-900 dark:text-slate-100">Manage News & Stories</h1>
-          <p className="text-slate-500 dark:text-slate-400">Create, edit, and delete news articles, events, and galleries.</p>
-        </div>
-        <Button onClick={handleAddNew} className="gap-2">
-          <Plus className="h-4 w-4" />
-          Create New Post
-        </Button>
+    <div className="space-y-6">
+      <div className="flex justify-between items-center">
+        <h2 className="text-3xl font-bold tracking-tight">Manage News & Events</h2>
+        <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
+          <DialogTrigger asChild>
+            <Button onClick={resetForm}>
+              <Plus className="mr-2 h-4 w-4" /> Add New
+            </Button>
+          </DialogTrigger>
+          <DialogContent className="sm:max-w-[600px]">
+            <DialogHeader>
+              <DialogTitle>{editingItem ? "Edit News" : "Create News"}</DialogTitle>
+            </DialogHeader>
+            <form onSubmit={handleSubmit} className="space-y-4">
+              <div>
+                <label className="text-sm font-medium">Title</label>
+                <Input
+                  value={formData.title}
+                  onChange={(e) => setFormData({ ...formData, title: e.target.value })}
+                  required
+                />
+              </div>
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <label className="text-sm font-medium">Category</label>
+                  <select
+                    className="flex h-10 w-full rounded-md border border-slate-300 bg-white px-3 py-2 text-sm ring-offset-white file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-slate-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                    value={formData.category}
+                    onChange={(e) => setFormData({ ...formData, category: e.target.value as "news" | "event" })}
+                  >
+                    <option value="news">News</option>
+                    <option value="event">Event</option>
+                  </select>
+                </div>
+                <div>
+                  <label className="text-sm font-medium">Date</label>
+                  <Input
+                    type="date"
+                    value={formData.date}
+                    onChange={(e) => setFormData({ ...formData, date: e.target.value })}
+                    required
+                  />
+                </div>
+              </div>
+              <div>
+                <label className="text-sm font-medium">Image</label>
+                <div className="flex items-center gap-4">
+                  <Input
+                    type="file"
+                    accept="image/*"
+                    onChange={handleImageUpload}
+                    disabled={uploading}
+                  />
+                  {uploading && <Loader2 className="h-4 w-4 animate-spin" />}
+                </div>
+                {formData.image_url && (
+                  <img src={formData.image_url} alt="Preview" className="mt-2 h-20 w-auto rounded object-cover" />
+                )}
+              </div>
+              <div className="space-y-2">
+                <label className="text-sm font-medium">Content</label>
+                <div className="h-64 mb-12">
+                  <ReactQuill 
+                    theme="snow" 
+                    value={formData.content} 
+                    onChange={(content) => setFormData({...formData, content})}
+                    className="h-48"
+                  />
+                </div>
+              </div>
+              <Button type="submit" className="w-full" disabled={loading || uploading}>
+                {loading ? <Loader2 className="h-4 w-4 animate-spin" /> : "Save"}
+              </Button>
+            </form>
+          </DialogContent>
+        </Dialog>
       </div>
 
-      <div className="flex items-center space-x-2 bg-white dark:bg-slate-900 p-2 rounded-lg border border-slate-200 dark:border-slate-800 shadow-sm max-w-md">
-        <Search className="h-5 w-5 text-slate-400" />
-        <Input
-          placeholder="Search news..."
-          value={searchQuery}
-          onChange={(e) => setSearchQuery(e.target.value)}
-          className="border-none shadow-none focus-visible:ring-0 bg-transparent"
-        />
-      </div>
-
-      <div className="bg-white dark:bg-slate-900 rounded-xl shadow-sm border border-slate-200 dark:border-slate-800 overflow-hidden">
+      <div className="rounded-md border bg-white">
         <Table>
           <TableHeader>
-            <TableRow className="dark:border-slate-800">
-              <TableHead className="dark:text-slate-400">Title</TableHead>
-              <TableHead className="dark:text-slate-400">Author</TableHead>
-              <TableHead className="dark:text-slate-400">Date</TableHead>
-              <TableHead className="dark:text-slate-400">Category</TableHead>
-              <TableHead className="dark:text-slate-400">Status</TableHead>
-              <TableHead className="text-right dark:text-slate-400">Actions</TableHead>
+            <TableRow>
+              <TableHead>Title</TableHead>
+              <TableHead>Category</TableHead>
+              <TableHead>Date</TableHead>
+              <TableHead className="text-right">Actions</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
-            {filteredNews.length === 0 ? (
+            {loading ? (
               <TableRow>
-                <TableCell colSpan={6} className="text-center py-8 text-slate-500">
-                  No news found.
+                <TableCell colSpan={4} className="text-center h-24">
+                  <Loader2 className="h-6 w-6 animate-spin mx-auto" />
+                </TableCell>
+              </TableRow>
+            ) : news.length === 0 ? (
+              <TableRow>
+                <TableCell colSpan={4} className="text-center h-24 text-slate-500">
+                  No news items found.
                 </TableCell>
               </TableRow>
             ) : (
-              filteredNews.map((item) => (
-                <TableRow key={item.id} className="dark:border-slate-800">
-                  <TableCell className="font-medium dark:text-slate-200">
-                    <div className="flex items-center gap-3">
-                      {item.imageUrl && (
-                        <img 
-                          src={item.imageUrl} 
-                          alt="" 
-                          className="h-8 w-8 rounded object-cover"
-                        />
-                      )}
-                      {item.title}
-                    </div>
-                  </TableCell>
-                  <TableCell className="dark:text-slate-200">{item.author || "-"}</TableCell>
-                  <TableCell className="dark:text-slate-200">{item.date}</TableCell>
-                  <TableCell>
-                    <Badge variant="secondary">{item.category}</Badge>
-                  </TableCell>
-                  <TableCell>
-                    <Badge variant={item.status === 'Published' ? 'default' : 'outline'}>
-                      {item.status || 'Draft'}
-                    </Badge>
-                  </TableCell>
-                  <TableCell className="text-right space-x-2">
-                    <Button variant="ghost" size="icon" onClick={() => handleEdit(item)}>
-                      <Pencil className="h-4 w-4 text-slate-500 hover:text-primary" />
+              news.map((item) => (
+                <TableRow key={item.id}>
+                  <TableCell className="font-medium">{item.title}</TableCell>
+                  <TableCell className="capitalize">{item.category}</TableCell>
+                  <TableCell>{item.date}</TableCell>
+                  <TableCell className="text-right">
+                    <Button variant="ghost" size="icon" onClick={() => openEditDialog(item)}>
+                      <Pencil className="h-4 w-4" />
                     </Button>
-                    <DeleteConfirmationModal 
-                      onConfirm={() => handleDelete(item.id)}
-                      title="Delete Article?"
-                      description="This will permanently delete this news article."
-                    />
+                    <Button variant="ghost" size="icon" className="text-red-500" onClick={() => handleDelete(item.id)}>
+                      <Trash2 className="h-4 w-4" />
+                    </Button>
                   </TableCell>
                 </TableRow>
               ))
@@ -157,140 +249,6 @@ const ManageNewsPage = () => {
           </TableBody>
         </Table>
       </div>
-
-      <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
-        <DialogContent className="sm:max-w-[700px] max-h-[90vh] overflow-y-auto bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-800">
-          <DialogHeader>
-            <DialogTitle>{isEditing ? "Edit Post" : "Create New Post"}</DialogTitle>
-            <DialogDescription>
-              {isEditing
-                ? "Update the details of this post."
-                : "Create a new news article, event, or update."}
-            </DialogDescription>
-          </DialogHeader>
-          <div className="grid gap-4 py-4">
-            
-            <div className="grid gap-2">
-               <ImageUpload 
-                 label="Featured Image"
-                 value={currentItem.imageUrl}
-                 onChange={(url) => handleChange("imageUrl", url as string)}
-                 folder="news"
-               />
-            </div>
-
-            <div className="grid grid-cols-2 gap-4">
-              <div className="grid gap-2">
-                <Label htmlFor="title">Title</Label>
-                <Input
-                  id="title"
-                  value={currentItem.title || ""}
-                  onChange={(e) => handleChange("title", e.target.value)}
-                  placeholder="Article Title"
-                />
-              </div>
-              <div className="grid gap-2">
-                <Label htmlFor="author">Author</Label>
-                <Input
-                  id="author"
-                  value={currentItem.author || ""}
-                  onChange={(e) => handleChange("author", e.target.value)}
-                  placeholder="Author Name"
-                />
-              </div>
-            </div>
-
-            <div className="grid grid-cols-2 gap-4">
-              <div className="grid gap-2">
-                <Label htmlFor="category">Category</Label>
-                <Select
-                  value={currentItem.category}
-                  onValueChange={(value) => handleChange("category", value)}
-                >
-                  <SelectTrigger>
-                    <SelectValue placeholder="Select category" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="Mission Report">Mission Report</SelectItem>
-                    <SelectItem value="Partnership">Partnership</SelectItem>
-                    <SelectItem value="Milestone">Milestone</SelectItem>
-                    <SelectItem value="Event">Event</SelectItem>
-                    <SelectItem value="General">General</SelectItem>
-                  </SelectContent>
-                </Select>
-              </div>
-              <div className="grid gap-2">
-                <Label htmlFor="status">Status</Label>
-                <Select
-                  value={currentItem.status}
-                  onValueChange={(value) => handleChange("status", value)}
-                >
-                  <SelectTrigger>
-                    <SelectValue placeholder="Select status" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="Draft">Draft</SelectItem>
-                    <SelectItem value="Published">Published</SelectItem>
-                    <SelectItem value="Archived">Archived</SelectItem>
-                  </SelectContent>
-                </Select>
-              </div>
-            </div>
-
-            <div className="grid grid-cols-2 gap-4">
-               <div className="grid gap-2">
-                  <Label htmlFor="date">Published Date</Label>
-                  <Input
-                    id="date"
-                    value={currentItem.date || ""}
-                    onChange={(e) => handleChange("date", e.target.value)}
-                    placeholder="MMM DD, YYYY"
-                  />
-               </div>
-               <div className="grid gap-2">
-                  <Label htmlFor="readTime">Read Time</Label>
-                  <Input
-                    id="readTime"
-                    value={currentItem.readTime || ""}
-                    onChange={(e) => handleChange("readTime", e.target.value)}
-                    placeholder="e.g. 5 min read"
-                  />
-               </div>
-            </div>
-
-            <div className="grid gap-2">
-              <Label htmlFor="excerpt">Excerpt</Label>
-              <Textarea
-                id="excerpt"
-                value={currentItem.excerpt || ""}
-                onChange={(e) => handleChange("excerpt", e.target.value)}
-                placeholder="Short summary..."
-                className="h-20"
-              />
-            </div>
-
-            <div className="grid gap-2">
-              <Label htmlFor="body">Content (Rich Text Placeholder)</Label>
-              <Textarea
-                id="body"
-                value={currentItem.body || ""}
-                onChange={(e) => handleChange("body", e.target.value)}
-                placeholder="Full article content..."
-                className="min-h-[200px] font-mono text-sm"
-              />
-            </div>
-
-          </div>
-          <DialogFooter>
-            <Button variant="outline" onClick={() => setIsDialogOpen(false)}>
-              Cancel
-            </Button>
-            <Button onClick={handleSave}>
-              {isEditing ? "Update Post" : "Publish Post"}
-            </Button>
-          </DialogFooter>
-        </DialogContent>
-      </Dialog>
     </div>
   );
 };

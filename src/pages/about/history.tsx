@@ -27,23 +27,23 @@ const History = () => {
 
       {/* 2. Your existing page content */}
       <div className="container mx-auto py-12"> {/* Adding a container/padding for better page layout */}
-        <Card className="shadow-lg border-border bg-card">
+        <Card className="shadow-lg border-slate-200 bg-white">
           <CardContent className="p-8">
-            <h2 className="text-3xl font-bold mb-8 text-primary text-center">
+            <h2 className="text-3xl font-bold mb-8 text-blue-600 text-center">
               Our Journey Through the Years
             </h2>
             <div className="space-y-8">
               {timeline.map((item, index) => (
                 <div key={index} className="flex items-start space-x-4">
-                  <div className="bg-primary rounded-full p-2 flex-shrink-0">
-                    <Award className="h-5 w-5 text-primary-foreground" />
+                  <div className="bg-blue-600 rounded-full p-2 flex-shrink-0">
+                    <Award className="h-5 w-5 text-white" />
                   </div>
                   <div>
                     <div className="flex items-center space-x-3 mb-2">
-                      <span className="text-xl font-bold text-primary">{item.year}</span>
+                      <span className="text-xl font-bold text-blue-600">{item.year}</span>
                       <span className="font-semibold text-lg">{item.title}</span>
                     </div>
-                    <p className="text-muted-foreground leading-relaxed">
+                    <p className="text-slate-500 leading-relaxed">
                       {item.description}
                     </p>
                   </div>

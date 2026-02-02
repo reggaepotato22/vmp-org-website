@@ -29,7 +29,7 @@ const MissionOverview = () => {
     <section className="py-20 bg-slate-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center max-w-3xl mx-auto mb-16">
-          <h2 className="text-3xl md:text-4xl font-heading font-bold text-primary mb-6">
+          <h2 className="text-3xl md:text-4xl font-heading font-bold text-blue-600 mb-6">
             Our Mission & Vision
           </h2>
           <p className="text-xl text-slate-600 leading-relaxed">
@@ -38,9 +38,9 @@ const MissionOverview = () => {
         </div>
 
         <div className="grid md:grid-cols-2 gap-8 mb-20">
-            <Card className="border-t-4 border-t-primary shadow-md">
+            <Card className="border-t-4 border-t-blue-600 shadow-md">
                 <CardHeader>
-                    <CardTitle className="flex items-center text-2xl font-heading text-primary">
+                    <CardTitle className="flex items-center text-2xl font-heading text-blue-600">
                         <Target className="mr-3 h-6 w-6" />
                         Our Vision
                     </CardTitle>
@@ -52,9 +52,9 @@ const MissionOverview = () => {
                 </CardContent>
             </Card>
 
-            <Card className="border-t-4 border-t-secondary shadow-md">
+            <Card className="border-t-4 border-t-green-500 shadow-md">
                 <CardHeader>
-                    <CardTitle className="flex items-center text-2xl font-heading text-secondary">
+                    <CardTitle className="flex items-center text-2xl font-heading text-green-600">
                         <Heart className="mr-3 h-6 w-6" />
                         Our Mission
                     </CardTitle>
@@ -73,8 +73,8 @@ const MissionOverview = () => {
             return (
               <Card key={index} className="bg-white hover:shadow-lg transition-shadow duration-300">
                 <CardContent className="pt-6 text-center">
-                  <div className="mx-auto bg-primary/10 w-12 h-12 rounded-full flex items-center justify-center mb-4">
-                    <Icon className="h-6 w-6 text-primary" />
+                  <div className="mx-auto bg-blue-100 w-12 h-12 rounded-full flex items-center justify-center mb-4">
+                    <Icon className="h-6 w-6 text-blue-600" />
                   </div>
                   <h3 className="text-lg font-bold text-slate-800 mb-2">{value.title}</h3>
                   <p className="text-sm text-slate-600 leading-relaxed">

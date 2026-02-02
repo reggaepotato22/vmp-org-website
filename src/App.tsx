@@ -1,6 +1,7 @@
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
+import { Analytics } from "@vercel/analytics/react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 
@@ -24,6 +25,7 @@ import NotFound from "@/pages/NotFound";
 
 import DashboardPage from "@/pages/admin/DashboardPage";
 import ManageNewsPage from "@/pages/admin/ManageNewsPage";
+import ManageHomepagePage from "@/pages/admin/ManageHomepagePage";
 import ManageMissionsPage from "@/pages/admin/ManageMissionsPage";
 import ManageUsersPage from "@/pages/admin/ManageUsersPage";
 import ManageGalleryPage from "@/pages/admin/ManageGalleryPage";
@@ -31,12 +33,10 @@ import ManageSettingsPage from "@/pages/admin/ManageSettingsPage";
 
 // Components
 import ProtectedRoute from "@/components/auth/ProtectedRoute";
+import ScrollToTop from "@/components/shared/ScrollToTop";
 
 // Contexts
-import { NewsProvider } from './context/NewsContext';
 import { AuthProvider } from './context/AuthContext';
-import { GalleryProvider } from './context/GalleryContext';
-import { MissionProvider } from './context/MissionContext';
 import { SettingsProvider } from './context/SettingsContext';
 
 const queryClient = new QueryClient();
@@ -47,13 +47,12 @@ const App = () => (
       <TooltipProvider>
         <Toaster />
         <Sonner />
-        <BrowserRouter>
+        <Analytics />
+        <BrowserRouter future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
+          <ScrollToTop />
           <SettingsProvider>
-            <NewsProvider>
-              <GalleryProvider>
-                <MissionProvider>
-                  <Routes>
-                    {/* Public Routes */}
+            <Routes>
+              {/* Public Routes */}
                     <Route path="/" element={<PublicLayout />}>
                       <Route index element={<LandingPage />} />
                       <Route path="about/*">
@@ -65,7 +64,7 @@ const App = () => (
                       <Route path="donate" element={<DonatePage />} />
                       <Route path="news" element={<NewsPage />} />
                       <Route path="news/:id" element={<NewsDetailPage />} />
-                      <Route path="volunteers/*" element={<VolunteerPage />} />
+                      <Route path="volunteer" element={<VolunteerPage />} />
                       <Route path="contact" element={<ContactPage />} />
                       <Route path="gallery" element={<GalleryPage />} />
                       <Route path="gallery/:id" element={<GalleryDetailPage />} />
@@ -84,15 +83,13 @@ const App = () => (
                       <Route index element={<Navigate to="/admin/dashboard" replace />} />
                       <Route path="dashboard" element={<DashboardPage />} />
                       <Route path="news" element={<ManageNewsPage />} />
+                      <Route path="homepage" element={<ManageHomepagePage />} />
                       <Route path="missions" element={<ManageMissionsPage />} />
                       <Route path="users" element={<ManageUsersPage />} />
                       <Route path="gallery" element={<ManageGalleryPage />} />
                       <Route path="settings" element={<ManageSettingsPage />} />
                     </Route>
                   </Routes>
-                </MissionProvider>
-              </GalleryProvider>
-            </NewsProvider>
           </SettingsProvider>
         </BrowserRouter>
       </TooltipProvider>

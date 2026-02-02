@@ -28,25 +28,25 @@ const Mission2025 = () => {
   };
 
   return (
-    <main className="min-h-screen bg-background pt-20">
+    <main className="min-h-screen bg-white pt-20">
       <div className="container mx-auto px-4 py-8 max-w-6xl">
         {/* Breadcrumb Navigation */}
         <nav className="mb-6">
-          <div className="flex items-center text-sm text-muted-foreground">
-            <Link to="/missions" className="hover:text-foreground transition-colors">
+          <div className="flex items-center text-sm text-slate-500">
+            <Link to="/missions" className="hover:text-slate-900 transition-colors">
               Missions
             </Link>
             <span className="mx-2">/</span>
-            <span className="text-foreground">2025</span>
+            <span className="text-slate-900">2025</span>
           </div>
         </nav>
 
         {/* Header */}
         <header className="mb-8">
-          <h1 className="text-3xl font-bold text-foreground mb-2">
+          <h1 className="text-3xl font-bold text-slate-900 mb-2">
             2025 Missions
           </h1>
-          <p className="text-lg text-muted-foreground">
+          <p className="text-lg text-slate-500">
             Comprehensive reports and documentation from our 2025 veterinary missions
           </p>
         </header>
@@ -64,34 +64,34 @@ const Mission2025 = () => {
           <CardContent>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
               <div className="text-center">
-                <div className="text-2xl font-bold text-primary">{missionStats.animalsTreated}</div>
-                <div className="text-sm text-muted-foreground">Animals Treated</div>
+                <div className="text-2xl font-bold text-blue-600">{missionStats.animalsTreated}</div>
+                <div className="text-sm text-slate-500">Animals Treated</div>
               </div>
               <div className="text-center">
-                <div className="text-2xl font-bold text-primary">{missionStats.teamSize}</div>
-                <div className="text-sm text-muted-foreground">Team Members</div>
+                <div className="text-2xl font-bold text-blue-600">{missionStats.teamSize}</div>
+                <div className="text-sm text-slate-500">Team Members</div>
               </div>
-              <div className="text-2xl font-bold text-primary text-center">
+              <div className="text-2xl font-bold text-blue-600 text-center">
                 <div>{missionStats.servicesValue}</div>
-                <div className="text-sm text-muted-foreground">Services Value</div>
+                <div className="text-sm text-slate-500">Services Value</div>
               </div>
               <div className="text-center">
-                <div className="text-2xl font-bold text-primary">{missionStats.biblesDistributed}</div>
-                <div className="text-sm text-muted-foreground">Bibles Distributed</div>
+                <div className="text-2xl font-bold text-blue-600">{missionStats.biblesDistributed}</div>
+                <div className="text-sm text-slate-500">Bibles Distributed</div>
               </div>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
               <div className="flex items-center">
-                <MapPin className="h-4 w-4 mr-2 text-muted-foreground" />
+                <MapPin className="h-4 w-4 mr-2 text-slate-500" />
                 {missionStats.location}
               </div>
               <div className="flex items-center">
-                <Calendar className="h-4 w-4 mr-2 text-muted-foreground" />
+                <Calendar className="h-4 w-4 mr-2 text-slate-500" />
                 {missionStats.duration}
               </div>
               <div className="flex items-center">
-                <Users className="h-4 w-4 mr-2 text-muted-foreground" />
+                <Users className="h-4 w-4 mr-2 text-slate-500" />
                 {missionStats.communityGatherings}
               </div>
             </div>
@@ -100,7 +100,7 @@ const Mission2025 = () => {
 
         {/* Reports Section */}
         <section>
-          <h2 className="text-2xl font-semibold text-foreground mb-6">Mission Reports</h2>
+          <h2 className="text-2xl font-semibold text-slate-900 mb-6">Mission Reports</h2>
           
           <div className="grid gap-4">
             {reports.map((report) => (
@@ -111,7 +111,7 @@ const Mission2025 = () => {
                       <CardTitle className="text-lg">{report.title}</CardTitle>
                       <CardDescription>{report.summary}</CardDescription>
                     </div>
-                    <span className="text-xs bg-primary/10 text-primary px-2 py-1 rounded whitespace-nowrap">
+                    <span className="text-xs bg-blue-100 text-blue-600 px-2 py-1 rounded whitespace-nowrap">
                       {report.type}
                     </span>
                   </div>
@@ -119,7 +119,7 @@ const Mission2025 = () => {
                 
                 <CardContent>
                   <div className="flex items-center justify-between">
-                    <div className="flex items-center space-x-4 text-sm text-muted-foreground">
+                    <div className="flex items-center space-x-4 text-sm text-slate-500">
                       <div className="flex items-center">
                         <Calendar className="h-4 w-4 mr-1" />
                         {report.date}
