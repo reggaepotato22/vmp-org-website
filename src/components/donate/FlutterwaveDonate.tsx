@@ -1,67 +1,95 @@
 import { FlutterWaveButton, closePaymentModal } from "flutterwave-react-v3";
-import { Button } from "@/components/ui/button";
-import { Heart } from "lucide-react";
+import { Heart, Smartphone, CreditCard } from "lucide-react";
+import { toast } from "sonner"; // Assuming sonner is installed, if not we'll use window.alert
 
 interface FlutterwaveDonateProps {
   amount: number;
   paymentMethod: "mpesa" | "card";
-  donationType: "one-time" | "monthly" | "sponsorship";
+  donationType: "one-time" | "monthly";
+  email: string;
+  name: string;
+  phone: string;
+  disabled?: boolean;
 }
 
-const FlutterwaveDonate = ({ amount, paymentMethod, donationType }: FlutterwaveDonateProps) => {
+const FlutterwaveDonate = ({ 
+  amount, 
+  paymentMethod, 
+  donationType, 
+  email, 
+  name, 
+  phone,
+  disabled 
+}: FlutterwaveDonateProps) => {
   
+  // validation
+  if (!email || !name || (paymentMethod === "mpesa" && !phone)) {
+     // We return a disabled-looking button if data is missing, but the parent form should handle validation visuals
+  }
+
   const config = {
-    public_key: "FLWPUBK_TEST-xxxxxxxxxxxxxxxxxxxxx-X", // Replace with your actual Flutterwave public key
+    public_key: "FLWPUBK_TEST-xxxxxxxxxxxxxxxxxxxxx-X", // TODO: Replace with env variable
     tx_ref: `VMP-${donationType}-${Date.now()}`,
     amount: amount,
     currency: paymentMethod === "mpesa" ? "KES" : "USD",
     payment_options: paymentMethod === "mpesa" ? "mpesa" : "card",
     customer: {
-      email: "donor@example.com", // You can make this dynamic with a form field
-      phone_number: paymentMethod === "mpesa" ? "254XXXXXXXXX" : "", // Required for M-Pesa
-      name: "Anonymous Donor",
+      email: email,
+      phone_number: phone,
+      name: name,
     },
     customizations: {
-      title: "VMP Donation",
-      description: `${donationType.charAt(0).toUpperCase() + donationType.slice(1)} donation to Veterinary Mission Partners`,
-      logo: "https://kenyavetsmission.org/logo.png", // Replace with your actual logo URL
+      title: "Kenya Vets Mission",
+      description: `${donationType === 'monthly' ? 'Monthly ' : ''}Donation`,
+      logo: "https://kenyavetsmission.org/logo.png",
     },
+    meta: {
+        donation_type: donationType,
+        source: "website"
+    }
   };
 
   const fwConfig = {
     ...config,
-    text: paymentMethod === "mpesa" ? "Pay with M-Pesa" : "Pay with Card",
+    text: paymentMethod === "mpesa" ? "Donate with M-Pesa" : "Donate with Card",
     callback: (response: any) => {
       console.log("Payment response:", response);
       
       if (response.status === "successful") {
-        alert("Thank you for your donation! A receipt will be sent to your email.");
-        // Here you can send the transaction details to your backend
-        // to record the donation and send a receipt
+        toast.success("Thank you for your donation! A receipt has been sent to your email.");
       } else {
-        alert("Payment was not completed. Please try again.");
+        toast.error("Payment could not be completed. Please try again.");
       }
       
       closePaymentModal();
     },
     onClose: () => {
-      console.log("Payment modal closed");
+      // console.log("Payment modal closed");
     },
   };
 
   return (
-    <div>
+    <div className="w-full">
       <FlutterWaveButton 
         {...fwConfig} 
-        className="w-full h-12 bg-primary hover:bg-primary/90 text-white flex items-center justify-center gap-2 rounded-lg font-medium transition-colors"
+        disabled={disabled}
+        className={`w-full h-12 flex items-center justify-center gap-2 rounded-lg font-bold transition-all
+            ${disabled 
+                ? "bg-slate-200 text-slate-400 cursor-not-allowed" 
+                : paymentMethod === "mpesa"
+                    ? "bg-green-600 hover:bg-green-700 text-white shadow-md hover:shadow-lg"
+                    : "bg-blue-600 hover:bg-blue-700 text-white shadow-md hover:shadow-lg"
+            }
+        `}
       >
-        <Heart className="h-4 w-4" />
-        {paymentMethod === "mpesa" ? "Pay with M-Pesa" : "Pay with Card"}
+        {paymentMethod === "mpesa" ? <Smartphone className="h-5 w-5" /> : <CreditCard className="h-5 w-5" />}
+        {paymentMethod === "mpesa" ? `Donate KES ${amount}` : `Donate $${amount}`}
       </FlutterWaveButton>
 
-      {paymentMethod === "mpesa" && (
-        <p className="text-xs text-muted-foreground text-center mt-2">
-          You'll receive an M-Pesa prompt on your phone
+      {paymentMethod === "mpesa" && !disabled && (
+        <p className="text-xs text-green-700 text-center mt-2 flex items-center justify-center font-medium bg-green-50 py-1 rounded">
+            <Smartphone className="h-3 w-3 mr-1" />
+            Check your phone for the M-Pesa prompt
         </p>
       )}
     </div>

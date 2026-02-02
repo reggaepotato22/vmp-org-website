@@ -32,27 +32,55 @@ const MissionOverview = () => {
   ];
 
   return (
-    <section id="who-we-are" className="py-16 bg-mission-gradient">
+    <section id="who-we-are" className="py-20 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
-        {/* Title */}
-        <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
-            Who We Are
-          </h2>
+        {/* Vision & Mission Section - ShareInt Style */}
+        <div className="grid md:grid-cols-2 gap-12 mb-20 items-center">
+          <div className="space-y-6 text-center md:text-left">
+            <div className="inline-block p-3 bg-primary/10 rounded-full mb-2">
+              <Globe className="w-8 h-8 text-primary" />
+            </div>
+            <h2 className="text-3xl md:text-4xl font-bold text-slate-900">
+              Our Vision
+            </h2>
+            <p className="text-xl text-slate-600 leading-relaxed font-medium">
+              To enhance God’s Kingdom on earth.
+            </p>
+          </div>
+          
+          <div className="space-y-6 text-center md:text-left">
+            <div className="inline-block p-3 bg-secondary/10 rounded-full mb-2">
+              <Heart className="w-8 h-8 text-secondary" />
+            </div>
+            <h2 className="text-3xl md:text-4xl font-bold text-slate-900">
+              Our Mission
+            </h2>
+            <p className="text-xl text-slate-600 leading-relaxed font-medium">
+              To share the love of God to mankind through veterinary skills.
+            </p>
+          </div>
         </div>
 
-        {/* Overview Section */}
-        <div id="overview" className="mb-16">
-          <p className="text-lg text-muted-foreground leading-relaxed mb-8 text-center">
+        {/* Divider */}
+        <div className="w-full h-px bg-slate-100 mb-20"></div>
+
+        {/* Title */}
+        <div className="text-center mb-16">
+          <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-6">
+            Who We Are
+          </h2>
+          <p className="text-lg text-slate-600 leading-relaxed max-w-3xl mx-auto">
             Veterinarians with a Mission Programme is a faith-based organization dedicated to providing veterinary care 
             to animals in underserved communities worldwide. We believe in the power of 
             compassion and service to transform lives—both human and animal—while spreading 
             the message of God's love.
           </p>
+        </div>
 
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-12">
-            {stats.map((stat, index) => {
+        {/* Stats Section */}
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-20">
+          {stats.map((stat, index) => {
               const Icon = stat.icon;
               return (
                 <div key={index} className="text-center">

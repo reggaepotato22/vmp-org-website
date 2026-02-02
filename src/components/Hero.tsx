@@ -30,15 +30,15 @@ const slides: Slide[] = [
     // subtitle: "Through Compassionate Veterinary Care",
     description: "Therefore go and make disciples of all nations, baptizing them in the name of the Father and of the Son and of the Holy Spirit,  and teaching them to obey everything I have commanded  you. And surely I am with you always, to the very end of the age"
   },
-
-  { 
+  // Moved Vision/Mission to MissionOverview for better visibility
+  /* { 
     id: 1, 
     image: heroSlide2, 
     alt: "Calf receiving veterinary care",
     title: "Vision and Mission",
     subtitle: "Vision: To enhance God’s Kingdom on earth",
     description: "Mission: To share the love of God to mankind through veterinary skills"
-  },
+  }, */
   { 
     id: 2, 
     image: heroSlide3, 
@@ -146,7 +146,8 @@ const Hero: React.FC = () => {
               className="w-full h-full object-cover object-center"
               loading={index === 0 ? "eager" : "lazy"}
             />
-            <div className="absolute inset-0 bg-black/40" />
+            {/* Enhanced Gradient Overlay for better text readability */}
+            <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-black/30" />
           </div>
         ))}
       </div>

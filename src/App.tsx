@@ -4,27 +4,40 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 
-// Assume these pages/components exist and use default exports
-import Index from "./pages/Index";
-import Overview from "./pages/about/overview";
-import History from "./pages/about/history";
-import Testimonials from "./pages/about/testimonials";
-import Contact from "./pages/Contact";
-import NotFound from "./pages/NotFound";
-import Donate from "./pages/Donate";
-import Missions from "./pages/Missions";
-import Gallery from "./pages/Gallery";
-import News from "./pages/News";
-import HowToVolunteer from "./pages/HowToVolunteer";
-import Mission2025 from "./pages/missions/mataarba/Reports";
-import Reports from "./pages/missions/mataarba/Reports";
+// Layouts
+import PublicLayout from "@/layouts/PublicLayout";
+import AdminLayout from "@/layouts/AdminLayout";
 
-// Components with provided code or new context files
-import AdminDashboard from "./pages/AdminDashboard"; 
-import { NewsProvider } from './context/NewsContext'; 
+// Pages
+import LandingPage from "@/pages/public/LandingPage";
+import AboutPage from "@/pages/public/AboutPage";
+import MissionsPage from "@/pages/public/MissionsPage";
+import DonatePage from "@/pages/public/DonatePage";
+import NewsPage from "@/pages/public/NewsPage";
+import NewsDetailPage from "@/pages/public/NewsDetailPage";
+import VolunteerPage from "@/pages/public/VolunteerPage";
+import ContactPage from "@/pages/public/ContactPage";
+import GalleryPage from "@/pages/public/GalleryPage";
+import GalleryDetailPage from "@/pages/public/GalleryDetailPage";
+import LoginPage from "@/pages/auth/LoginPage";
+import NotFound from "@/pages/NotFound";
+
+import DashboardPage from "@/pages/admin/DashboardPage";
+import ManageNewsPage from "@/pages/admin/ManageNewsPage";
+import ManageMissionsPage from "@/pages/admin/ManageMissionsPage";
+import ManageUsersPage from "@/pages/admin/ManageUsersPage";
+import ManageGalleryPage from "@/pages/admin/ManageGalleryPage";
+import ManageSettingsPage from "@/pages/admin/ManageSettingsPage";
+
+// Components
+import ProtectedRoute from "@/components/auth/ProtectedRoute";
+
+// Contexts
+import { NewsProvider } from './context/NewsContext';
 import { AuthProvider } from './context/AuthContext';
-import ProtectedRoute from './components/ProtectedRoute'; 
-import Login from './pages/Login'; 
+import { GalleryProvider } from './context/GalleryContext';
+import { MissionProvider } from './context/MissionContext';
+import { SettingsProvider } from './context/SettingsContext';
 
 const queryClient = new QueryClient();
 
@@ -35,45 +48,52 @@ const App = () => (
         <Toaster />
         <Sonner />
         <BrowserRouter>
-          <NewsProvider>
-            <Routes>
-              <Route path="/" element={<Index />} />
-              
-              {/* About section with tabs */}
-              <Route path="/about" element={<Navigate to="/about/overview" replace />} />
-              <Route path="/about/overview" element={<Overview />} />
-              <Route path="/about/history" element={<History />} />
-              <Route path="/about/testimonials" element={<Testimonials />} />
-              
-              {/* Mission routes */}
-              <Route path="/missions" element={<Missions />} />
-              <Route path="/missions/mataarba" element={<Mission2025 />} />
-              <Route path="/missions/mataarba/mataarba-2025" element={<Reports />} />
-              
-              {/* Other routes */}
-              <Route path="/contact" element={<Contact />} />
-              <Route path="/donate" element={<Donate />} />
-              <Route path="/gallery" element={<Gallery />} />
-              <Route path="/news" element={<News />} />
-              <Route path="/volunteers/how-to" element={<HowToVolunteer />} />
-              
-              {/* Login route */}
-              <Route path="/login" element={<Login />} />
+          <SettingsProvider>
+            <NewsProvider>
+              <GalleryProvider>
+                <MissionProvider>
+                  <Routes>
+                    {/* Public Routes */}
+                    <Route path="/" element={<PublicLayout />}>
+                      <Route index element={<LandingPage />} />
+                      <Route path="about/*">
+                        <Route path="overview" element={<AboutPage />} />
+                        <Route path="history" element={<AboutPage />} />
+                        <Route path="testimonials" element={<AboutPage />} />
+                      </Route>
+                      <Route path="missions" element={<MissionsPage />} />
+                      <Route path="donate" element={<DonatePage />} />
+                      <Route path="news" element={<NewsPage />} />
+                      <Route path="news/:id" element={<NewsDetailPage />} />
+                      <Route path="volunteers/*" element={<VolunteerPage />} />
+                      <Route path="contact" element={<ContactPage />} />
+                      <Route path="gallery" element={<GalleryPage />} />
+                      <Route path="gallery/:id" element={<GalleryDetailPage />} />
+                      <Route path="*" element={<NotFound />} />
+                    </Route>
 
-              {/* PROTECTED ADMINISTRATION ROUTE */}
-              <Route 
-                path="/admin" 
-                element={
-                  <ProtectedRoute>
-                    <AdminDashboard /> 
-                  </ProtectedRoute>
-                } 
-              />
-              
-              {/* Catch-all for 404 */}
-              <Route path="*" element={<NotFound />} />
-            </Routes>
-          </NewsProvider>
+                    {/* Auth Routes */}
+                    <Route path="/login" element={<LoginPage />} />
+
+                    {/* Admin Routes */}
+                    <Route path="/admin" element={
+                      <ProtectedRoute>
+                        <AdminLayout />
+                      </ProtectedRoute>
+                    }>
+                      <Route index element={<Navigate to="/admin/dashboard" replace />} />
+                      <Route path="dashboard" element={<DashboardPage />} />
+                      <Route path="news" element={<ManageNewsPage />} />
+                      <Route path="missions" element={<ManageMissionsPage />} />
+                      <Route path="users" element={<ManageUsersPage />} />
+                      <Route path="gallery" element={<ManageGalleryPage />} />
+                      <Route path="settings" element={<ManageSettingsPage />} />
+                    </Route>
+                  </Routes>
+                </MissionProvider>
+              </GalleryProvider>
+            </NewsProvider>
+          </SettingsProvider>
         </BrowserRouter>
       </TooltipProvider>
     </QueryClientProvider>

@@ -1,12 +1,14 @@
 import { Link } from "react-router-dom";
 import { Heart, Twitter, Facebook, Instagram } from "lucide-react";
+import { useSettings } from "@/context/SettingsContext";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
+  const { settings } = useSettings();
 
   const footerLinks = {
     organization: [
-      { name: "About", path: "/about" },
+      { name: "About", path: "/about/overview" },
       { name: "Missions", path: "/missions" },
       { name: "News & Events", path: "/news" },
       { name: "Contact", path: "/contact" },
@@ -24,19 +26,14 @@ const Footer = () => {
         <div className="grid md:grid-cols-4 gap-8">
           <div className="md:col-span-2">
             <div className="flex items-center space-x-2 mb-4">
-              
               <span className="text-xl font-bold">Contact info</span>
             </div>
-            {/* <p className="text-white/80 mb-6 leading-relaxed max-w-md">
-              Providing veterinary care to animals in underserved communities worldwide, 
-              sharing God's love and compassion through our service.
-            </p> */}
             <div className="space-y-2 text-sm text-white/80">
-              <div>Veterinarians with a Mission Programme</div>
+              <div className="font-semibold text-white">{settings.siteTitle || "Veterinarians with a Mission Programme"}</div>
               <div>Ultimate House,</div>
               <div>Oloolua Road, Ngong Town.</div>
               <div className="mt-2">Phone: 0116-922-908</div>
-              <div>Email: info@kenyavetsmission.org</div>
+              <div>Email: {settings.contactEmail || "info@kenyavetsmission.org"}</div>
             </div>
           </div>
 
@@ -74,22 +71,28 @@ const Footer = () => {
             <div className="mt-6">
               <h4 className="font-semibold mb-3">Follow Us</h4>
               <div className="flex space-x-4">
-                <a href="#" className="text-white/80 hover:text-white transition-colors">
-                  <Twitter className="h-5 w-5" />
-                </a>
-                <a href="" className="text-white/80 hover:text-white transition-colors">
-                  <Facebook className="h-5 w-5" />
-                </a>
-                <a href="#" className="text-white/80 hover:text-white transition-colors">
-                  <Instagram className="h-5 w-5" />
-                </a>
+                {settings.socialLinks.twitter && (
+                  <a href={settings.socialLinks.twitter} target="_blank" rel="noopener noreferrer" className="text-white/80 hover:text-white transition-colors">
+                    <Twitter className="h-5 w-5" />
+                  </a>
+                )}
+                {settings.socialLinks.facebook && (
+                  <a href={settings.socialLinks.facebook} target="_blank" rel="noopener noreferrer" className="text-white/80 hover:text-white transition-colors">
+                    <Facebook className="h-5 w-5" />
+                  </a>
+                )}
+                {settings.socialLinks.instagram && (
+                  <a href={settings.socialLinks.instagram} target="_blank" rel="noopener noreferrer" className="text-white/80 hover:text-white transition-colors">
+                    <Instagram className="h-5 w-5" />
+                  </a>
+                )}
               </div>
             </div>
           </div>
         </div>
 
         <div className="border-t border-white/20 mt-8 pt-8 text-center text-white/60 text-sm">
-          © {currentYear} veterinarianswithamissionprogramme.org  All rights reserved.
+          © {currentYear} {settings.siteTitle || "veterinarianswithamissionprogramme.org"}  All rights reserved.
         </div>
       </div>
     </footer>
