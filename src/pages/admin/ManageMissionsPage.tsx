@@ -229,21 +229,68 @@ const ManageMissionsPage = () => {
                   />
                 </div>
               </div>
-              <div>
+              <div className="space-y-2">
                 <label className="text-sm font-medium">Cover Image</label>
                 <div className="flex items-center gap-4">
-                  <Input
-                    type="file"
-                    accept="image/*"
-                    onChange={handleImageUpload}
-                    disabled={uploading}
-                  />
-                  {uploading && <Loader2 className="h-4 w-4 animate-spin" />}
+                  {formData.cover_image && (
+                    <img src={formData.cover_image} alt="Preview" className="h-20 w-20 object-cover rounded-md" />
+                  )}
+                  <div className="flex-1 space-y-2">
+                    <Input 
+                      type="file" 
+                      accept="image/*"
+                      onChange={handleImageUpload}
+                      disabled={uploading}
+                    />
+                    <div className="flex items-center gap-2">
+                      <span className="text-xs text-muted-foreground">- OR -</span>
+                    </div>
+                    <Button 
+                      type="button" 
+                      variant="outline" 
+                      onClick={() => setIsGalleryOpen(true)}
+                      className="w-full"
+                    >
+                      <ImageIcon className="mr-2 h-4 w-4" />
+                      Select from Gallery
+                    </Button>
+                  </div>
                 </div>
-                {formData.cover_image && (
-                  <img src={formData.cover_image} alt="Preview" className="mt-2 h-20 w-auto rounded object-cover" />
-                )}
               </div>
+
+              {/* Gallery Selection Dialog */}
+              <Dialog open={isGalleryOpen} onOpenChange={setIsGalleryOpen}>
+                <DialogContent className="max-w-3xl max-h-[80vh]">
+                  <DialogHeader>
+                    <DialogTitle>Select Cover Image</DialogTitle>
+                  </DialogHeader>
+                  <ScrollArea className="h-[60vh]">
+                    <div className="grid grid-cols-3 sm:grid-cols-4 gap-4 p-4">
+                      {galleryItems.map((item) => (
+                        <div 
+                          key={item.id} 
+                          className="relative aspect-square cursor-pointer group rounded-md overflow-hidden border border-slate-200 hover:border-blue-500 transition-all"
+                          onClick={() => handleSelectGalleryImage(item.image_url)}
+                        >
+                          <img 
+                            src={item.image_url} 
+                            alt={item.title} 
+                            className="w-full h-full object-cover group-hover:scale-105 transition-transform" 
+                          />
+                          <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                            <span className="text-white text-xs font-medium bg-black/50 px-2 py-1 rounded">Select</span>
+                          </div>
+                        </div>
+                      ))}
+                      {galleryItems.length === 0 && (
+                        <div className="col-span-full text-center py-10 text-slate-500">
+                          No images found in gallery.
+                        </div>
+                      )}
+                    </div>
+                  </ScrollArea>
+                </DialogContent>
+              </Dialog>
               <div>
                 <label className="text-sm font-medium">Description</label>
                 <Textarea

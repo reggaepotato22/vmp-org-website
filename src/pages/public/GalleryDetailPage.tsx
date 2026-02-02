@@ -6,10 +6,11 @@ import { GalleryItem, Mission } from "@/types";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { ArrowLeft, ExternalLink, Calendar, MapPin, Users, Activity, Loader2 } from "lucide-react";
+import { ArrowLeft, ExternalLink, Calendar, MapPin, Users, Activity } from "lucide-react";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import { format } from "date-fns";
+import { Skeleton } from "@/components/ui/skeleton";
 
 const GalleryDetailPage = () => {
   const { id } = useParams<{ id: string }>();
@@ -41,9 +42,22 @@ const GalleryDetailPage = () => {
     return (
       <div className="min-h-screen bg-slate-50 flex flex-col">
         <Navigation />
-        <div className="flex-1 flex justify-center items-center">
-          <Loader2 className="h-10 w-10 animate-spin text-primary" />
-        </div>
+        <main className="flex-1 container mx-auto px-4 py-8">
+          <div className="grid lg:grid-cols-2 gap-8">
+            <div className="space-y-4">
+              <Skeleton className="aspect-video w-full rounded-lg" />
+              <div className="flex justify-between items-center">
+                <Skeleton className="h-6 w-24" />
+                <Skeleton className="h-4 w-32" />
+              </div>
+              <Skeleton className="h-10 w-3/4" />
+              <Skeleton className="h-20 w-full" />
+            </div>
+            <div className="space-y-6">
+              <Skeleton className="h-64 w-full rounded-lg" />
+            </div>
+          </div>
+        </main>
         <Footer />
       </div>
     );

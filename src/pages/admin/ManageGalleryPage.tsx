@@ -261,25 +261,6 @@ const ManageGalleryPage = () => {
                     <img src={formData.image_url} alt="Preview" className="h-40 w-full object-cover rounded" />
                   </div>
                 )}
-                <div>
-                  <label className="text-sm font-medium">Link to Mission (Optional)</label>
-                  <Select
-                    value={formData.mission_id}
-                    onValueChange={(value) => setFormData({ ...formData, mission_id: value })}
-                  >
-                    <SelectTrigger>
-                      <SelectValue placeholder="Select a mission" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="none">None</SelectItem>
-                      {missions.map((mission) => (
-                        <SelectItem key={mission.id} value={mission.id}>
-                          {mission.title}
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
-                </div>
               </div>
               <Button type="submit" className="w-full bg-purple-600 hover:bg-purple-700" disabled={loading || uploading}>
                 {loading ? <Loader2 className="h-4 w-4 animate-spin" /> : "Save"}

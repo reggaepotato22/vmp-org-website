@@ -1,8 +1,12 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
+import { settingsService } from '@/services/settingsService';
 
 export interface SiteSettings {
+  id?: string; // Optional ID for DB
   siteTitle: string;
   contactEmail: string;
+  phone: string;
+  address: string;
   socialLinks: {
     twitter: string;
     facebook: string;
@@ -14,6 +18,8 @@ export interface SiteSettings {
 const defaultSettings: SiteSettings = {
   siteTitle: "Veterinarians With a Mission Programme",
   contactEmail: "info@kenyavetsmission.org",
+  phone: "0116-922-908",
+  address: "Ultimate House, Oloolua Road, Ngong Town",
   socialLinks: {
     twitter: "https://twitter.com/vmp-org",
     facebook: "https://facebook.com",
@@ -24,8 +30,9 @@ const defaultSettings: SiteSettings = {
 
 interface SettingsContextType {
   settings: SiteSettings;
-  updateSettings: (newSettings: Partial<SiteSettings>) => void;
+  updateSettings: (newSettings: Partial<SiteSettings>) => Promise<void>;
   toggleTheme: () => void;
+  isLoading: boolean;
 }
 
 const SettingsContext = createContext<SettingsContextType | undefined>(undefined);
@@ -43,29 +50,49 @@ export const SettingsProvider: React.FC<{ children: React.ReactNode }> = ({ chil
     const saved = localStorage.getItem('vmp_settings');
     return saved ? JSON.parse(saved) : defaultSettings;
   });
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    localStorage.setItem('vmp_settings', JSON.stringify(settings));
-    
-    // Apply theme
+    const loadSettings = async () => {
+      setIsLoading(true);
+      try {
+        const data = await settingsService.getSettings();
+        if (data) {
+          // Merge with default settings to ensure all fields exist
+          setSettings(prev => ({ ...prev, ...data }));
+        }
+      } catch (err) {
+        console.error("Failed to load settings", err);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    loadSettings();
+  }, []);
+
+  useEffect(() => {
+    // Apply theme whenever settings change
     const root = window.document.documentElement;
     root.classList.remove('light', 'dark');
     root.classList.add(settings.theme);
-  }, [settings]);
+  }, [settings.theme]);
 
-  const updateSettings = (newSettings: Partial<SiteSettings>) => {
+  const updateSettings = async (newSettings: Partial<SiteSettings>) => {
+    // Optimistic UI update
     setSettings(prev => ({ ...prev, ...newSettings }));
+    
+    // Persist to service (DB + LocalStorage)
+    await settingsService.updateSettings(newSettings);
   };
 
   const toggleTheme = () => {
-    setSettings(prev => ({
-      ...prev,
-      theme: prev.theme === 'light' ? 'dark' : 'light'
-    }));
+    const newTheme = settings.theme === 'light' ? 'dark' : 'light';
+    updateSettings({ theme: newTheme });
   };
 
   return (
-    <SettingsContext.Provider value={{ settings, updateSettings, toggleTheme }}>
+    <SettingsContext.Provider value={{ settings, updateSettings, toggleTheme, isLoading }}>
       {children}
     </SettingsContext.Provider>
   );

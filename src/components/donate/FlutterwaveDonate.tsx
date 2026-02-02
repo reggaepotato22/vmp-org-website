@@ -28,7 +28,7 @@ const FlutterwaveDonate = ({
   }
 
   const config = {
-    public_key: import.meta.env.VITE_FLUTTERWAVE_PUBLIC_KEY || "FLWPUBK_TEST-xxxxxxxxxxxxxxxxxxxxx-X",
+    public_key: import.meta.env.VITE_FLUTTERWAVE_PUBLIC_KEY || "", // Ensure env var is set
     tx_ref: `VMP-${donationType}-${Date.now()}`,
     amount: amount,
     currency: paymentMethod === "mpesa" ? "KES" : "USD",

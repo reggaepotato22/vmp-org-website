@@ -7,29 +7,35 @@ import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { CreditCard, Smartphone, Check } from "lucide-react";
 import FlutterwaveDonate from "@/components/donate/FlutterwaveDonate";
 
-const PRESET_AMOUNTS = [25, 50, 100, 250, 500];
+const PRESET_AMOUNTS_USD = [25, 50, 100, 250, 500];
+const PRESET_AMOUNTS_KES = [1000, 2500, 5000, 10000, 50000];
 
 const DonationForm = () => {
   const [frequency, setFrequency] = useState<"one-time" | "monthly">("one-time");
-  const [amount, setAmount] = useState<number>(100);
-  const [customAmount, setCustomAmount] = useState<string>("");
   const [paymentMethod, setPaymentMethod] = useState<"mpesa" | "card">("card");
+  
+  // Currency determined by payment method
+  const currency = paymentMethod === "mpesa" ? "KES" : "USD";
+  const presets = currency === "KES" ? PRESET_AMOUNTS_KES : PRESET_AMOUNTS_USD;
+
+  const [amount, setAmount] = useState<number>(presets[1]); // Default to 2nd option
+  const [customAmount, setCustomAmount] = useState<string>("");
   
   // Form State
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   
-  // Currency handling
-  const currency = paymentMethod === "mpesa" ? "KES" : "USD";
   const displayAmount = customAmount ? parseFloat(customAmount) : amount;
   
-  // Convert USD to KES roughly for display (in real app use live rates)
-  // For simplicity in this demo, we'll just treat the number as the value in the selected currency
-  // but usually you'd want to scale KES amounts (e.g. $10 = 1500 KES)
-  
+  // Reset amount when currency changes to avoid weird values
   useEffect(() => {
-    // Reset custom amount when switching presets
+    setAmount(presets[1]);
+    setCustomAmount("");
+  }, [paymentMethod]);
+
+  // Reset custom amount when switching presets
+  useEffect(() => {
     if (amount) setCustomAmount("");
   }, [amount]);
 
@@ -52,11 +58,32 @@ const DonationForm = () => {
           </TabsList>
         </Tabs>
 
+        {/* Payment Method Selection */}
+        <div className="space-y-3">
+            <Label>Payment Method</Label>
+            <div className="grid grid-cols-2 gap-4">
+                <div 
+                    onClick={() => setPaymentMethod("card")}
+                    className={`cursor-pointer border rounded-lg p-4 flex flex-col items-center justify-center gap-2 transition-all ${paymentMethod === "card" ? "border-primary bg-blue-50 text-primary ring-1 ring-primary" : "border-slate-200 hover:border-slate-300"}`}
+                >
+                    <CreditCard className="h-6 w-6" />
+                    <span className="font-semibold text-sm">Credit Card (USD)</span>
+                </div>
+                <div 
+                    onClick={() => setPaymentMethod("mpesa")}
+                    className={`cursor-pointer border rounded-lg p-4 flex flex-col items-center justify-center gap-2 transition-all ${paymentMethod === "mpesa" ? "border-green-500 bg-green-50 text-green-700 ring-1 ring-green-500" : "border-slate-200 hover:border-slate-300"}`}
+                >
+                    <Smartphone className="h-6 w-6" />
+                    <span className="font-semibold text-sm">M-Pesa (KES)</span>
+                </div>
+            </div>
+        </div>
+
         {/* Amount Selection */}
         <div className="space-y-3">
           <Label>Select Amount ({currency})</Label>
           <div className="grid grid-cols-3 gap-2">
-            {PRESET_AMOUNTS.map((val) => (
+            {presets.map((val) => (
               <Button
                 key={val}
                 type="button"
@@ -67,7 +94,7 @@ const DonationForm = () => {
                   setCustomAmount("");
                 }}
               >
-                {currency === "USD" ? "$" : "KSh "}{val}
+                {currency === "USD" ? "$" : "KSh "}{val.toLocaleString()}
               </Button>
             ))}
             <div className="relative col-span-1">
@@ -88,60 +115,45 @@ const DonationForm = () => {
           </div>
         </div>
 
-        {/* Payment Method Selection */}
-        <div className="space-y-3">
-            <Label>Payment Method</Label>
-            <div className="grid grid-cols-2 gap-4">
-                <div 
-                    onClick={() => setPaymentMethod("card")}
-                    className={`cursor-pointer border rounded-lg p-4 flex flex-col items-center justify-center gap-2 transition-all ${paymentMethod === "card" ? "border-primary bg-blue-50 text-primary ring-1 ring-primary" : "border-slate-200 hover:border-slate-300"}`}
-                >
-                    <CreditCard className="h-6 w-6" />
-                    <span className="font-semibold text-sm">Credit Card</span>
-                    {paymentMethod === "card" && <Check className="h-4 w-4 text-primary absolute top-2 right-2" />}
-                </div>
-                
-                <div 
-                    onClick={() => setPaymentMethod("mpesa")}
-                    className={`cursor-pointer border rounded-lg p-4 flex flex-col items-center justify-center gap-2 transition-all ${paymentMethod === "mpesa" ? "border-green-600 bg-green-50 text-green-700 ring-1 ring-green-600" : "border-slate-200 hover:border-slate-300"}`}
-                >
-                    <Smartphone className="h-6 w-6" />
-                    <span className="font-semibold text-sm">M-Pesa</span>
-                    {paymentMethod === "mpesa" && <Check className="h-4 w-4 text-green-600 absolute top-2 right-2" />}
-                </div>
-            </div>
-        </div>
-
         {/* Donor Details */}
-        <div className="space-y-4 pt-4 border-t border-slate-100">
-            <div className="grid grid-cols-2 gap-4">
-                <div className="space-y-2">
-                    <Label htmlFor="name">Full Name</Label>
-                    <Input id="name" placeholder="John Doe" value={name} onChange={(e) => setName(e.target.value)} />
-                </div>
-                <div className="space-y-2">
-                    <Label htmlFor="email">Email Address</Label>
-                    <Input id="email" type="email" placeholder="john@example.com" value={email} onChange={(e) => setEmail(e.target.value)} />
-                </div>
+        <div className="space-y-4 pt-2 border-t border-slate-100">
+            <div className="grid gap-2">
+                <Label htmlFor="name">Full Name</Label>
+                <Input 
+                    id="name" 
+                    placeholder="John Doe" 
+                    value={name} 
+                    onChange={(e) => setName(e.target.value)} 
+                />
             </div>
             
-            <div className="space-y-2">
-                <Label htmlFor="phone">Phone Number {paymentMethod === "mpesa" && <span className="text-red-500">*</span>}</Label>
+            <div className="grid gap-2">
+                <Label htmlFor="email">Email Address</Label>
                 <Input 
-                    id="phone" 
-                    type="tel" 
-                    placeholder={paymentMethod === "mpesa" ? "254 7XX XXX XXX" : "+1 555 000 0000"} 
-                    value={phone} 
-                    onChange={(e) => setPhone(e.target.value)} 
-                    className={paymentMethod === "mpesa" && !phone ? "border-red-300 focus-visible:ring-red-500" : ""}
+                    id="email" 
+                    type="email" 
+                    placeholder="john@example.com" 
+                    value={email} 
+                    onChange={(e) => setEmail(e.target.value)} 
                 />
-                {paymentMethod === "mpesa" && (
-                    <p className="text-xs text-slate-500">Required for M-Pesa prompt.</p>
-                )}
             </div>
+
+            {paymentMethod === "mpesa" && (
+                <div className="grid gap-2 animate-in fade-in slide-in-from-top-2">
+                    <Label htmlFor="phone">M-Pesa Phone Number</Label>
+                    <Input 
+                        id="phone" 
+                        type="tel" 
+                        placeholder="0712 345 678" 
+                        value={phone} 
+                        onChange={(e) => setPhone(e.target.value)} 
+                    />
+                    <p className="text-xs text-slate-500">Enter the number that will receive the M-Pesa prompt.</p>
+                </div>
+            )}
         </div>
 
-        {/* Submit Button (Flutterwave) */}
+        {/* Submit Button */}
         <div className="pt-4">
             <FlutterwaveDonate 
                 amount={displayAmount}
@@ -152,15 +164,9 @@ const DonationForm = () => {
                 phone={phone}
                 disabled={!isValid}
             />
-        </div>
-        
-        <div className="text-center text-xs text-slate-400 mt-4 flex items-center justify-center gap-2">
-            <div className="flex -space-x-1">
-                 {/* Secure Icons Mockup */}
-                 <div className="w-6 h-4 bg-slate-200 rounded"></div>
-                 <div className="w-6 h-4 bg-slate-300 rounded"></div>
-            </div>
-            <span>Secure SSL Encryption</span>
+            <p className="text-xs text-center text-slate-400 mt-4">
+                Secure payment processed by Flutterwave.
+            </p>
         </div>
 
       </CardContent>

@@ -1,90 +1,38 @@
-import { supabase } from "@/lib/supabase";
+import { api } from "@/lib/api";
 import { HeroSlide, Testimonial } from "@/types";
 
 export const homepageService = {
   // Hero Slides
   async getSlides() {
-    const { data, error } = await supabase
-      .from('hero_slides')
-      .select('*')
-      .order('order_index', { ascending: true });
-    
-    if (error) throw error;
-    return data as HeroSlide[];
+    return await api.get<HeroSlide[]>('/homepage/slides');
   },
 
   async updateSlide(id: string, updates: Partial<HeroSlide>) {
-    const { data, error } = await supabase
-      .from('hero_slides')
-      .update(updates)
-      .eq('id', id)
-      .select()
-      .single();
-    
-    if (error) throw error;
-    return data as HeroSlide;
+    return await api.put<HeroSlide>(`/homepage/slides/${id}`, updates);
   },
 
   async createSlide(slide: Omit<HeroSlide, 'id'>) {
-    const { data, error } = await supabase
-      .from('hero_slides')
-      .insert(slide)
-      .select()
-      .single();
-    
-    if (error) throw error;
-    return data as HeroSlide;
+    return await api.post<HeroSlide>('/homepage/slides', slide);
   },
 
   async deleteSlide(id: string) {
-    const { error } = await supabase
-      .from('hero_slides')
-      .delete()
-      .eq('id', id);
-    
-    if (error) throw error;
+    return await api.delete(`/homepage/slides/${id}`);
   },
 
   // Testimonials
   async getTestimonials() {
-    const { data, error } = await supabase
-      .from('testimonials')
-      .select('*')
-      .order('created_at', { ascending: false });
-    
-    if (error) throw error;
-    return data as Testimonial[];
+    return await api.get<Testimonial[]>('/homepage/testimonials');
   },
 
   async updateTestimonial(id: string, updates: Partial<Testimonial>) {
-    const { data, error } = await supabase
-      .from('testimonials')
-      .update(updates)
-      .eq('id', id)
-      .select()
-      .single();
-    
-    if (error) throw error;
-    return data as Testimonial;
+    return await api.put<Testimonial>(`/homepage/testimonials/${id}`, updates);
   },
 
   async createTestimonial(testimonial: Omit<Testimonial, 'id'>) {
-    const { data, error } = await supabase
-      .from('testimonials')
-      .insert(testimonial)
-      .select()
-      .single();
-    
-    if (error) throw error;
-    return data as Testimonial;
+    return await api.post<Testimonial>('/homepage/testimonials', testimonial);
   },
 
   async deleteTestimonial(id: string) {
-    const { error } = await supabase
-      .from('testimonials')
-      .delete()
-      .eq('id', id);
-    
-    if (error) throw error;
+    return await api.delete(`/homepage/testimonials/${id}`);
   }
 };

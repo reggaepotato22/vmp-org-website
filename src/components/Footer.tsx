@@ -30,9 +30,8 @@ const Footer = () => {
             </div>
             <div className="space-y-2 text-sm text-slate-600 dark:text-slate-400">
               <div className="font-semibold text-slate-900 dark:text-slate-200">{settings.siteTitle || "Veterinarians with a Mission Programme"}</div>
-              <div>Ultimate House,</div>
-              <div>Oloolua Road, Ngong Town.</div>
-              <div className="mt-2">Phone: 0116-922-908</div>
+              <div>{settings.address || "Ultimate House, Oloolua Road, Ngong Town"}</div>
+              <div className="mt-2">Phone: {settings.phone || "0116-922-908"}</div>
               <div>Email: {settings.contactEmail || "info@kenyavetsmission.org"}</div>
             </div>
           </div>

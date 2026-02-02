@@ -53,8 +53,36 @@ const NewsPage = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-slate-50">
-        <Loader2 className="h-8 w-8 animate-spin text-primary" />
+      <div className="min-h-screen bg-slate-50 pb-20">
+        <section className="bg-white border-b border-slate-200 pt-24 pb-12">
+          <div className="container mx-auto px-4">
+            <Skeleton className="h-12 w-3/4 md:w-1/2 mb-6" />
+            <Skeleton className="h-6 w-full max-w-2xl mb-8" />
+            <div className="flex flex-col md:flex-row gap-4 max-w-xl">
+              <Skeleton className="h-10 w-full" />
+              <div className="flex gap-2">
+                <Skeleton className="h-10 w-16" />
+                <Skeleton className="h-10 w-16" />
+                <Skeleton className="h-10 w-16" />
+              </div>
+            </div>
+          </div>
+        </section>
+        <section className="container mx-auto px-4 py-12">
+           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {[1, 2, 3, 4, 5, 6].map((i) => (
+                <div key={i} className="flex flex-col space-y-3">
+                  <Skeleton className="h-48 w-full rounded-xl" />
+                  <div className="space-y-2">
+                    <Skeleton className="h-4 w-1/4" />
+                    <Skeleton className="h-6 w-3/4" />
+                    <Skeleton className="h-4 w-full" />
+                    <Skeleton className="h-4 w-full" />
+                  </div>
+                </div>
+              ))}
+           </div>
+        </section>
       </div>
     );
   }

@@ -13,6 +13,7 @@ import AdminLayout from "@/layouts/AdminLayout";
 import LandingPage from "@/pages/public/LandingPage";
 import AboutPage from "@/pages/public/AboutPage";
 import MissionsPage from "@/pages/public/MissionsPage";
+import MissionDetailPage from "@/pages/public/MissionDetailPage";
 import DonatePage from "@/pages/public/DonatePage";
 import NewsPage from "@/pages/public/NewsPage";
 import NewsDetailPage from "@/pages/public/NewsDetailPage";
@@ -61,6 +62,7 @@ const App = () => (
                         <Route path="testimonials" element={<AboutPage />} />
                       </Route>
                       <Route path="missions" element={<MissionsPage />} />
+                      <Route path="missions/:id" element={<MissionDetailPage />} />
                       <Route path="donate" element={<DonatePage />} />
                       <Route path="news" element={<NewsPage />} />
                       <Route path="news/:id" element={<NewsDetailPage />} />
