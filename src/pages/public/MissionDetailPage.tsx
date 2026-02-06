@@ -114,12 +114,12 @@ const MissionDetailPage = () => {
           <div className="lg:col-span-2 space-y-12">
             {/* AI Summary Section */}
             {mission.report_summary && (
-              <div className="bg-emerald-50 border border-emerald-100 rounded-2xl p-8">
-                <h3 className="text-xl font-bold text-emerald-900 mb-4 flex items-center">
-                  <span className="bg-emerald-200 text-emerald-800 text-xs px-2 py-1 rounded mr-3 uppercase tracking-wider">Summary</span>
+              <div className="bg-slate-50 border border-slate-200 rounded-2xl p-8">
+                <h3 className="text-xl font-bold text-slate-900 mb-4 flex items-center">
+                  <span className="bg-secondary/10 text-secondary text-xs px-2 py-1 rounded mr-3 uppercase tracking-wider font-bold">Summary</span>
                   Mission Highlights
                 </h3>
-                <div className="text-emerald-800 leading-relaxed">
+                <div className="text-slate-700 leading-relaxed">
                   {mission.report_summary}
                 </div>
               </div>

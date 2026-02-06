@@ -2,15 +2,14 @@ import React, { createContext, useContext, useState, useEffect, ReactNode } from
 import { api } from '@/lib/api';
 
 interface User {
-  id: number;
-  email: string;
-  created_at: string;
+  id: string;
+  role: string;
 }
 
 interface AuthContextType {
   user: User | null;
   isAuthenticated: boolean;
-  login: (email: string, password: string) => Promise<{ error: any }>;
+  login: (password: string) => Promise<{ success: boolean; message?: string }>;
   logout: () => void;
   loading: boolean;
 }
@@ -55,15 +54,15 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     initSession();
   }, []);
 
-  const login = async (email: string, password: string) => {
+  const login = async (password: string) => {
     try {
-      const response = await api.post<{ token: string; user: User }>('/auth/login', { email, password });
+      const response = await api.post<{ token: string; user: User }>('/auth/login', { password });
       localStorage.setItem('auth_token', response.token);
       setUser(response.user);
-      return { error: null };
+      return { success: true };
     } catch (error: any) {
       console.error('Login error:', error);
-      return { error: error.response?.data?.message || 'Login failed' };
+      return { success: false, message: error.response?.data?.message || 'Login failed' };
     }
   };
 

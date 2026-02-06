@@ -4,9 +4,11 @@ import { newsService } from "@/services/newsService";
 import { NewsItem } from "@/types";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Calendar, Clock, ArrowLeft, Share2, Loader2 } from "lucide-react";
+import { Calendar, Clock, ArrowLeft, Share2, Loader2, User } from "lucide-react";
 import NotFound from "@/pages/NotFound";
 import { toast } from "sonner";
+import { motion } from "framer-motion";
+import { Skeleton } from "@/components/ui/skeleton";
 
 const NewsDetailPage = () => {
   const { id } = useParams();
@@ -32,8 +34,21 @@ const NewsDetailPage = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-slate-50">
-        <Loader2 className="h-8 w-8 animate-spin text-blue-600" />
+      <div className="min-h-screen bg-slate-50 py-24">
+        <div className="container mx-auto px-4 max-w-4xl">
+          <Skeleton className="h-8 w-32 mb-8 rounded-full" />
+          <Skeleton className="h-16 w-3/4 mb-6 rounded-xl" />
+          <div className="flex gap-4 mb-8">
+            <Skeleton className="h-6 w-24" />
+            <Skeleton className="h-6 w-24" />
+          </div>
+          <Skeleton className="h-[400px] w-full rounded-3xl mb-12" />
+          <div className="space-y-4">
+            <Skeleton className="h-4 w-full" />
+            <Skeleton className="h-4 w-full" />
+            <Skeleton className="h-4 w-3/4" />
+          </div>
+        </div>
       </div>
     );
   }
@@ -61,75 +76,93 @@ const NewsDetailPage = () => {
   const readTime = Math.ceil(wordCount / 200) + " min read";
 
   return (
-    <div className="min-h-screen bg-slate-50 pb-20">
-      {/* Hero Image */}
-      <div className="h-[40vh] md:h-[50vh] relative w-full bg-slate-100">
-        <img 
-          src={newsItem.image_url || "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&q=80"} 
-          alt={newsItem.title}
-          className="w-full h-full object-cover opacity-30"
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-white via-white/50 to-transparent" />
-        
-        <div className="absolute bottom-0 left-0 right-0 p-4 md:p-12 container mx-auto">
-          <Badge className="mb-4 bg-blue-100 hover:bg-blue-200 text-blue-900 border-none capitalize">
-            {newsItem.category}
-          </Badge>
-          <h1 className="text-3xl md:text-5xl font-bold text-slate-900 mb-4 max-w-4xl leading-tight">
-            {newsItem.title}
-          </h1>
-          <div className="flex flex-wrap items-center gap-6 text-slate-700 text-sm md:text-base font-medium">
-            <div className="flex items-center">
-              <Calendar className="h-5 w-5 mr-2 text-blue-600" />
+    <div className="min-h-screen bg-slate-50 py-24">
+      <div className="container mx-auto px-4 max-w-4xl">
+        {/* Back Button */}
+        <motion.div
+          initial={{ opacity: 0, x: -20 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.4 }}
+        >
+          <Button variant="ghost" className="mb-8 gap-2 hover:bg-slate-100 rounded-full pl-2 pr-4 text-slate-600" onClick={() => navigate('/news')}>
+            <ArrowLeft className="h-4 w-4" />
+            Back to News
+          </Button>
+        </motion.div>
+
+        {/* Article Header */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          className="mb-10"
+        >
+          <div className="flex flex-wrap items-center gap-4 mb-6">
+            <Badge className={`${
+                newsItem.category === 'news' 
+                  ? 'bg-deep-forest-green-50 text-deep-forest-green-700 border-deep-forest-green-100' 
+                  : 'bg-gold text-deep-forest-green-900 border-gold'
+            } hover:bg-opacity-90 border px-3 py-1 text-sm rounded-full`}>
+                {newsItem.category === 'news' ? 'News' : 'Event'}
+            </Badge>
+            <span className="text-slate-400 text-sm">•</span>
+            <div className="flex items-center text-slate-500 text-sm font-medium">
+              <Calendar className="h-4 w-4 mr-2 text-gold" />
               {newsItem.date}
             </div>
-            <div className="flex items-center">
-              <Clock className="h-5 w-5 mr-2 text-blue-600" />
+            <span className="text-slate-400 text-sm">•</span>
+            <div className="flex items-center text-slate-500 text-sm font-medium">
+              <Clock className="h-4 w-4 mr-2 text-gold" />
               {readTime}
             </div>
-            {newsItem.author && (
-              <div className="flex items-center">
-                <span className="font-semibold">By {newsItem.author}</span>
-              </div>
-            )}
-          </div>
-        </div>
-      </div>
-
-      <div className="container mx-auto px-4 -mt-8 relative z-10">
-        <div className="flex flex-col lg:flex-row gap-12">
-          {/* Main Content */}
-          <div className="flex-1 bg-white rounded-xl shadow-sm p-6 md:p-10">
-            <div className="prose prose-lg max-w-none text-slate-700 dark:text-slate-300">
-              <div dangerouslySetInnerHTML={{ __html: newsItem.content }} />
-            </div>
-
-            <div className="mt-12 pt-8 border-t border-slate-100 flex justify-between items-center">
-              <Button variant="outline" onClick={() => navigate('/news')}>
-                <ArrowLeft className="h-4 w-4 mr-2" />
-                Back to News
-              </Button>
-              <Button variant="outline" onClick={handleShare}>
-                <Share2 className="h-4 w-4 mr-2" />
-                Share Story
-              </Button>
-            </div>
           </div>
 
-          {/* Sidebar */}
-          <div className="lg:w-80 space-y-8">
-            {/* Action Card */}
-            <div className="bg-blue-50 rounded-xl p-6 border border-blue-100 sticky top-24">
-              <h3 className="text-lg font-bold text-slate-900 mb-4">Support Our Mission</h3>
-              <p className="text-slate-600 mb-6 text-sm">
-                Your support helps us continue providing vital veterinary care to communities in need.
-              </p>
-              <Button className="w-full font-bold shadow-lg shadow-blue-200" size="lg" asChild>
-                <Link to="/donate">Donate Now</Link>
-              </Button>
-            </div>
+          <h1 className="text-3xl md:text-5xl md:leading-tight font-heading font-bold text-deep-forest-green-900 mb-8">
+            {newsItem.title}
+          </h1>
+
+          <div className="flex items-center justify-between border-y border-slate-200 py-6">
+             <div className="flex items-center gap-3">
+                <div className="w-10 h-10 rounded-full bg-deep-forest-green-100 flex items-center justify-center text-deep-forest-green-700">
+                   <User className="h-5 w-5" />
+                </div>
+                <div>
+                   <p className="text-sm font-bold text-deep-forest-green-900">{newsItem.author || "VMP Team"}</p>
+                   <p className="text-xs text-slate-500">Author</p>
+                </div>
+             </div>
+             
+             <Button variant="outline" size="sm" className="rounded-full gap-2 text-slate-600 hover:text-deep-forest-green-900 border-slate-200" onClick={handleShare}>
+                <Share2 className="h-4 w-4" />
+                <span className="hidden sm:inline">Share</span>
+             </Button>
           </div>
-        </div>
+        </motion.div>
+
+        {/* Hero Image */}
+        <motion.div 
+          initial={{ opacity: 0, scale: 0.95 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.8 }}
+          className="mb-12 rounded-3xl overflow-hidden shadow-2xl"
+        >
+          <img 
+            src={newsItem.image_url || "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&q=80"} 
+            alt={newsItem.title}
+            className="w-full h-auto object-cover max-h-[600px]"
+          />
+        </motion.div>
+
+        {/* Content */}
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.2 }}
+          className="prose prose-lg prose-slate max-w-none prose-headings:font-heading prose-headings:text-deep-forest-green-900 prose-a:text-gold prose-a:no-underline hover:prose-a:underline prose-img:rounded-2xl"
+        >
+           <div dangerouslySetInnerHTML={{ __html: newsItem.content }} />
+        </motion.div>
+
       </div>
     </div>
   );

@@ -4,6 +4,7 @@ import { settingsService } from '@/services/settingsService';
 export interface SiteSettings {
   id?: string; // Optional ID for DB
   siteTitle: string;
+  missionStatement: string;
   contactEmail: string;
   phone: string;
   address: string;
@@ -12,11 +13,19 @@ export interface SiteSettings {
     facebook: string;
     instagram: string;
   };
+  features: {
+    showDonations: boolean;
+    showMissions: boolean;
+    showGallery: boolean;
+    showTestimonials: boolean;
+    showNews: boolean;
+  };
   theme: 'light' | 'dark';
 }
 
 const defaultSettings: SiteSettings = {
   siteTitle: "Veterinarians With a Mission Programme",
+  missionStatement: "We are dedicated to improving animal health and welfare in underserved communities across Kenya through veterinary missions and education.",
   contactEmail: "info@kenyavetsmission.org",
   phone: "0116-922-908",
   address: "Ultimate House, Oloolua Road, Ngong Town",
@@ -24,6 +33,13 @@ const defaultSettings: SiteSettings = {
     twitter: "https://twitter.com/vmp-org",
     facebook: "https://facebook.com",
     instagram: "https://instagram.com",
+  },
+  features: {
+    showDonations: false,
+    showMissions: false,
+    showGallery: false,
+    showTestimonials: false,
+    showNews: false,
   },
   theme: 'light',
 };
@@ -48,7 +64,24 @@ export const useSettings = () => {
 export const SettingsProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [settings, setSettings] = useState<SiteSettings>(() => {
     const saved = localStorage.getItem('vmp_settings');
-    return saved ? JSON.parse(saved) : defaultSettings;
+    if (saved) {
+      try {
+        const parsed = JSON.parse(saved);
+        // Deep merge to ensure features object exists even if saved state is old
+        return {
+          ...defaultSettings,
+          ...parsed,
+          features: {
+            ...defaultSettings.features,
+            ...(parsed.features || {})
+          }
+        };
+      } catch (e) {
+        console.error("Failed to parse settings", e);
+        return defaultSettings;
+      }
+    }
+    return defaultSettings;
   });
   const [isLoading, setIsLoading] = useState(true);
 
@@ -59,7 +92,15 @@ export const SettingsProvider: React.FC<{ children: React.ReactNode }> = ({ chil
         const data = await settingsService.getSettings();
         if (data) {
           // Merge with default settings to ensure all fields exist
-          setSettings(prev => ({ ...prev, ...data }));
+          setSettings(prev => ({ 
+            ...defaultSettings, // Ensure new fields (features) are present if missing from DB
+            ...prev, 
+            ...data,
+            features: {
+              ...defaultSettings.features,
+              ...(data.features || {})
+            }
+          }));
         }
       } catch (err) {
         console.error("Failed to load settings", err);

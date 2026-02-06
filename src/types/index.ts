@@ -39,6 +39,22 @@ export interface GalleryItem {
   created_at?: string;
 }
 
+export interface TeamMember {
+  id: string;
+  name: string;
+  role: string;
+  bio: string;
+  image_url: string;
+  order_index?: number;
+  active?: boolean;
+  social_links?: {
+    linkedin?: string;
+    twitter?: string;
+    email?: string;
+  };
+  created_at?: string;
+}
+
 export interface Testimonial {
   id: string;
   name: string;
@@ -61,4 +77,17 @@ export interface HeroSlide {
   description: string;
   order_index: number;
   active: boolean;
+}
+
+export interface Project {
+  id: string;
+  title: string;
+  slug: string;
+  description: string;
+  status: 'active' | 'completed' | 'planned';
+  cover_image: string;
+  start_date?: string;
+  end_date?: string;
+  featured?: boolean;
+  created_at?: string;
 }

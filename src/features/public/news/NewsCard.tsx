@@ -2,7 +2,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card";
 import { NewsItem } from "@/types";
-import { Calendar, Clock, MapPin, ArrowRight } from "lucide-react";
+import { Calendar, ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
 
 interface NewsCardProps {
@@ -22,33 +22,38 @@ const NewsCard = ({ item, featured = false }: NewsCardProps) => {
   const excerpt = getExcerpt(item.content);
 
   return (
-    <Card className={`overflow-hidden h-full flex flex-col hover:shadow-md transition-shadow ${featured ? 'md:flex-row md:col-span-2' : ''}`}>
-      <div className={`relative ${featured ? 'md:w-1/2 h-64 md:h-auto' : 'h-48'}`}>
+    <Card className={`group overflow-hidden h-full flex flex-col border-none shadow-lg hover:shadow-xl transition-all duration-300 rounded-3xl ${featured ? 'md:flex-row md:col-span-2' : 'bg-white'}`}>
+      <div className={`relative overflow-hidden ${featured ? 'md:w-1/2 min-h-[300px]' : 'h-56'}`}>
         <img 
             src={item.image_url || "https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60"} 
             alt={item.title}
-            className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
+            className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
             loading="lazy"
         />
+        <div className="absolute inset-0 bg-deep-forest-green-900/20 group-hover:bg-deep-forest-green-900/10 transition-colors" />
         <div className="absolute top-4 left-4">
             <Badge className={`${
-                item.category === 'news' ? 'bg-blue-200 text-blue-900' : 'bg-orange-200 text-orange-900'
-            } hover:bg-opacity-90`}>
+                item.category === 'news' 
+                  ? 'bg-deep-forest-green-50 text-deep-forest-green-700 border-deep-forest-green-100' 
+                  : 'bg-gold text-deep-forest-green-900 border-gold'
+            } hover:bg-opacity-90 border`}>
                 {item.category === 'news' ? 'News' : 'Event'}
             </Badge>
         </div>
       </div>
       
-      <div className={`flex flex-col flex-grow ${featured ? 'md:w-1/2 justify-center p-6' : ''}`}>
+      <div className={`flex flex-col flex-grow ${featured ? 'md:w-1/2 justify-center p-8 bg-deep-forest-green-50' : 'bg-white'}`}>
         <CardHeader className={`${featured ? 'p-0 mb-4' : 'pt-6 px-6 pb-2'}`}>
-            <div className="flex items-center text-xs text-slate-500 mb-3 gap-3">
+            <div className="flex items-center text-xs font-medium text-slate-500 mb-3 gap-3">
                 <span className="flex items-center">
-                    <Calendar className="h-3 w-3 mr-1" />
+                    <Calendar className="h-3.5 w-3.5 mr-1.5 text-gold" />
                     {item.date}
                 </span>
             </div>
-            <h3 className={`font-heading font-bold text-slate-800 hover:text-blue-600 transition-colors ${featured ? 'text-2xl md:text-3xl' : 'text-xl'}`}>
-                <Link to={`/news/${item.id}`}>{item.title}</Link>
+            <h3 className={`font-heading font-bold text-deep-forest-green-900 group-hover:text-gold transition-colors ${featured ? 'text-2xl md:text-3xl leading-tight' : 'text-xl leading-snug'}`}>
+                <Link to={`/news/${item.id}`} className="block">
+                  {item.title}
+                </Link>
             </h3>
         </CardHeader>
         
@@ -59,10 +64,12 @@ const NewsCard = ({ item, featured = false }: NewsCardProps) => {
         </CardContent>
 
         <CardFooter className={`${featured ? 'p-0' : 'px-6 pb-6 pt-4 mt-auto'}`}>
-            <Button variant="link" className="p-0 h-auto font-semibold text-blue-600" asChild>
-                <Link to={`/news/${item.id}`} className="flex items-center group">
+            <Button variant="link" className="p-0 h-auto font-bold text-gold hover:text-gold-600 hover:no-underline" asChild>
+                <Link to={`/news/${item.id}`} className="flex items-center gap-2">
                     Read Full Story 
-                    <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
+                    <div className="bg-gold/10 p-1 rounded-full group-hover:bg-gold/20 transition-colors">
+                      <ArrowRight className="h-4 w-4" />
+                    </div>
                 </Link>
             </Button>
         </CardFooter>

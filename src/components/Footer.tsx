@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
-import { Heart, Twitter, Facebook, Instagram } from "lucide-react";
+import { Twitter, Facebook, Instagram, Mail, Phone, MapPin } from "lucide-react";
 import { useSettings } from "@/context/SettingsContext";
+import logoImage from "@/assets/kenyavetsmission-logo.png";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -8,42 +9,59 @@ const Footer = () => {
 
   const footerLinks = {
     organization: [
-      { name: "About", path: "/about/overview" },
-      { name: "Missions", path: "/missions" },
+      { name: "About Us", path: "/about/overview" },
+      { name: "Our Missions", path: "/missions" },
       { name: "News & Events", path: "/news" },
-      { name: "Contact", path: "/contact" },
+      { name: "Gallery", path: "/gallery" },
     ],
     support: [
-      { name: "Donate", path: "/donate" },
+      { name: "Donate Now", path: "/donate" },
+      { name: "Volunteer", path: "/volunteer" },
+      { name: "Contact Us", path: "/contact" },
       { name: "Privacy Policy", path: "/privacy" },
-      { name: "Terms of Service", path: "/terms" },
     ]
   };
 
   return (
-    <footer className="bg-slate-100 dark:bg-slate-900 text-slate-900 dark:text-slate-100 border-t border-slate-200 dark:border-slate-800 transition-colors duration-300">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="grid md:grid-cols-4 gap-8">
-          <div className="md:col-span-2">
-            <div className="flex items-center space-x-2 mb-4">
-              <span className="text-xl font-bold">Contact info</span>
-            </div>
-            <div className="space-y-2 text-sm text-slate-600 dark:text-slate-400">
-              <div className="font-semibold text-slate-900 dark:text-slate-200">{settings.siteTitle || "Veterinarians with a Mission Programme"}</div>
-              <div>{settings.address || "Ultimate House, Oloolua Road, Ngong Town"}</div>
-              <div className="mt-2">Phone: {settings.phone || "0116-922-908"}</div>
-              <div>Email: {settings.contactEmail || "info@kenyavetsmission.org"}</div>
+    <footer className="bg-primary text-white pt-20 pb-10">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="grid md:grid-cols-4 gap-12 mb-16">
+          {/* Column 1: About */}
+          <div className="md:col-span-1">
+            <Link to="/" className="inline-block mb-6 bg-white p-2 rounded-lg">
+              <img src={logoImage} alt="KVM Logo" className="h-12 w-auto" />
+            </Link>
+            <p className="text-white/80 text-sm leading-relaxed mb-6">
+              Veterinarians with a Mission Programme is dedicated to providing veterinary care to underserved communities while spreading the message of hope and compassion.
+            </p>
+            <div className="flex space-x-4">
+              {settings.socialLinks.facebook && (
+                <a href={settings.socialLinks.facebook} target="_blank" rel="noopener noreferrer" className="bg-white/10 hover:bg-secondary hover:text-slate-900 p-2 rounded-full transition-all">
+                  <Facebook className="h-4 w-4" />
+                </a>
+              )}
+              {settings.socialLinks.twitter && (
+                <a href={settings.socialLinks.twitter} target="_blank" rel="noopener noreferrer" className="bg-white/10 hover:bg-secondary hover:text-slate-900 p-2 rounded-full transition-all">
+                  <Twitter className="h-4 w-4" />
+                </a>
+              )}
+              {settings.socialLinks.instagram && (
+                <a href={settings.socialLinks.instagram} target="_blank" rel="noopener noreferrer" className="bg-white/10 hover:bg-secondary hover:text-slate-900 p-2 rounded-full transition-all">
+                  <Instagram className="h-4 w-4" />
+                </a>
+              )}
             </div>
           </div>
 
+          {/* Column 2: Quick Links */}
           <div>
-            <h3 className="font-semibold mb-4">Organization</h3>
-            <ul className="space-y-2">
+            <h3 className="text-lg font-bold mb-6 text-secondary">Organization</h3>
+            <ul className="space-y-3">
               {footerLinks.organization.map((link) => (
                 <li key={link.name}>
                   <Link 
                     to={link.path} 
-                    className="text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors"
+                    className="text-white/80 hover:text-secondary hover:translate-x-1 transition-all inline-block text-sm"
                   >
                     {link.name}
                   </Link>
@@ -52,46 +70,54 @@ const Footer = () => {
             </ul>
           </div>
 
+          {/* Column 3: Support */}
           <div>
-            <h3 className="font-semibold mb-4">Support</h3>
-            <ul className="space-y-2">
+            <h3 className="text-lg font-bold mb-6 text-secondary">Support</h3>
+            <ul className="space-y-3">
               {footerLinks.support.map((link) => (
                 <li key={link.name}>
                   <Link 
                     to={link.path} 
-                    className="text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors"
+                    className="text-white/80 hover:text-secondary hover:translate-x-1 transition-all inline-block text-sm"
                   >
                     {link.name}
                   </Link>
                 </li>
               ))}
             </ul>
-            
-            <div className="mt-6">
-              <h4 className="font-semibold mb-3">Follow Us</h4>
-              <div className="flex space-x-4">
-                {settings.socialLinks.twitter && (
-                  <a href={settings.socialLinks.twitter} target="_blank" rel="noopener noreferrer" className="text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors">
-                    <Twitter className="h-5 w-5" />
-                  </a>
-                )}
-                {settings.socialLinks.facebook && (
-                  <a href={settings.socialLinks.facebook} target="_blank" rel="noopener noreferrer" className="text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors">
-                    <Facebook className="h-5 w-5" />
-                  </a>
-                )}
-                {settings.socialLinks.instagram && (
-                  <a href={settings.socialLinks.instagram} target="_blank" rel="noopener noreferrer" className="text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors">
-                    <Instagram className="h-5 w-5" />
-                  </a>
-                )}
-              </div>
-            </div>
+          </div>
+
+          {/* Column 4: Contact */}
+          <div>
+            <h3 className="text-lg font-bold mb-6 text-secondary">Contact Info</h3>
+            <ul className="space-y-4">
+              <li className="flex items-start gap-3">
+                <MapPin className="h-5 w-5 text-secondary shrink-0 mt-0.5" />
+                <span className="text-white/80 text-sm">
+                  {settings.address || "Ultimate House, Oloolua Road, Ngong Town"}
+                </span>
+              </li>
+              <li className="flex items-center gap-3">
+                <Phone className="h-5 w-5 text-secondary shrink-0" />
+                <span className="text-white/80 text-sm">{settings.phone || "0116-922-908"}</span>
+              </li>
+              <li className="flex items-center gap-3">
+                <Mail className="h-5 w-5 text-secondary shrink-0" />
+                <span className="text-white/80 text-sm">{settings.contactEmail || "info@kenyavetsmission.org"}</span>
+              </li>
+            </ul>
           </div>
         </div>
 
-        <div className="border-t border-slate-200 dark:border-slate-800 mt-8 pt-8 text-center text-slate-500 dark:text-slate-500 text-sm">
-          © {currentYear} {settings.siteTitle || "veterinarianswithamissionprogramme.org"}  All rights reserved.
+        {/* Newsletter / Bottom Bar */}
+        <div className="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
+          <div className="text-white/60 text-sm">
+            © {currentYear} {settings.siteTitle || "Kenya Vets Mission"}. All rights reserved.
+          </div>
+          <div className="flex gap-6 text-sm text-white/60">
+             <Link to="/privacy" className="hover:text-white">Privacy Policy</Link>
+             <Link to="/terms" className="hover:text-white">Terms of Service</Link>
+          </div>
         </div>
       </div>
     </footer>

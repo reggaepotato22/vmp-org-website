@@ -10,7 +10,6 @@ import { toast } from "sonner";
 import logoImage from "@/assets/kenyavetsmission-logo.png"; // Assuming this exists, or use text
 
 const LoginPage = () => {
-  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const { login } = useAuth();
@@ -24,7 +23,7 @@ const LoginPage = () => {
     setIsLoading(true);
 
     try {
-      const result = await login(email, password);
+      const result = await login(password);
       
       if (result.success) {
         toast.success("Welcome back!");
@@ -56,18 +55,6 @@ const LoginPage = () => {
         <CardContent>
             <form onSubmit={handleSubmit} className="space-y-4">
                 <div className="space-y-2">
-                    <Label htmlFor="email">Email</Label>
-                    <Input 
-                        id="email" 
-                        type="email" 
-                        placeholder="admin@example.com" 
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                        required
-                        disabled={isLoading}
-                    />
-                </div>
-                <div className="space-y-2">
                     <div className="flex items-center justify-between">
                         <Label htmlFor="password">Password</Label>
                     </div>
@@ -78,6 +65,7 @@ const LoginPage = () => {
                         onChange={(e) => setPassword(e.target.value)}
                         required
                         disabled={isLoading}
+                        placeholder="Enter admin password"
                     />
                 </div>
                 <Button type="submit" className="w-full" disabled={isLoading}>

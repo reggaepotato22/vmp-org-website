@@ -14,6 +14,9 @@ const settingsRoutes = require('./routes/settings');
 const newsRoutes = require('./routes/news');
 const homepageRoutes = require('./routes/homepage');
 const uploadRoutes = require('./routes/upload');
+const postsRoutes = require('./routes/posts');
+const teamRoutes = require('./routes/team');
+const projectsRoutes = require('./routes/projects');
 const nodemailer = require('nodemailer');
 
 const app = express();
@@ -34,6 +37,9 @@ app.use('/api/settings', settingsRoutes);
 app.use('/api/news', newsRoutes);
 app.use('/api/homepage', homepageRoutes);
 app.use('/api/upload', uploadRoutes);
+app.use('/api/posts', postsRoutes);
+app.use('/api/team', teamRoutes);
+app.use('/api/projects', projectsRoutes);
 
 // Legacy Contact Route (Integrated directly)
 const transporter = nodemailer.createTransport({
@@ -69,5 +75,10 @@ app.post('/api/contact', async (req, res) => {
 // Start Server & Run Migrations
 app.listen(PORT, async () => {
     console.log(`Server running on port ${PORT}`);
-    await runMigrations();
+    try {
+        await runMigrations();
+    } catch (error) {
+        console.error('Migration failed, but server will continue running for static/auth routes.');
+        // console.error(error); // Optional: log full error if needed
+    }
 });

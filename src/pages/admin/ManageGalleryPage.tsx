@@ -21,16 +21,16 @@ import {
 } from "@/components/ui/select";
 import { Plus, Trash2, Loader2, Copy, Star, Edit, Image as ImageIcon } from "lucide-react";
 import { toast } from "sonner";
-import { uploadImage, deleteImage } from "@/services/storageService";
+import { deleteImage } from "@/services/storageService";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import EmptyState from "@/components/admin/EmptyState";
 
 const ManageGalleryPage = () => {
   const [items, setItems] = useState<GalleryItem[]>([]);
   const [missions, setMissions] = useState<Mission[]>([]);
   const [loading, setLoading] = useState(true);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
-  const [uploading, setUploading] = useState(false);
   const [formData, setFormData] = useState<{
     title: string;
     category: string;
@@ -79,27 +79,10 @@ const ManageGalleryPage = () => {
     }
   };
 
-  const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (!e.target.files || e.target.files.length === 0) return;
-    
-    setUploading(true);
-    try {
-      const url = await uploadImage(e.target.files[0], 'gallery');
-      if (url) {
-        setFormData(prev => ({ ...prev, image_url: url }));
-        toast.success("Image uploaded successfully");
-      }
-    } catch (error) {
-      toast.error("Failed to upload image");
-    } finally {
-      setUploading(false);
-    }
-  };
-
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!formData.image_url) {
-      toast.error("Please upload an image");
+      toast.error("Please provide an image URL");
       return;
     }
 
@@ -109,6 +92,7 @@ const ManageGalleryPage = () => {
         await galleryService.update(editingItem.id, {
           title: formData.title,
           category: formData.category,
+          image_url: formData.image_url,
           featured: formData.featured,
           mission_id: formData.mission_id
         });
@@ -245,23 +229,29 @@ const ManageGalleryPage = () => {
                 </label>
               </div>
 
-              <div>
-                <label className="text-sm font-medium">Image File</label>
-                <div className="flex items-center gap-4">
-                  <Input
-                    type="file"
-                    accept="image/*"
-                    onChange={handleImageUpload}
-                    disabled={uploading}
+              <div className="grid gap-2">
+                <label className="text-sm font-medium">Image URL (Google Photos)</label>
+                <div className="flex gap-2">
+                  <Input 
+                    value={formData.image_url} 
+                    onChange={(e) => setFormData({ ...formData, image_url: e.target.value })}
+                    placeholder="https://photos.google.com/share/..." 
+                    className="flex-1"
                   />
-                  {uploading && <Loader2 className="h-4 w-4 animate-spin" />}
+                  <Button type="button" variant="outline" size="icon" onClick={() => window.open('https://photos.google.com', '_blank')}>
+                    <ExternalLink className="h-4 w-4" />
+                  </Button>
                 </div>
-                {formData.image_url && (
-                  <div className="mt-2 relative">
-                    <img src={formData.image_url} alt="Preview" className="h-40 w-full object-cover rounded" />
-                  </div>
-                )}
+                <p className="text-xs text-muted-foreground">
+                  Paste the direct link to the image. For Google Photos, open the image, right-click and select "Copy image address".
+                </p>
               </div>
+
+              {formData.image_url && (
+                <div className="mt-2 relative">
+                  <img src={formData.image_url} alt="Preview" className="h-40 w-full object-cover rounded" />
+                </div>
+              )}
               <Button type="submit" className="w-full bg-purple-600 hover:bg-purple-700" disabled={loading || uploading}>
                 {loading ? <Loader2 className="h-4 w-4 animate-spin" /> : "Save"}
               </Button>
@@ -274,6 +264,14 @@ const ManageGalleryPage = () => {
         <div className="flex justify-center p-12">
           <Loader2 className="h-8 w-8 animate-spin" />
         </div>
+      ) : items.length === 0 ? (
+        <EmptyState 
+          icon={ImageIcon} 
+          title="Gallery is empty" 
+          description="Add photos from your missions to showcase your impact."
+          actionLabel="Add Image"
+          onAction={() => setIsDialogOpen(true)}
+        />
       ) : (
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
           {items.map((item) => (

@@ -149,7 +149,7 @@ const Navigation = () => {
               variant="ghost"
               size="icon"
               onClick={toggleTheme}
-              className="text-slate-600 hover:text-blue-600 dark:text-slate-300 dark:hover:text-blue-600"
+              className="text-slate-600 hover:text-emerald-600 dark:text-slate-300 dark:hover:text-emerald-500"
             >
               {settings.theme === 'dark' ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
             </Button>
@@ -193,7 +193,7 @@ const Navigation = () => {
             <button
               onClick={() => handleNavClick("/")}
               className={`block w-full text-left px-4 py-3 text-base font-semibold rounded-md ${
-                isActive("/") ? "bg-blue-50 text-blue-600" : "text-slate-600 hover:bg-slate-50 dark:text-slate-300 dark:hover:bg-slate-900"
+                isActive("/") ? "bg-emerald-50 text-emerald-700" : "text-slate-600 hover:bg-slate-50 dark:text-slate-300 dark:hover:bg-slate-900"
               }`}
             >
               HOME

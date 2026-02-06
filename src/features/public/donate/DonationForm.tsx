@@ -4,8 +4,9 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
-import { CreditCard, Smartphone, Check } from "lucide-react";
+import { CreditCard, Smartphone, Check, Heart } from "lucide-react";
 import FlutterwaveDonate from "@/components/donate/FlutterwaveDonate";
+import { motion } from "framer-motion";
 
 const PRESET_AMOUNTS_USD = [25, 50, 100, 250, 500];
 const PRESET_AMOUNTS_KES = [1000, 2500, 5000, 10000, 50000];
@@ -42,135 +43,167 @@ const DonationForm = () => {
   const isValid = name.length > 2 && email.includes("@") && (paymentMethod !== "mpesa" || phone.length > 9) && displayAmount > 0;
 
   return (
-    <Card className="w-full max-w-lg mx-auto shadow-xl border-t-4 border-t-primary">
-      <CardHeader>
-        <CardTitle className="text-2xl text-center font-heading text-slate-800">
-          Make a Donation
-        </CardTitle>
-      </CardHeader>
-      <CardContent className="space-y-6">
-        
-        {/* Frequency Toggle */}
-        <Tabs defaultValue="one-time" value={frequency} onValueChange={(v) => setFrequency(v as any)} className="w-full">
-          <TabsList className="grid w-full grid-cols-2">
-            <TabsTrigger value="one-time">One-Time</TabsTrigger>
-            <TabsTrigger value="monthly">Monthly</TabsTrigger>
-          </TabsList>
-        </Tabs>
-
-        {/* Payment Method Selection */}
-        <div className="space-y-3">
-            <Label>Payment Method</Label>
-            <div className="grid grid-cols-2 gap-4">
-                <div 
-                    onClick={() => setPaymentMethod("card")}
-                    className={`cursor-pointer border rounded-lg p-4 flex flex-col items-center justify-center gap-2 transition-all ${paymentMethod === "card" ? "border-primary bg-blue-50 text-primary ring-1 ring-primary" : "border-slate-200 hover:border-slate-300"}`}
-                >
-                    <CreditCard className="h-6 w-6" />
-                    <span className="font-semibold text-sm">Credit Card (USD)</span>
-                </div>
-                <div 
-                    onClick={() => setPaymentMethod("mpesa")}
-                    className={`cursor-pointer border rounded-lg p-4 flex flex-col items-center justify-center gap-2 transition-all ${paymentMethod === "mpesa" ? "border-green-500 bg-green-50 text-green-700 ring-1 ring-green-500" : "border-slate-200 hover:border-slate-300"}`}
-                >
-                    <Smartphone className="h-6 w-6" />
-                    <span className="font-semibold text-sm">M-Pesa (KES)</span>
-                </div>
-            </div>
-        </div>
-
-        {/* Amount Selection */}
-        <div className="space-y-3">
-          <Label>Select Amount ({currency})</Label>
-          <div className="grid grid-cols-3 gap-2">
-            {presets.map((val) => (
-              <Button
-                key={val}
-                type="button"
-                variant={amount === val && !customAmount ? "default" : "outline"}
-                className={amount === val && !customAmount ? "bg-blue-100 text-blue-900 border-blue-200 font-bold hover:bg-blue-200 hover:text-blue-900" : "border-slate-200 text-slate-700"}
-                onClick={() => {
-                  setAmount(val);
-                  setCustomAmount("");
-                }}
-              >
-                {currency === "USD" ? "$" : "KSh "}{val.toLocaleString()}
-              </Button>
-            ))}
-            <div className="relative col-span-1">
-                <span className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 text-sm font-bold">
-                    {currency === "USD" ? "$" : "KSh"}
-                </span>
-                <Input
-                    type="number"
-                    placeholder="Other"
-                    value={customAmount}
-                    onChange={(e) => {
-                        setCustomAmount(e.target.value);
-                        setAmount(0);
-                    }}
-                    className="pl-10"
-                />
+    <motion.div
+      initial={{ opacity: 0, y: 30 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.8 }}
+    >
+      <Card className="w-full max-w-lg mx-auto shadow-2xl border-0 rounded-3xl overflow-hidden relative z-30">
+        <div className="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-gold to-deep-forest-green-500"></div>
+        <CardHeader className="pb-2 pt-8">
+          <div className="flex justify-center mb-4">
+            <div className="w-16 h-16 bg-deep-forest-green-50 rounded-full flex items-center justify-center">
+                <Heart className="w-8 h-8 text-deep-forest-green-600 fill-current" />
             </div>
           </div>
-        </div>
+          <CardTitle className="text-3xl text-center font-heading font-bold text-deep-forest-green-900">
+            Make a Donation
+          </CardTitle>
+          <p className="text-center text-slate-500">
+            Join us in making a difference today
+          </p>
+        </CardHeader>
+        <CardContent className="space-y-6 p-8">
+          
+          {/* Frequency Toggle */}
+          <Tabs defaultValue="one-time" value={frequency} onValueChange={(v) => setFrequency(v as any)} className="w-full">
+            <TabsList className="grid w-full grid-cols-2 bg-slate-100 p-1 rounded-xl h-auto">
+              <TabsTrigger 
+                value="one-time" 
+                className="rounded-lg py-2.5 data-[state=active]:bg-white data-[state=active]:text-deep-forest-green-900 data-[state=active]:shadow-sm font-semibold transition-all"
+              >
+                One-Time
+              </TabsTrigger>
+              <TabsTrigger 
+                value="monthly"
+                className="rounded-lg py-2.5 data-[state=active]:bg-white data-[state=active]:text-deep-forest-green-900 data-[state=active]:shadow-sm font-semibold transition-all"
+              >
+                Monthly
+              </TabsTrigger>
+            </TabsList>
+          </Tabs>
 
-        {/* Donor Details */}
-        <div className="space-y-4 pt-2 border-t border-slate-100">
-            <div className="grid gap-2">
-                <Label htmlFor="name">Full Name</Label>
-                <Input 
-                    id="name" 
-                    placeholder="John Doe" 
-                    value={name} 
-                    onChange={(e) => setName(e.target.value)} 
-                />
+          {/* Payment Method Selection */}
+          <div className="space-y-3">
+              <Label className="text-slate-700 font-semibold">Payment Method</Label>
+              <div className="grid grid-cols-2 gap-4">
+                  <div 
+                      onClick={() => setPaymentMethod("card")}
+                      className={`cursor-pointer border-2 rounded-2xl p-4 flex flex-col items-center justify-center gap-2 transition-all duration-300 ${paymentMethod === "card" ? "border-deep-forest-green-600 bg-deep-forest-green-50 text-deep-forest-green-900 shadow-md transform scale-[1.02]" : "border-slate-100 bg-slate-50 hover:border-slate-300 text-slate-500"}`}
+                  >
+                      <CreditCard className={`h-6 w-6 ${paymentMethod === "card" ? "text-deep-forest-green-600" : "text-slate-400"}`} />
+                      <span className="font-bold text-sm">Card (USD)</span>
+                  </div>
+                  <div 
+                      onClick={() => setPaymentMethod("mpesa")}
+                      className={`cursor-pointer border-2 rounded-2xl p-4 flex flex-col items-center justify-center gap-2 transition-all duration-300 ${paymentMethod === "mpesa" ? "border-green-600 bg-green-50 text-green-900 shadow-md transform scale-[1.02]" : "border-slate-100 bg-slate-50 hover:border-slate-300 text-slate-500"}`}
+                  >
+                      <Smartphone className={`h-6 w-6 ${paymentMethod === "mpesa" ? "text-green-600" : "text-slate-400"}`} />
+                      <span className="font-bold text-sm">M-Pesa (KES)</span>
+                  </div>
+              </div>
+          </div>
+
+          {/* Amount Selection */}
+          <div className="space-y-3">
+            <Label className="text-slate-700 font-semibold">Select Amount ({currency})</Label>
+            <div className="grid grid-cols-3 gap-3">
+              {presets.map((val) => (
+                <Button
+                  key={val}
+                  type="button"
+                  variant="outline"
+                  className={`h-12 border-2 text-base rounded-xl transition-all duration-200 ${
+                    amount === val && !customAmount 
+                    ? "bg-deep-forest-green-900 text-white border-deep-forest-green-900 hover:bg-deep-forest-green-800 hover:text-white shadow-md transform scale-[1.02]" 
+                    : "border-slate-200 text-slate-600 hover:border-deep-forest-green-200 hover:text-deep-forest-green-900 hover:bg-deep-forest-green-50"
+                  }`}
+                  onClick={() => {
+                    setAmount(val);
+                    setCustomAmount("");
+                  }}
+                >
+                  {currency === "USD" ? "$" : "KSh "}{val.toLocaleString()}
+                </Button>
+              ))}
+              <div className="relative col-span-1">
+                  <span className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 text-sm font-bold z-10">
+                      {currency === "USD" ? "$" : "KSh"}
+                  </span>
+                  <Input
+                      type="number"
+                      placeholder="Other"
+                      value={customAmount}
+                      onChange={(e) => {
+                          setCustomAmount(e.target.value);
+                          setAmount(0);
+                      }}
+                      className={`pl-10 h-12 border-2 rounded-xl text-base ${customAmount ? "border-deep-forest-green-900 ring-2 ring-deep-forest-green-100" : "border-slate-200"}`}
+                  />
+              </div>
             </div>
-            
-            <div className="grid gap-2">
-                <Label htmlFor="email">Email Address</Label>
-                <Input 
-                    id="email" 
-                    type="email" 
-                    placeholder="john@example.com" 
-                    value={email} 
-                    onChange={(e) => setEmail(e.target.value)} 
-                />
-            </div>
+          </div>
 
-            {paymentMethod === "mpesa" && (
-                <div className="grid gap-2 animate-in fade-in slide-in-from-top-2">
-                    <Label htmlFor="phone">M-Pesa Phone Number</Label>
-                    <Input 
-                        id="phone" 
-                        type="tel" 
-                        placeholder="0712 345 678" 
-                        value={phone} 
-                        onChange={(e) => setPhone(e.target.value)} 
-                    />
-                    <p className="text-xs text-slate-500">Enter the number that will receive the M-Pesa prompt.</p>
-                </div>
-            )}
-        </div>
+          {/* Donor Details */}
+          <div className="space-y-4 pt-4 border-t border-slate-100">
+              <div className="grid gap-2">
+                  <Label htmlFor="name" className="text-slate-700 font-semibold">Full Name</Label>
+                  <Input 
+                      id="name" 
+                      placeholder="John Doe" 
+                      value={name} 
+                      onChange={(e) => setName(e.target.value)}
+                      className="h-11 rounded-xl border-slate-200 focus:border-deep-forest-green-500 focus:ring-deep-forest-green-200"
+                  />
+              </div>
+              
+              <div className="grid gap-2">
+                  <Label htmlFor="email" className="text-slate-700 font-semibold">Email Address</Label>
+                  <Input 
+                      id="email" 
+                      type="email" 
+                      placeholder="john@example.com" 
+                      value={email} 
+                      onChange={(e) => setEmail(e.target.value)}
+                      className="h-11 rounded-xl border-slate-200 focus:border-deep-forest-green-500 focus:ring-deep-forest-green-200"
+                  />
+              </div>
 
-        {/* Submit Button */}
-        <div className="pt-4">
-            <FlutterwaveDonate 
-                amount={displayAmount}
-                paymentMethod={paymentMethod}
-                donationType={frequency}
-                email={email}
-                name={name}
-                phone={phone}
-                disabled={!isValid}
-            />
-            <p className="text-xs text-center text-slate-400 mt-4">
-                Secure payment processed by Flutterwave.
-            </p>
-        </div>
+              {paymentMethod === "mpesa" && (
+                  <div className="grid gap-2 animate-in fade-in slide-in-from-top-2">
+                      <Label htmlFor="phone" className="text-slate-700 font-semibold">M-Pesa Phone Number</Label>
+                      <Input 
+                          id="phone" 
+                          type="tel" 
+                          placeholder="0712 345 678" 
+                          value={phone} 
+                          onChange={(e) => setPhone(e.target.value)}
+                          className="h-11 rounded-xl border-slate-200 focus:border-deep-forest-green-500 focus:ring-deep-forest-green-200"
+                      />
+                      <p className="text-xs text-slate-500">Enter the number that will receive the M-Pesa prompt.</p>
+                  </div>
+              )}
+          </div>
 
-      </CardContent>
-    </Card>
+          {/* Submit Button */}
+          <div className="pt-2">
+              <FlutterwaveDonate 
+                  amount={displayAmount}
+                  paymentMethod={paymentMethod}
+                  donationType={frequency}
+                  email={email}
+                  name={name}
+                  phone={phone}
+                  disabled={!isValid}
+              />
+              <p className="text-xs text-center text-slate-400 mt-4 flex items-center justify-center gap-1">
+                  <Check className="w-3 h-3" /> Secure payment processed by Flutterwave.
+              </p>
+          </div>
+
+        </CardContent>
+      </Card>
+    </motion.div>
   );
 };
 

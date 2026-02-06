@@ -19,7 +19,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { Plus, Pencil, Trash2, Loader2 } from "lucide-react";
+import { Plus, Pencil, Trash2, Loader2, Target, ImageIcon } from "lucide-react";
 import { toast } from "sonner";
 import { uploadImage } from "@/services/storageService";
 
@@ -338,32 +338,32 @@ const ManageMissionsPage = () => {
         </Dialog>
       </div>
 
-      <div className="rounded-md border bg-white border-t-4 border-t-green-500 shadow-sm">
-        <Table>
-          <TableHeader>
-            <TableRow>
-              <TableHead>Title</TableHead>
-              <TableHead>Location</TableHead>
-              <TableHead>Status</TableHead>
-              <TableHead>Dates</TableHead>
-              <TableHead className="text-right">Actions</TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            {loading ? (
+      {loading ? (
+        <div className="flex justify-center items-center h-64">
+          <Loader2 className="h-8 w-8 animate-spin text-green-600" />
+        </div>
+      ) : missions.length === 0 ? (
+        <EmptyState 
+          icon={Target} 
+          title="No missions found" 
+          description="Track your veterinary missions and outreach programs here."
+          actionLabel="Create Mission"
+          onAction={() => setIsDialogOpen(true)}
+        />
+      ) : (
+        <div className="rounded-md border bg-white border-t-4 border-t-green-500 shadow-sm">
+          <Table>
+            <TableHeader>
               <TableRow>
-                <TableCell colSpan={5} className="text-center h-24">
-                  <Loader2 className="h-6 w-6 animate-spin mx-auto" />
-                </TableCell>
+                <TableHead>Title</TableHead>
+                <TableHead>Location</TableHead>
+                <TableHead>Status</TableHead>
+                <TableHead>Dates</TableHead>
+                <TableHead className="text-right">Actions</TableHead>
               </TableRow>
-            ) : missions.length === 0 ? (
-              <TableRow>
-                <TableCell colSpan={5} className="text-center h-24 text-slate-500">
-                  No missions found.
-                </TableCell>
-              </TableRow>
-            ) : (
-              missions.map((item) => (
+            </TableHeader>
+            <TableBody>
+              {missions.map((item) => (
                 <TableRow key={item.id}>
                   <TableCell className="font-medium">{item.title}</TableCell>
                   <TableCell>{item.location}</TableCell>
@@ -388,11 +388,11 @@ const ManageMissionsPage = () => {
                     </Button>
                   </TableCell>
                 </TableRow>
-              ))
-            )}
-          </TableBody>
-        </Table>
-      </div>
+              ))}
+            </TableBody>
+          </Table>
+        </div>
+      )}
     </div>
   );
 };

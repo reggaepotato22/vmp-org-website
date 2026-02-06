@@ -19,7 +19,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { Plus, Pencil, Trash2, Loader2 } from "lucide-react";
+import { Plus, Pencil, Trash2, Loader2, FileText } from "lucide-react";
 import { toast } from "sonner";
 import { uploadImage } from "@/services/storageService";
 import ReactQuill from 'react-quill';
@@ -174,17 +174,26 @@ const ManageNewsPage = () => {
               </div>
               <div>
                 <label className="text-sm font-medium">Image</label>
-                <div className="flex items-center gap-4">
-                  <Input
-                    type="file"
-                    accept="image/*"
-                    onChange={handleImageUpload}
-                    disabled={uploading}
+                <div className="space-y-3">
+                  <Input 
+                    value={formData.image_url} 
+                    onChange={(e) => setFormData({ ...formData, image_url: e.target.value })}
+                    placeholder="https://..." 
                   />
-                  {uploading && <Loader2 className="h-4 w-4 animate-spin" />}
+                  <p className="text-xs text-muted-foreground">Paste an image URL (recommended) or upload below.</p>
+                  
+                  <div className="flex items-center gap-4">
+                    <Input
+                      type="file"
+                      accept="image/*"
+                      onChange={handleImageUpload}
+                      disabled={uploading}
+                    />
+                    {uploading && <Loader2 className="h-4 w-4 animate-spin" />}
+                  </div>
                 </div>
                 {formData.image_url && (
-                  <img src={formData.image_url} alt="Preview" className="mt-2 h-20 w-auto rounded object-cover" />
+                  <img src={formData.image_url} alt="Preview" className="mt-2 h-40 w-full object-cover rounded-lg border border-slate-200" />
                 )}
               </div>
               <div className="space-y-2">
@@ -206,31 +215,31 @@ const ManageNewsPage = () => {
         </Dialog>
       </div>
 
-      <div className="rounded-md border bg-white">
-        <Table>
-          <TableHeader>
-            <TableRow>
-              <TableHead>Title</TableHead>
-              <TableHead>Category</TableHead>
-              <TableHead>Date</TableHead>
-              <TableHead className="text-right">Actions</TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            {loading ? (
+      {loading ? (
+        <div className="flex justify-center items-center h-64">
+          <Loader2 className="h-8 w-8 animate-spin text-emerald-600" />
+        </div>
+      ) : news.length === 0 ? (
+        <EmptyState 
+          icon={FileText} 
+          title="No news articles yet" 
+          description="Create your first news article or event to keep your audience updated."
+          actionLabel="Add News"
+          onAction={() => setIsDialogOpen(true)}
+        />
+      ) : (
+        <div className="rounded-md border bg-white">
+          <Table>
+            <TableHeader>
               <TableRow>
-                <TableCell colSpan={4} className="text-center h-24">
-                  <Loader2 className="h-6 w-6 animate-spin mx-auto" />
-                </TableCell>
+                <TableHead>Title</TableHead>
+                <TableHead>Category</TableHead>
+                <TableHead>Date</TableHead>
+                <TableHead className="text-right">Actions</TableHead>
               </TableRow>
-            ) : news.length === 0 ? (
-              <TableRow>
-                <TableCell colSpan={4} className="text-center h-24 text-slate-500">
-                  No news items found.
-                </TableCell>
-              </TableRow>
-            ) : (
-              news.map((item) => (
+            </TableHeader>
+            <TableBody>
+              {news.map((item) => (
                 <TableRow key={item.id}>
                   <TableCell className="font-medium">{item.title}</TableCell>
                   <TableCell className="capitalize">{item.category}</TableCell>
@@ -244,11 +253,11 @@ const ManageNewsPage = () => {
                     </Button>
                   </TableCell>
                 </TableRow>
-              ))
-            )}
-          </TableBody>
-        </Table>
-      </div>
+              ))}
+            </TableBody>
+          </Table>
+        </div>
+      )}
     </div>
   );
 };

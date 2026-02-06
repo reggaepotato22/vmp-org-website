@@ -7,11 +7,16 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/com
 import { toast } from 'sonner';
 import { Save, Loader2 } from 'lucide-react';
 
+import { Switch } from '@/components/ui/switch';
+
 const ManageSettingsPage = () => {
   const { settings, updateSettings, isLoading } = useSettings();
-  const { register, handleSubmit, reset, formState: { isSubmitting } } = useForm<SiteSettings>({
+  const { register, handleSubmit, reset, watch, setValue, formState: { isSubmitting } } = useForm<SiteSettings>({
     defaultValues: settings
   });
+
+  // Watch features to update UI immediately
+  const features = watch("features");
 
   // Reset form when settings are loaded
   useEffect(() => {
@@ -57,6 +62,15 @@ const ManageSettingsPage = () => {
                 <label className="text-sm font-medium">Site Title</label>
                 <Input {...register("siteTitle")} placeholder="Veterinarians With a Mission Programme" />
               </div>
+
+              <div className="grid gap-2">
+                <label className="text-sm font-medium">Mission Statement</label>
+                <textarea 
+                  {...register("missionStatement")} 
+                  className="flex min-h-[80px] w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                  placeholder="We are dedicated to..." 
+                />
+              </div>
               
               <div className="grid md:grid-cols-2 gap-4">
                 <div className="grid gap-2">
@@ -96,6 +110,78 @@ const ManageSettingsPage = () => {
               <div className="grid gap-2">
                 <label className="text-sm font-medium">Instagram</label>
                 <Input {...register("socialLinks.instagram")} placeholder="https://instagram.com/..." />
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Homepage Sections */}
+          <Card className="md:col-span-2">
+            <CardHeader>
+              <CardTitle>Homepage Sections</CardTitle>
+              <CardDescription>
+                Toggle the visibility of different sections on the homepage.
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-6">
+              <div className="flex flex-row items-center justify-between rounded-lg border p-4">
+                <div className="space-y-0.5">
+                  <label className="text-base font-medium">Donations Section</label>
+                  <p className="text-sm text-muted-foreground">
+                    Show the "Every Gift Creates a Brighter Tomorrow" section.
+                  </p>
+                </div>
+                <Switch
+                  checked={watch("features.showDonations")}
+                  onCheckedChange={(checked) => setValue("features.showDonations", checked, { shouldDirty: true })}
+                />
+              </div>
+              <div className="flex flex-row items-center justify-between rounded-lg border p-4">
+                <div className="space-y-0.5">
+                  <label className="text-base font-medium">Missions/Impact Section</label>
+                  <p className="text-sm text-muted-foreground">
+                    Show the impact statistics and missions highlights.
+                  </p>
+                </div>
+                <Switch
+                  checked={watch("features.showMissions")}
+                  onCheckedChange={(checked) => setValue("features.showMissions", checked, { shouldDirty: true })}
+                />
+              </div>
+              <div className="flex flex-row items-center justify-between rounded-lg border p-4">
+                <div className="space-y-0.5">
+                  <label className="text-base font-medium">Gallery Section</label>
+                  <p className="text-sm text-muted-foreground">
+                    Show the "Moments That Inspire Change" image gallery.
+                  </p>
+                </div>
+                <Switch
+                  checked={watch("features.showGallery")}
+                  onCheckedChange={(checked) => setValue("features.showGallery", checked, { shouldDirty: true })}
+                />
+              </div>
+              <div className="flex flex-row items-center justify-between rounded-lg border p-4">
+                <div className="space-y-0.5">
+                  <label className="text-base font-medium">Testimonials Section</label>
+                  <p className="text-sm text-muted-foreground">
+                    Show the "Stories That Inspire Change" testimonials.
+                  </p>
+                </div>
+                <Switch
+                  checked={watch("features.showTestimonials")}
+                  onCheckedChange={(checked) => setValue("features.showTestimonials", checked, { shouldDirty: true })}
+                />
+              </div>
+               <div className="flex flex-row items-center justify-between rounded-lg border p-4">
+                <div className="space-y-0.5">
+                  <label className="text-base font-medium">Latest News Section</label>
+                  <p className="text-sm text-muted-foreground">
+                    Show the latest news and updates.
+                  </p>
+                </div>
+                <Switch
+                  checked={watch("features.showNews")}
+                  onCheckedChange={(checked) => setValue("features.showNews", checked, { shouldDirty: true })}
+                />
               </div>
             </CardContent>
           </Card>

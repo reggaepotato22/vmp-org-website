@@ -3,6 +3,7 @@ import MissionCard from "./MissionCard";
 import { missionService } from "@/services/missionService";
 import { Mission } from "@/types";
 import { Skeleton } from "@/components/ui/skeleton";
+import { motion } from "framer-motion";
 
 const MissionsGrid = () => {
   const [missions, setMissions] = useState<Mission[]>([]);
@@ -24,21 +25,21 @@ const MissionsGrid = () => {
 
   if (loading) {
     return (
-      <section className="py-20 bg-slate-50">
+      <section className="py-20 bg-cream">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-heading font-bold text-slate-800 mb-4">
+            <h2 className="text-3xl md:text-4xl font-heading font-bold text-deep-forest-green-900 mb-4">
               Our Impact in Action
             </h2>
-            <p className="text-slate-600 text-lg max-w-2xl mx-auto">
+            <p className="text-deep-forest-green-700 text-lg max-w-2xl mx-auto">
               Explore our recent missions where we combine professional veterinary care with the message of God's love.
             </p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {[1, 2, 3, 4, 5, 6].map((i) => (
-              <div key={i} className="bg-white rounded-xl overflow-hidden shadow-sm border border-slate-100 flex flex-col h-full">
-                <Skeleton className="h-48 w-full" />
-                <div className="p-6 space-y-4">
+              <div key={i} className="bg-white rounded-3xl overflow-hidden shadow-sm border-none flex flex-col h-full">
+                <Skeleton className="h-64 w-full" />
+                <div className="p-8 space-y-4">
                   <div className="flex justify-between">
                     <Skeleton className="h-4 w-20" />
                     <Skeleton className="h-4 w-20" />
@@ -59,21 +60,40 @@ const MissionsGrid = () => {
   }
 
   return (
-    <section className="py-20 bg-slate-50">
+    <section className="py-20 bg-cream">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-4xl font-heading font-bold text-slate-800 mb-4">
+          <motion.h2 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-3xl md:text-4xl font-heading font-bold text-deep-forest-green-900 mb-4"
+          >
             Our Impact in Action
-          </h2>
-          <p className="text-slate-600 text-lg max-w-2xl mx-auto">
+          </motion.h2>
+          <motion.p 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.2 }}
+            className="text-deep-forest-green-700 text-lg max-w-2xl mx-auto"
+          >
             Explore our recent missions where we combine professional veterinary care with the message of God's love.
-          </p>
+          </motion.p>
         </div>
 
         {missions.length > 0 ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {missions.map((mission) => (
-              <MissionCard key={mission.id} mission={mission} />
+            {missions.map((mission, index) => (
+              <motion.div
+                key={mission.id}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: index * 0.1 }}
+              >
+                <MissionCard mission={mission} />
+              </motion.div>
             ))}
           </div>
         ) : (

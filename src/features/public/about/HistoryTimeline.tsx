@@ -1,5 +1,6 @@
 import { Award } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
+import { motion } from "framer-motion";
 
 const timeline = [
   {
@@ -36,35 +37,53 @@ const timeline = [
 
 const HistoryTimeline = () => {
   return (
-    <section className="py-20 bg-white">
+    <section className="py-24 bg-blue-50/50">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-4xl font-heading font-bold text-slate-800 mb-4">
+          <motion.h2 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-3xl md:text-4xl font-heading font-bold text-primary mb-4"
+          >
             Our Journey
-          </h2>
-          <p className="text-slate-600 text-lg">
+          </motion.h2>
+          <motion.p 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.2 }}
+            className="text-blue-900 text-lg"
+          >
             From humble beginnings to a global mission movement.
-          </p>
+          </motion.p>
         </div>
 
-        <div className="relative border-l-4 border-slate-100 ml-4 md:ml-0 space-y-12">
+        <div className="relative border-l-4 border-blue-200 ml-4 md:ml-0 space-y-12">
             {timeline.map((item, index) => (
-                <div key={index} className="relative pl-8 md:pl-12 group">
+                <motion.div 
+                    key={index} 
+                    initial={{ opacity: 0, x: -20 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: index * 0.1 }}
+                    className="relative pl-8 md:pl-12 group"
+                >
                     {/* Dot */}
-                    <div className="absolute -left-[11px] top-1 bg-white border-4 border-blue-600 w-6 h-6 rounded-full group-hover:scale-125 transition-transform duration-300" />
+                    <div className="absolute -left-[11px] top-1 bg-white border-4 border-secondary w-6 h-6 rounded-full group-hover:scale-125 transition-transform duration-300 shadow-sm" />
                     
                     <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-4">
                         <div className="md:w-1/4">
-                            <span className="text-2xl font-bold text-blue-600 block">{item.year}</span>
+                            <span className="text-3xl font-bold text-secondary block">{item.year}</span>
                         </div>
                         <div className="md:w-3/4">
-                            <h3 className="text-xl font-bold text-slate-800 mb-2">{item.title}</h3>
+                            <h3 className="text-xl font-bold text-primary mb-2">{item.title}</h3>
                             <p className="text-slate-600 leading-relaxed">
                                 {item.description}
                             </p>
                         </div>
                     </div>
-                </div>
+                </motion.div>
             ))}
         </div>
       </div>

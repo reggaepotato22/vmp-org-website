@@ -66,12 +66,12 @@ const Testimonials = () => {
                         "{testimonial.content}"
                       </p>
                       <div className="mt-auto flex items-center space-x-4">
-                        <div className="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center text-green-600">
+                        <div className="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center text-primary">
                             <User className="h-5 w-5" />
                         </div>
                         <div>
                           <h4 className="font-bold text-slate-800 text-sm">{testimonial.name}</h4>
-                          <p className="text-xs text-blue-600 font-medium">{testimonial.role}</p>
+                          <p className="text-xs text-secondary font-medium">{testimonial.role}</p>
                           <p className="text-xs text-slate-400">{testimonial.location}</p>
                         </div>
                       </div>

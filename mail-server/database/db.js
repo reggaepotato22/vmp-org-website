@@ -21,6 +21,17 @@ const pool = mysql.createPool(dbConfig);
 const runMigrations = async () => {
   console.log('Checking database migrations...');
   try {
+    // Step 1: Ensure Database Exists
+    const tempConnection = await mysql.createConnection({
+      host: dbConfig.host,
+      user: dbConfig.user,
+      password: dbConfig.password
+    });
+    
+    await tempConnection.query(`CREATE DATABASE IF NOT EXISTS \`${dbConfig.database}\``);
+    await tempConnection.end();
+
+    // Step 2: Run Schema Migrations
     const schemaPath = path.join(__dirname, 'schema.sql');
     const schemaSql = fs.readFileSync(schemaPath, 'utf8');
     
@@ -39,6 +50,15 @@ const runMigrations = async () => {
         await connection.query(query);
       }
       
+      // Migration: Add category to projects if not exists
+      try {
+        await connection.query('ALTER TABLE projects ADD COLUMN category VARCHAR(100)');
+      } catch (e) {
+        if (e.code !== 'ER_DUP_FIELDNAME') {
+          console.log('Note: Column category already exists or other error:', e.message);
+        }
+      }
+
       // Seed Admin User if not exists
       const [rows] = await connection.query('SELECT * FROM users WHERE email = ?', ['admin@kenyavetsmission.org']);
       if (rows.length === 0) {
@@ -53,7 +73,11 @@ const runMigrations = async () => {
     }
   } catch (error) {
     console.error('Migration failed:', error);
-    // We don't exit process here to allow the server to run even if DB fails temporarily (though APIs will fail)
+    if (error.code === 'ECONNREFUSED') {
+        console.error('\n\x1b[31m%s\x1b[0m', 'ERROR: Could not connect to the database.');
+        console.error('\x1b[33m%s\x1b[0m', 'Please ensure your MySQL server (e.g., XAMPP, WAMP, or MySQL Service) is running.');
+        console.error('Check your .env file to ensure DB_HOST, DB_USER, and DB_PASSWORD are correct.\n');
+    }
   }
 };
 

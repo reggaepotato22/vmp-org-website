@@ -22,6 +22,20 @@ CREATE TABLE IF NOT EXISTS missions (
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
+CREATE TABLE IF NOT EXISTS projects (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  title VARCHAR(255) NOT NULL,
+  slug VARCHAR(255) UNIQUE,
+  description TEXT,
+  category VARCHAR(100),
+  status VARCHAR(50) DEFAULT 'active',
+  cover_image VARCHAR(255),
+  start_date VARCHAR(50),
+  end_date VARCHAR(50),
+  featured BOOLEAN DEFAULT FALSE,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
 CREATE TABLE IF NOT EXISTS gallery (
   id INT AUTO_INCREMENT PRIMARY KEY,
   title VARCHAR(255),
@@ -29,9 +43,11 @@ CREATE TABLE IF NOT EXISTS gallery (
   image_url VARCHAR(255) NOT NULL,
   description TEXT,
   mission_id INT,
+  project_id INT,
   featured BOOLEAN DEFAULT FALSE,
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-  FOREIGN KEY (mission_id) REFERENCES missions(id) ON DELETE SET NULL
+  FOREIGN KEY (mission_id) REFERENCES missions(id) ON DELETE SET NULL,
+  FOREIGN KEY (project_id) REFERENCES projects(id) ON DELETE SET NULL
 );
 
 CREATE TABLE IF NOT EXISTS site_settings (
@@ -48,6 +64,35 @@ CREATE TABLE IF NOT EXISTS news (
   image_url VARCHAR(255),
   category VARCHAR(50) DEFAULT 'news',
   date VARCHAR(50),
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE IF NOT EXISTS posts (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  title VARCHAR(255) NOT NULL,
+  slug VARCHAR(255) UNIQUE,
+  excerpt TEXT,
+  content TEXT,
+  cover_image VARCHAR(255),
+  status VARCHAR(50) DEFAULT 'draft',
+  mission_id INT,
+  tags JSON,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  FOREIGN KEY (mission_id) REFERENCES missions(id) ON DELETE SET NULL
+);
+
+CREATE TABLE IF NOT EXISTS team_members (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  name VARCHAR(255) NOT NULL,
+  role VARCHAR(100),
+  photo_url VARCHAR(255),
+  bio TEXT,
+  email VARCHAR(255),
+  phone VARCHAR(50),
+  social_links JSON,
+  display_order INT DEFAULT 0,
+  active BOOLEAN DEFAULT TRUE,
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
@@ -71,6 +116,3 @@ CREATE TABLE IF NOT EXISTS hero_slides (
   active BOOLEAN DEFAULT TRUE,
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
-
-INSERT IGNORE INTO users (email, password_hash) VALUES 
-('admin@kenyavetsmission.org', '$2a$10$X7.X.X.X.X.X.X.X.X.X.X.X.X.X.X.X.X.X.X.X.X.X.X.X'); 

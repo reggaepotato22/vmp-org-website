@@ -14,6 +14,7 @@ import LandingPage from "@/pages/public/LandingPage";
 import AboutPage from "@/pages/public/AboutPage";
 import MissionsPage from "@/pages/public/MissionsPage";
 import MissionDetailPage from "@/pages/public/MissionDetailPage";
+import ProjectsPage from "@/pages/public/ProjectsPage";
 import DonatePage from "@/pages/public/DonatePage";
 import NewsPage from "@/pages/public/NewsPage";
 import NewsDetailPage from "@/pages/public/NewsDetailPage";
@@ -30,7 +31,9 @@ import ManageHomepagePage from "@/pages/admin/ManageHomepagePage";
 import ManageMissionsPage from "@/pages/admin/ManageMissionsPage";
 import ManageUsersPage from "@/pages/admin/ManageUsersPage";
 import ManageGalleryPage from "@/pages/admin/ManageGalleryPage";
+import ManageTeamPage from "@/pages/admin/ManageTeamPage";
 import ManageSettingsPage from "@/pages/admin/ManageSettingsPage";
+import ManageProjectsPage from "@/pages/admin/ManageProjectsPage";
 
 // Components
 import ProtectedRoute from "@/components/auth/ProtectedRoute";
@@ -56,13 +59,10 @@ const App = () => (
               {/* Public Routes */}
                     <Route path="/" element={<PublicLayout />}>
                       <Route index element={<LandingPage />} />
-                      <Route path="about/*">
-                        <Route path="overview" element={<AboutPage />} />
-                        <Route path="history" element={<AboutPage />} />
-                        <Route path="testimonials" element={<AboutPage />} />
-                      </Route>
+                      <Route path="about" element={<AboutPage />} />
                       <Route path="missions" element={<MissionsPage />} />
                       <Route path="missions/:id" element={<MissionDetailPage />} />
+                      <Route path="projects" element={<ProjectsPage />} />
                       <Route path="donate" element={<DonatePage />} />
                       <Route path="news" element={<NewsPage />} />
                       <Route path="news/:id" element={<NewsDetailPage />} />
@@ -88,7 +88,9 @@ const App = () => (
                       <Route path="homepage" element={<ManageHomepagePage />} />
                       <Route path="missions" element={<ManageMissionsPage />} />
                       <Route path="users" element={<ManageUsersPage />} />
+                      <Route path="projects" element={<ManageProjectsPage />} />
                       <Route path="gallery" element={<ManageGalleryPage />} />
+                      <Route path="team" element={<ManageTeamPage />} />
                       <Route path="settings" element={<ManageSettingsPage />} />
                     </Route>
                   </Routes>

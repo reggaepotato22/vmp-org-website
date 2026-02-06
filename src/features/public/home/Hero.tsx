@@ -21,24 +21,24 @@ const defaultSlides = [
   {
     id: "default-1",
     image: heroSlide1,
-    title: "Veterinarians with a Mission Programme",
-    description: "Transforming lives through veterinary care and the love of Christ.",
+    title: "Empowering Communities Through Veterinary Care",
+    description: "Veterinarians with a Mission Programme is dedicated to improving animal health and community livelihoods.",
     order_index: 0,
     active: true
   },
   {
     id: "default-2",
     image: heroSlide2,
-    title: "Matthew 28:19-20",
-    description: "Therefore go and make disciples of all nations...",
+    title: "Compassion in Action",
+    description: "Reaching out to underserved communities with professional veterinary care and the love of Christ.",
     order_index: 1,
     active: true
   },
   {
     id: "default-3",
     image: heroSlide3,
-    title: "Compassion in Action",
-    description: "Reaching out to underserved communities with professional veterinary care and spiritual support.",
+    title: "Join Our Mission Today",
+    description: "Your support helps us reach more communities and save more lives.",
     order_index: 2,
     active: true
   },
@@ -88,7 +88,7 @@ const Hero = () => {
   }
 
   return (
-    <div className="relative w-full h-[600px] md:h-[700px] bg-slate-900 overflow-hidden group">
+    <div className="relative w-full h-[600px] md:h-[800px] bg-slate-900 overflow-hidden group">
       <Carousel
         setApi={setApi}
         opts={{
@@ -106,22 +106,22 @@ const Hero = () => {
                   className="w-full h-full object-cover"
                 />
                 {/* Enhanced Gradient Overlay */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent" />
+                <div className="absolute inset-0 bg-black/40" />
                 
                 <div className="absolute inset-0 flex items-center justify-center text-center p-4">
-                  <div className="max-w-4xl space-y-6 animate-in fade-in zoom-in duration-1000 slide-in-from-bottom-10">
-                    <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-white drop-shadow-lg tracking-tight leading-tight">
+                  <div className="max-w-5xl space-y-8 animate-in fade-in zoom-in duration-1000 slide-in-from-bottom-10">
+                    <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold font-heading text-white drop-shadow-lg tracking-tight leading-tight">
                       {slide.title}
                     </h1>
                     <p className="text-lg md:text-2xl text-slate-100 max-w-2xl mx-auto drop-shadow-md font-light">
                       {slide.description}
                     </p>
                     <div className="pt-4 flex flex-col sm:flex-row gap-4 justify-center">
-                      <Button asChild size="lg" className="bg-blue-600 hover:bg-blue-700 text-white border-none shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-200 text-lg px-8 py-6 h-auto rounded-full">
-                        <Link to="/donate">Donate Now</Link>
+                      <Button asChild size="lg" className="bg-primary hover:bg-primary/90 text-white border-none shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-200 text-lg px-8 py-6 h-auto rounded-full">
+                        <Link to="/about">Learn More</Link>
                       </Button>
-                      <Button asChild variant="outline" size="lg" className="bg-white/10 hover:bg-white/20 text-white border-2 border-white/50 hover:border-white backdrop-blur-sm shadow-lg text-lg px-8 py-6 h-auto rounded-full">
-                        <Link to="/missions">Our Missions</Link>
+                      <Button asChild variant="outline" size="lg" className="bg-transparent hover:bg-white/10 text-white border-2 border-white backdrop-blur-sm shadow-lg text-lg px-8 py-6 h-auto rounded-full">
+                        <Link to="/donate">Donate Now</Link>
                       </Button>
                     </div>
                   </div>
@@ -130,8 +130,8 @@ const Hero = () => {
             </CarouselItem>
           ))}
         </CarouselContent>
-        <CarouselPrevious className="left-4 bg-black/30 hover:bg-black/50 text-white border-none h-12 w-12" />
-        <CarouselNext className="right-4 bg-black/30 hover:bg-black/50 text-white border-none h-12 w-12" />
+        <CarouselPrevious className="left-4 bg-white/10 hover:bg-white/20 text-white border-none h-12 w-12" />
+        <CarouselNext className="right-4 bg-white/10 hover:bg-white/20 text-white border-none h-12 w-12" />
       </Carousel>
     </div>
   );
