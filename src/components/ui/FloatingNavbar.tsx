@@ -70,7 +70,7 @@ const FloatingNavbar = () => {
               className="h-10 md:h-12 w-auto object-contain transition-transform group-hover:scale-105"
             />
             <div className="hidden lg:flex flex-col">
-              <span className="text-emerald-800 font-heading font-bold text-sm leading-tight tracking-wide">
+              <span className="text-primary font-heading font-bold text-sm leading-tight tracking-wide">
                 Veterinarians With
               </span>
               <span className="text-slate-900 font-heading font-bold text-sm leading-tight tracking-wide">
@@ -84,8 +84,8 @@ const FloatingNavbar = () => {
             <button
               onClick={() => handleNavClick("/")}
               className={cn(
-                "px-4 py-2 text-sm font-bold uppercase tracking-wide transition-colors hover:text-emerald-700 rounded-full",
-                isActive("/") ? "text-emerald-700 bg-emerald-50" : "text-slate-700"
+                "px-4 py-2 text-sm font-bold uppercase tracking-wide transition-colors hover:text-secondary rounded-full",
+                isActive("/") ? "text-primary bg-blue-50" : "text-slate-700"
               )}
             >
               Home
@@ -94,22 +94,22 @@ const FloatingNavbar = () => {
             <DropdownMenu>
               <DropdownMenuTrigger
                 className={cn(
-                  "flex items-center px-4 py-2 text-sm font-bold uppercase tracking-wide transition-colors hover:text-emerald-700 focus:outline-none rounded-full",
+                  "flex items-center px-4 py-2 text-sm font-bold uppercase tracking-wide transition-colors hover:text-secondary focus:outline-none rounded-full",
                   location.pathname.startsWith("/about")
-                    ? "text-emerald-700 bg-emerald-50"
+                    ? "text-primary bg-blue-50"
                     : "text-slate-700"
                 )}
               >
                 About <ChevronDown className="ml-1 h-4 w-4" />
               </DropdownMenuTrigger>
               <DropdownMenuContent className="bg-white/95 backdrop-blur-xl border-slate-100 shadow-xl rounded-xl p-2">
-                <DropdownMenuItem onClick={() => handleNavClick("/about/overview")} className="font-medium cursor-pointer hover:text-emerald-700 hover:bg-emerald-50 rounded-lg py-2">
+                <DropdownMenuItem onClick={() => handleNavClick("/about/overview")} className="font-medium cursor-pointer hover:text-secondary hover:bg-rose-50 rounded-lg py-2">
                   Overview
                 </DropdownMenuItem>
-                <DropdownMenuItem onClick={() => handleNavClick("/about/history")} className="font-medium cursor-pointer hover:text-emerald-700 hover:bg-emerald-50 rounded-lg py-2">
+                <DropdownMenuItem onClick={() => handleNavClick("/about/history")} className="font-medium cursor-pointer hover:text-secondary hover:bg-rose-50 rounded-lg py-2">
                   History
                 </DropdownMenuItem>
-                <DropdownMenuItem onClick={() => handleNavClick("/about/testimonials")} className="font-medium cursor-pointer hover:text-emerald-700 hover:bg-emerald-50 rounded-lg py-2">
+                <DropdownMenuItem onClick={() => handleNavClick("/about/testimonials")} className="font-medium cursor-pointer hover:text-secondary hover:bg-rose-50 rounded-lg py-2">
                   Testimonials
                 </DropdownMenuItem>
               </DropdownMenuContent>
@@ -118,8 +118,8 @@ const FloatingNavbar = () => {
             <button
               onClick={() => handleNavClick("/missions")}
               className={cn(
-                "px-4 py-2 text-sm font-bold uppercase tracking-wide transition-colors hover:text-emerald-700 rounded-full",
-                isActive("/missions") ? "text-emerald-700 bg-emerald-50" : "text-slate-700"
+                "px-4 py-2 text-sm font-bold uppercase tracking-wide transition-colors hover:text-secondary rounded-full",
+                isActive("/missions") ? "text-primary bg-blue-50" : "text-slate-700"
               )}
             >
               Missions
@@ -128,8 +128,8 @@ const FloatingNavbar = () => {
             <button
               onClick={() => handleNavClick("/projects")}
               className={cn(
-                "px-4 py-2 text-sm font-bold uppercase tracking-wide transition-colors hover:text-emerald-700 rounded-full",
-                isActive("/projects") ? "text-emerald-700 bg-emerald-50" : "text-slate-700"
+                "px-4 py-2 text-sm font-bold uppercase tracking-wide transition-colors hover:text-secondary rounded-full",
+                isActive("/projects") ? "text-primary bg-blue-50" : "text-slate-700"
               )}
             >
               Projects
@@ -138,8 +138,8 @@ const FloatingNavbar = () => {
             <button
               onClick={() => handleNavClick("/news")}
               className={cn(
-                "px-4 py-2 text-sm font-bold uppercase tracking-wide transition-colors hover:text-emerald-700 rounded-full",
-                isActive("/news") ? "text-emerald-700 bg-emerald-50" : "text-slate-700"
+                "px-4 py-2 text-sm font-bold uppercase tracking-wide transition-colors hover:text-secondary rounded-full",
+                isActive("/news") ? "text-primary bg-blue-50" : "text-slate-700"
               )}
             >
               Updates
@@ -148,8 +148,8 @@ const FloatingNavbar = () => {
             <button
               onClick={() => handleNavClick("/gallery")}
               className={cn(
-                "px-4 py-2 text-sm font-bold uppercase tracking-wide transition-colors hover:text-emerald-700 rounded-full",
-                isActive("/gallery") ? "text-emerald-700 bg-emerald-50" : "text-slate-700"
+                "px-4 py-2 text-sm font-bold uppercase tracking-wide transition-colors hover:text-secondary rounded-full",
+                isActive("/gallery") ? "text-primary bg-blue-50" : "text-slate-700"
               )}
             >
               Gallery
@@ -158,7 +158,7 @@ const FloatingNavbar = () => {
             <div className="pl-4">
                 <Button 
                     onClick={() => handleNavClick("/donate")}
-                    className="bg-amber-500 hover:bg-amber-600 text-white border-none rounded-full px-8 py-5 font-bold shadow-md hover:shadow-lg transition-all hover:-translate-y-0.5"
+                    className="bg-secondary hover:bg-rose-900 text-white border-none rounded-full px-8 py-5 font-bold shadow-md hover:shadow-lg transition-all hover:-translate-y-0.5"
                 >
                     Donate
                 </Button>
@@ -169,7 +169,7 @@ const FloatingNavbar = () => {
           <div className="md:hidden flex items-center">
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="text-slate-900 hover:text-emerald-700 transition-colors p-2"
+              className="text-slate-900 hover:text-primary transition-colors p-2"
             >
               {isMenuOpen ? <X className="h-8 w-8" /> : <Menu className="h-8 w-8" />}
             </button>
@@ -188,48 +188,48 @@ const FloatingNavbar = () => {
           <div className="px-4 pt-2 pb-6 space-y-1 shadow-inner">
             <button
               onClick={() => handleNavClick("/")}
-              className="block w-full text-left px-4 py-3 text-base font-bold text-slate-700 hover:bg-emerald-50 hover:text-emerald-700 rounded-lg"
+              className="block w-full text-left px-4 py-3 text-base font-bold text-slate-700 hover:bg-blue-50 hover:text-primary rounded-lg"
             >
               HOME
             </button>
             <button
               onClick={() => handleNavClick("/about/overview")}
-              className="block w-full text-left px-4 py-3 text-base font-bold text-slate-700 hover:bg-emerald-50 hover:text-emerald-700 rounded-lg"
+              className="block w-full text-left px-4 py-3 text-base font-bold text-slate-700 hover:bg-blue-50 hover:text-primary rounded-lg"
             >
               ABOUT
             </button>
             <button
               onClick={() => handleNavClick("/missions")}
-              className="block w-full text-left px-4 py-3 text-base font-bold text-slate-700 hover:bg-emerald-50 hover:text-emerald-700 rounded-lg"
+              className="block w-full text-left px-4 py-3 text-base font-bold text-slate-700 hover:bg-blue-50 hover:text-primary rounded-lg"
             >
               MISSIONS
             </button>
             <button
               onClick={() => handleNavClick("/projects")}
-              className="block w-full text-left px-4 py-3 text-base font-bold text-slate-700 hover:bg-emerald-50 hover:text-emerald-700 rounded-lg"
+              className="block w-full text-left px-4 py-3 text-base font-bold text-slate-700 hover:bg-blue-50 hover:text-primary rounded-lg"
             >
               PROJECTS
             </button>
             <button
               onClick={() => handleNavClick("/news")}
-              className="block w-full text-left px-4 py-3 text-base font-bold text-slate-700 hover:bg-emerald-50 hover:text-emerald-700 rounded-lg"
+              className="block w-full text-left px-4 py-3 text-base font-bold text-slate-700 hover:bg-blue-50 hover:text-primary rounded-lg"
             >
               UPDATES
             </button>
             <button
               onClick={() => handleNavClick("/gallery")}
-              className="block w-full text-left px-4 py-3 text-base font-bold text-slate-700 hover:bg-emerald-50 hover:text-emerald-700 rounded-lg"
+              className="block w-full text-left px-4 py-3 text-base font-bold text-slate-700 hover:bg-blue-50 hover:text-primary rounded-lg"
             >
               GALLERY
             </button>
             <button
               onClick={() => handleNavClick("/contact")}
-              className="block w-full text-left px-4 py-3 text-base font-bold text-slate-700 hover:bg-emerald-50 hover:text-emerald-700 rounded-lg"
+              className="block w-full text-left px-4 py-3 text-base font-bold text-slate-700 hover:bg-blue-50 hover:text-primary rounded-lg"
             >
               CONTACT
             </button>
             <div className="pt-4 px-4">
-                <Button className="w-full bg-amber-500 hover:bg-amber-600 text-white font-bold py-6 rounded-xl text-lg shadow-md" onClick={() => handleNavClick("/donate")}>
+                <Button className="w-full bg-secondary hover:bg-rose-900 text-white font-bold py-6 rounded-xl text-lg shadow-md" onClick={() => handleNavClick("/donate")}>
                     DONATE NOW
                 </Button>
             </div>

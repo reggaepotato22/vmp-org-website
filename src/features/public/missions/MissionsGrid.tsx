@@ -25,13 +25,13 @@ const MissionsGrid = () => {
 
   if (loading) {
     return (
-      <section className="py-20 bg-cream">
+      <section className="py-20 bg-slate-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-heading font-bold text-deep-forest-green-900 mb-4">
+            <h2 className="text-3xl md:text-4xl font-heading font-bold text-slate-900 mb-4">
               Our Impact in Action
             </h2>
-            <p className="text-deep-forest-green-700 text-lg max-w-2xl mx-auto">
+            <p className="text-slate-700 text-lg max-w-2xl mx-auto">
               Explore our recent missions where we combine professional veterinary care with the message of God's love.
             </p>
           </div>
@@ -60,14 +60,14 @@ const MissionsGrid = () => {
   }
 
   return (
-    <section className="py-20 bg-cream">
+    <section className="py-20 bg-slate-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
           <motion.h2 
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-3xl md:text-4xl font-heading font-bold text-deep-forest-green-900 mb-4"
+            className="text-3xl md:text-4xl font-heading font-bold text-slate-900 mb-4"
           >
             Our Impact in Action
           </motion.h2>
@@ -76,7 +76,7 @@ const MissionsGrid = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.2 }}
-            className="text-deep-forest-green-700 text-lg max-w-2xl mx-auto"
+            className="text-slate-700 text-lg max-w-2xl mx-auto"
           >
             Explore our recent missions where we combine professional veterinary care with the message of God's love.
           </motion.p>

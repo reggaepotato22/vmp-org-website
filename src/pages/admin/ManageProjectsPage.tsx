@@ -155,7 +155,7 @@ const ManageProjectsPage = () => {
   return (
     <div className="space-y-6">
       <div className="flex justify-between items-center">
-        <h2 className="text-3xl font-bold tracking-tight">Manage Projects</h2>
+        <h2 className="text-3xl font-bold tracking-tight text-slate-900 dark:text-slate-100">Manage Projects</h2>
         <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
           <DialogTrigger asChild>
             <Button onClick={resetForm}>
@@ -307,35 +307,35 @@ const ManageProjectsPage = () => {
           }}
         />
       ) : (
-        <div className="rounded-md border">
+        <div className="rounded-md border bg-white dark:bg-slate-800 dark:border-slate-700">
           <Table>
             <TableHeader>
               <TableRow>
-                <TableHead>Title</TableHead>
-                <TableHead>Status</TableHead>
-                <TableHead>Dates</TableHead>
-                <TableHead>Featured</TableHead>
-                <TableHead className="text-right">Actions</TableHead>
+                <TableHead className="dark:text-slate-400">Title</TableHead>
+                <TableHead className="dark:text-slate-400">Status</TableHead>
+                <TableHead className="dark:text-slate-400">Dates</TableHead>
+                <TableHead className="dark:text-slate-400">Featured</TableHead>
+                <TableHead className="text-right dark:text-slate-400">Actions</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
               {projects.map((project) => (
-                <TableRow key={project.id}>
-                  <TableCell className="font-medium">{project.title}</TableCell>
+                <TableRow key={project.id} className="dark:border-slate-700">
+                  <TableCell className="font-medium text-slate-900 dark:text-slate-100">{project.title}</TableCell>
                   <TableCell>
                     <Badge variant={
                       project.status === 'active' ? 'default' : 
                       project.status === 'completed' ? 'secondary' : 'outline'
-                    }>
+                    } className={project.status === 'outline' ? 'dark:text-slate-300' : ''}>
                       {project.status}
                     </Badge>
                   </TableCell>
-                  <TableCell>
+                  <TableCell className="dark:text-slate-300">
                     {project.start_date ? new Date(project.start_date).toLocaleDateString() : 'TBD'}
                     {project.end_date && ` - ${new Date(project.end_date).toLocaleDateString()}`}
                   </TableCell>
                   <TableCell>
-                    {project.featured ? <Badge variant="outline">Featured</Badge> : '-'}
+                    {project.featured ? <Badge variant="outline" className="dark:text-slate-300">Featured</Badge> : '-'}
                   </TableCell>
                   <TableCell className="text-right space-x-2">
                     <Button variant="ghost" size="icon" onClick={() => openEditDialog(project)}>

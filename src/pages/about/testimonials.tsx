@@ -175,7 +175,7 @@ const Testimonials = () => {
                     </div>
 
                     {/* Highlight Badge */}
-                    <div className="inline-block bg-blue-100 text-blue-600 px-3 py-1 rounded-full text-xs font-semibold mb-4">
+                    <div className="inline-block bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-xs font-semibold mb-4">
                       {testimonial.highlight}
                     </div>
 

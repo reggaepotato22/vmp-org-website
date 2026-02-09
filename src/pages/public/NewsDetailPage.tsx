@@ -100,39 +100,39 @@ const NewsDetailPage = () => {
           <div className="flex flex-wrap items-center gap-4 mb-6">
             <Badge className={`${
                 newsItem.category === 'news' 
-                  ? 'bg-deep-forest-green-50 text-deep-forest-green-700 border-deep-forest-green-100' 
-                  : 'bg-gold text-deep-forest-green-900 border-gold'
+                  ? 'bg-slate-100 text-slate-800 border-slate-200' 
+                  : 'bg-secondary text-white border-secondary'
             } hover:bg-opacity-90 border px-3 py-1 text-sm rounded-full`}>
                 {newsItem.category === 'news' ? 'News' : 'Event'}
             </Badge>
             <span className="text-slate-400 text-sm">•</span>
             <div className="flex items-center text-slate-500 text-sm font-medium">
-              <Calendar className="h-4 w-4 mr-2 text-gold" />
+              <Calendar className="h-4 w-4 mr-2 text-secondary" />
               {newsItem.date}
             </div>
             <span className="text-slate-400 text-sm">•</span>
             <div className="flex items-center text-slate-500 text-sm font-medium">
-              <Clock className="h-4 w-4 mr-2 text-gold" />
+              <Clock className="h-4 w-4 mr-2 text-secondary" />
               {readTime}
             </div>
           </div>
 
-          <h1 className="text-3xl md:text-5xl md:leading-tight font-heading font-bold text-deep-forest-green-900 mb-8">
+          <h1 className="text-3xl md:text-5xl md:leading-tight font-heading font-bold text-slate-900 mb-8">
             {newsItem.title}
           </h1>
 
           <div className="flex items-center justify-between border-y border-slate-200 py-6">
              <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-full bg-deep-forest-green-100 flex items-center justify-center text-deep-forest-green-700">
+                <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center text-primary">
                    <User className="h-5 w-5" />
                 </div>
                 <div>
-                   <p className="text-sm font-bold text-deep-forest-green-900">{newsItem.author || "VMP Team"}</p>
+                   <p className="text-sm font-bold text-slate-900">{newsItem.author || "VMP Team"}</p>
                    <p className="text-xs text-slate-500">Author</p>
                 </div>
              </div>
              
-             <Button variant="outline" size="sm" className="rounded-full gap-2 text-slate-600 hover:text-deep-forest-green-900 border-slate-200" onClick={handleShare}>
+             <Button variant="outline" size="sm" className="rounded-full gap-2 text-slate-600 hover:text-slate-900 border-slate-200" onClick={handleShare}>
                 <Share2 className="h-4 w-4" />
                 <span className="hidden sm:inline">Share</span>
              </Button>
@@ -158,7 +158,7 @@ const NewsDetailPage = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.2 }}
-          className="prose prose-lg prose-slate max-w-none prose-headings:font-heading prose-headings:text-deep-forest-green-900 prose-a:text-gold prose-a:no-underline hover:prose-a:underline prose-img:rounded-2xl"
+          className="prose prose-lg prose-slate max-w-none prose-headings:font-heading prose-headings:text-slate-900 prose-a:text-secondary prose-a:no-underline hover:prose-a:underline prose-img:rounded-2xl"
         >
            <div dangerouslySetInnerHTML={{ __html: newsItem.content }} />
         </motion.div>

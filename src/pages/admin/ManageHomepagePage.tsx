@@ -244,8 +244,8 @@ const ManageHomepagePage = () => {
     <div className="space-y-6">
       <div className="flex justify-between items-center">
         <div>
-          <h1 className="text-3xl font-bold tracking-tight">Homepage Controller</h1>
-          <p className="text-slate-500">Manage hero slides and testimonials.</p>
+          <h1 className="text-3xl font-bold tracking-tight text-slate-900 dark:text-slate-100">Homepage Controller</h1>
+          <p className="text-slate-500 dark:text-slate-400">Manage hero slides and testimonials.</p>
         </div>
       </div>
 
@@ -321,7 +321,7 @@ const ManageHomepagePage = () => {
             </Dialog>
           </div>
 
-          <div className="border rounded-lg bg-white">
+          <div className="border rounded-lg bg-white dark:bg-slate-800">
             <Table>
               <TableHeader>
                 <TableRow>
@@ -334,7 +334,7 @@ const ManageHomepagePage = () => {
               <TableBody>
                 {slides.length === 0 ? (
                   <TableRow>
-                    <TableCell colSpan={4} className="text-center py-8 text-slate-500">
+                    <TableCell colSpan={4} className="text-center py-8 text-slate-500 dark:text-slate-400">
                       No slides found. Create one to get started.
                     </TableCell>
                   </TableRow>
@@ -343,7 +343,7 @@ const ManageHomepagePage = () => {
                     <TableRow key={slide.id}>
                       <TableCell>{slide.order_index}</TableCell>
                       <TableCell>
-                        <div className="h-12 w-20 rounded overflow-hidden bg-slate-100">
+                        <div className="h-12 w-20 rounded overflow-hidden bg-slate-100 dark:bg-slate-700">
                           {slide.image ? (
                             <img src={slide.image} alt={slide.title} className="h-full w-full object-cover" />
                           ) : (
@@ -438,7 +438,7 @@ const ManageHomepagePage = () => {
             </Dialog>
           </div>
 
-          <div className="border rounded-lg bg-white">
+          <div className="border rounded-lg bg-white dark:bg-slate-800">
             <Table>
               <TableHeader>
                 <TableRow>
@@ -451,7 +451,7 @@ const ManageHomepagePage = () => {
               <TableBody>
                 {testimonials.length === 0 ? (
                   <TableRow>
-                    <TableCell colSpan={4} className="text-center py-8 text-slate-500">
+                    <TableCell colSpan={4} className="text-center py-8 text-slate-500 dark:text-slate-400">
                       No testimonials found.
                     </TableCell>
                   </TableRow>
@@ -468,10 +468,10 @@ const ManageHomepagePage = () => {
                             </div>
                           )}
                         </div>
-                        <span className="font-medium">{item.name}</span>
+                        <span className="font-medium dark:text-slate-100">{item.name}</span>
                       </TableCell>
-                      <TableCell>{item.role}</TableCell>
-                      <TableCell className="max-w-md truncate text-slate-500">
+                      <TableCell className="dark:text-slate-300">{item.role}</TableCell>
+                      <TableCell className="max-w-md truncate text-slate-500 dark:text-slate-400">
                         {item.content}
                       </TableCell>
                       <TableCell className="text-right">

@@ -55,10 +55,10 @@ const NewsPage = () => {
   if (loading) {
     return (
       <div className="min-h-screen bg-slate-50 pb-20">
-        <section className="bg-deep-forest-green-900 border-b border-deep-forest-green-800 py-24">
+        <section className="bg-primary border-b border-primary py-24">
           <div className="container mx-auto px-4 text-center">
-            <Skeleton className="h-16 w-3/4 md:w-1/2 mb-6 mx-auto bg-deep-forest-green-800" />
-            <Skeleton className="h-6 w-full max-w-2xl mx-auto bg-deep-forest-green-800" />
+            <Skeleton className="h-16 w-3/4 md:w-1/2 mb-6 mx-auto bg-slate-700" />
+            <Skeleton className="h-6 w-full max-w-2xl mx-auto bg-slate-700" />
           </div>
         </section>
         <section className="container mx-auto px-4 py-12">

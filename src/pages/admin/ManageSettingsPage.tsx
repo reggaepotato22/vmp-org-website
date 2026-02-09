@@ -44,7 +44,7 @@ const ManageSettingsPage = () => {
   return (
     <div className="space-y-6">
       <div className="flex justify-between items-center">
-        <h2 className="text-3xl font-bold tracking-tight">Global Settings</h2>
+        <h2 className="text-3xl font-bold tracking-tight text-slate-900 dark:text-slate-100">Global Settings</h2>
       </div>
 
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">

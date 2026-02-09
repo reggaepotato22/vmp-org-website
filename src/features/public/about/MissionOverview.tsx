@@ -58,7 +58,7 @@ const MissionOverview = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.2 }}
-            className="text-xl text-blue-900 leading-relaxed italic"
+            className="text-xl text-primary leading-relaxed italic"
           >
             "To share the love of God to mankind through veterinary skills, enhancing His Kingdom on earth."
           </motion.p>
@@ -123,10 +123,10 @@ const MissionOverview = () => {
               <motion.div key={index} variants={item}>
                 <Card className="bg-white hover:shadow-xl transition-all duration-300 rounded-2xl border-none shadow-md h-full transform hover:-translate-y-2">
                   <CardContent className="pt-8 pb-8 text-center px-6">
-                    <div className="mx-auto bg-deep-forest-green-50 w-16 h-16 rounded-full flex items-center justify-center mb-6">
-                      <Icon className="h-8 w-8 text-deep-forest-green-600" />
+                    <div className="mx-auto bg-slate-50 w-16 h-16 rounded-full flex items-center justify-center mb-6">
+                      <Icon className="h-8 w-8 text-primary" />
                     </div>
-                    <h3 className="text-xl font-bold text-deep-forest-green-900 mb-3">{value.title}</h3>
+                    <h3 className="text-xl font-bold text-slate-900 mb-3">{value.title}</h3>
                     <p className="text-sm text-slate-600 leading-relaxed">
                       {value.description}
                     </p>

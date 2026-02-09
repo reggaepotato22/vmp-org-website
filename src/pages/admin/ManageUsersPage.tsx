@@ -64,8 +64,8 @@ const ManageUsersPage = () => {
     <div className="space-y-8">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-3xl font-bold tracking-tight text-slate-900">Manage Users</h1>
-          <p className="text-slate-500">Manage system access and volunteer accounts.</p>
+          <h1 className="text-3xl font-bold tracking-tight text-slate-900 dark:text-slate-100">Manage Users</h1>
+          <p className="text-slate-500 dark:text-slate-400">Manage system access and volunteer accounts.</p>
         </div>
         <Button className="gap-2">
           <UserPlus className="h-4 w-4" />
@@ -73,14 +73,14 @@ const ManageUsersPage = () => {
         </Button>
       </div>
 
-      <Card className="border-slate-200 shadow-sm">
+      <Card className="border-slate-200 dark:border-slate-700 shadow-sm bg-white dark:bg-slate-800">
         <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-4">
-          <CardTitle>All Users</CardTitle>
+          <CardTitle className="text-slate-900 dark:text-slate-100">All Users</CardTitle>
           <div className="relative w-64">
             <Search className="absolute left-2 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-400" />
             <Input
               placeholder="Search users..."
-              className="pl-8 h-9"
+              className="pl-8 h-9 dark:bg-slate-900 dark:border-slate-700"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
             />
@@ -90,24 +90,24 @@ const ManageUsersPage = () => {
           <Table>
             <TableHeader>
               <TableRow>
-                <TableHead>Name</TableHead>
-                <TableHead>Role</TableHead>
-                <TableHead>Status</TableHead>
-                <TableHead>Last Active</TableHead>
-                <TableHead className="text-right">Actions</TableHead>
+                <TableHead className="dark:text-slate-400">Name</TableHead>
+                <TableHead className="dark:text-slate-400">Role</TableHead>
+                <TableHead className="dark:text-slate-400">Status</TableHead>
+                <TableHead className="dark:text-slate-400">Last Active</TableHead>
+                <TableHead className="text-right dark:text-slate-400">Actions</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
               {filteredUsers.map((user) => (
-                <TableRow key={user.id}>
+                <TableRow key={user.id} className="dark:border-slate-700">
                   <TableCell>
                     <div className="flex flex-col">
-                      <span className="font-medium text-slate-900">{user.name}</span>
-                      <span className="text-xs text-slate-500">{user.email}</span>
+                      <span className="font-medium text-slate-900 dark:text-slate-100">{user.name}</span>
+                      <span className="text-xs text-slate-500 dark:text-slate-400">{user.email}</span>
                     </div>
                   </TableCell>
                   <TableCell>
-                    <div className="flex items-center gap-2">
+                    <div className="flex items-center gap-2 dark:text-slate-300">
                       <Shield className="h-3 w-3 text-slate-400" />
                       {user.role}
                     </div>
@@ -117,14 +117,14 @@ const ManageUsersPage = () => {
                       variant={user.status === "Active" ? "default" : "secondary"}
                       className={
                         user.status === "Active"
-                          ? "bg-green-100 text-green-700 hover:bg-green-100"
-                          : "bg-slate-100 text-slate-700 hover:bg-slate-100"
+                          ? "bg-green-100 text-green-700 hover:bg-green-100 dark:bg-green-900/30 dark:text-green-400"
+                          : "bg-slate-100 text-slate-700 hover:bg-slate-100 dark:bg-slate-700 dark:text-slate-300"
                       }
                     >
                       {user.status}
                     </Badge>
                   </TableCell>
-                  <TableCell className="text-slate-500 text-sm">{user.lastActive}</TableCell>
+                  <TableCell className="text-slate-500 dark:text-slate-400 text-sm">{user.lastActive}</TableCell>
                   <TableCell className="text-right">
                     <DropdownMenu>
                       <DropdownMenuTrigger asChild>

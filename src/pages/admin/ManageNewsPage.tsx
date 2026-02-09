@@ -24,6 +24,7 @@ import { toast } from "sonner";
 import { uploadImage } from "@/services/storageService";
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
+import EmptyState from "@/components/admin/EmptyState";
 
 const ManageNewsPage = () => {
   const [news, setNews] = useState<NewsItem[]>([]);
@@ -154,7 +155,7 @@ const ManageNewsPage = () => {
                 <div>
                   <label className="text-sm font-medium">Category</label>
                   <select
-                    className="flex h-10 w-full rounded-md border border-slate-300 bg-white px-3 py-2 text-sm ring-offset-white file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-slate-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                    className="flex h-10 w-full rounded-md border border-slate-300 bg-white dark:bg-slate-950 px-3 py-2 text-sm ring-offset-white file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-slate-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
                     value={formData.category}
                     onChange={(e) => setFormData({ ...formData, category: e.target.value as "news" | "event" })}
                   >
@@ -217,7 +218,7 @@ const ManageNewsPage = () => {
 
       {loading ? (
         <div className="flex justify-center items-center h-64">
-          <Loader2 className="h-8 w-8 animate-spin text-emerald-600" />
+          <Loader2 className="h-8 w-8 animate-spin text-primary" />
         </div>
       ) : news.length === 0 ? (
         <EmptyState 
@@ -228,7 +229,7 @@ const ManageNewsPage = () => {
           onAction={() => setIsDialogOpen(true)}
         />
       ) : (
-        <div className="rounded-md border bg-white">
+        <div className="rounded-md border bg-white dark:bg-slate-800">
           <Table>
             <TableHeader>
               <TableRow>
@@ -241,9 +242,9 @@ const ManageNewsPage = () => {
             <TableBody>
               {news.map((item) => (
                 <TableRow key={item.id}>
-                  <TableCell className="font-medium">{item.title}</TableCell>
-                  <TableCell className="capitalize">{item.category}</TableCell>
-                  <TableCell>{item.date}</TableCell>
+                  <TableCell className="font-medium text-slate-900 dark:text-slate-100">{item.title}</TableCell>
+                  <TableCell className="capitalize text-slate-600 dark:text-slate-300">{item.category}</TableCell>
+                  <TableCell className="text-slate-500 dark:text-slate-400">{item.date}</TableCell>
                   <TableCell className="text-right">
                     <Button variant="ghost" size="icon" onClick={() => openEditDialog(item)}>
                       <Pencil className="h-4 w-4" />

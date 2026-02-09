@@ -38,14 +38,14 @@ const SplitHero = ({
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
         >
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-100 text-emerald-800 text-sm font-medium mb-6">
-            <Heart className="w-4 h-4 fill-emerald-800" />
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-100 text-primary text-sm font-medium mb-6">
+            <Heart className="w-4 h-4 fill-primary" />
             <span>Veterinarians with a Mission Programme</span>
           </div>
           
           <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-slate-900 leading-tight mb-6 tracking-tight">
             {title.split(" ").map((word, i) => (
-              <span key={i} className={i === 1 ? "text-emerald-800" : ""}>
+              <span key={i} className={i === 1 ? "text-primary" : ""}>
                 {word}{" "}
               </span>
             ))}
@@ -58,7 +58,7 @@ const SplitHero = ({
           <div className="flex flex-col sm:flex-row gap-4">
             <Button 
               size="lg" 
-              className="bg-emerald-800 hover:bg-emerald-900 text-white rounded-full px-8 h-12 text-base shadow-lg hover:shadow-xl transition-all hover:scale-105"
+              className="bg-primary hover:bg-primary/90 text-white rounded-full px-8 h-12 text-base shadow-lg hover:shadow-xl transition-all hover:scale-105"
               onClick={() => navigate(ctaLink)}
             >
               {ctaText}
@@ -66,7 +66,7 @@ const SplitHero = ({
             <Button 
               variant="outline" 
               size="lg" 
-              className="border-emerald-800 text-emerald-800 hover:bg-emerald-50 rounded-full px-8 h-12 text-base"
+              className="border-primary text-primary hover:bg-blue-50 rounded-full px-8 h-12 text-base"
               onClick={() => navigate(secondaryCtaLink)}
             >
               {secondaryCtaText} <ArrowRight className="ml-2 h-4 w-4" />
@@ -77,7 +77,7 @@ const SplitHero = ({
           <div className="mt-12 grid grid-cols-2 gap-6 lg:hidden">
             {stats.map((stat, idx) => (
               <div key={idx}>
-                <p className="text-3xl font-bold text-emerald-800">{stat.value}</p>
+                <p className="text-3xl font-bold text-primary">{stat.value}</p>
                 <p className="text-sm text-slate-500 uppercase tracking-wide">{stat.label}</p>
               </div>
             ))}
@@ -87,7 +87,7 @@ const SplitHero = ({
 
       {/* Right Image Side */}
       <div className="w-full lg:w-1/2 relative min-h-[50vh] lg:min-h-auto">
-        <div className="absolute inset-0 bg-emerald-900/10 z-0"></div>
+        <div className="absolute inset-0 bg-primary/10 z-0"></div>
         <motion.img 
           initial={{ scale: 1.1, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}

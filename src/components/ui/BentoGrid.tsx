@@ -54,7 +54,7 @@ export const BentoGridItem = ({
         <div className="font-sans font-normal text-neutral-600 text-xs dark:text-neutral-300">
           {description}
         </div>
-        <div className="mt-4 flex items-center text-emerald-600 text-sm font-medium opacity-0 group-hover/bento:opacity-100 transition-opacity">
+        <div className="mt-4 flex items-center text-primary text-sm font-medium opacity-0 group-hover/bento:opacity-100 transition-opacity">
           Learn more <ArrowRight className="ml-1 w-3 h-3" />
         </div>
       </div>

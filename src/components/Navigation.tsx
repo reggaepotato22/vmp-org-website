@@ -149,14 +149,14 @@ const Navigation = () => {
               variant="ghost"
               size="icon"
               onClick={toggleTheme}
-              className="text-slate-600 hover:text-emerald-600 dark:text-slate-300 dark:hover:text-emerald-500"
+              className="text-slate-600 hover:text-blue-600 dark:text-slate-300 dark:hover:text-blue-500"
             >
               {settings.theme === 'dark' ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
             </Button>
 
             {/* Donate */}
             <Button 
-              className="bg-amber-400 hover:bg-amber-500 text-slate-900 font-bold px-6 shadow-md hover:shadow-lg transition-all transform hover:-translate-y-0.5"
+              className="bg-secondary hover:bg-rose-900 text-white font-bold px-6 shadow-md hover:shadow-lg transition-all transform hover:-translate-y-0.5"
               size="default" 
               onClick={() => handleNavClick("/donate")}
             >
@@ -193,7 +193,7 @@ const Navigation = () => {
             <button
               onClick={() => handleNavClick("/")}
               className={`block w-full text-left px-4 py-3 text-base font-semibold rounded-md ${
-                isActive("/") ? "bg-emerald-50 text-emerald-700" : "text-slate-600 hover:bg-slate-50 dark:text-slate-300 dark:hover:bg-slate-900"
+                isActive("/") ? "bg-blue-50 text-blue-700" : "text-slate-600 hover:bg-slate-50 dark:text-slate-300 dark:hover:bg-slate-900"
               }`}
             >
               HOME

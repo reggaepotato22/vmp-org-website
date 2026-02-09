@@ -6,7 +6,8 @@ import {
   Users, 
   Image as ImageIcon, 
   Home, 
-  Briefcase
+  Briefcase,
+  FolderKanban
 } from "lucide-react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useAuth } from "@/context/AuthContext";
@@ -67,7 +68,7 @@ export function AdminSidebar() {
                 asChild 
                 isActive={location.pathname === item.to}
                 tooltip={item.label}
-                className="data-[active=true]:bg-emerald-600 data-[active=true]:text-white data-[active=true]:hover:bg-emerald-700 data-[active=true]:hover:text-white"
+                className="data-[active=true]:bg-primary data-[active=true]:text-white data-[active=true]:hover:bg-primary/90 data-[active=true]:hover:text-white"
               >
                 <Link to={item.to}>
                   <item.icon className="h-5 w-5" />

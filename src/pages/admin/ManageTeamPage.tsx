@@ -22,6 +22,7 @@ import {
 import { Plus, Pencil, Trash2, Loader2, Linkedin, Twitter, Mail, Users } from "lucide-react";
 import { toast } from "sonner";
 import { uploadImage } from "@/services/storageService";
+import EmptyState from "@/components/admin/EmptyState";
 
 const ManageTeamPage = () => {
   const [members, setMembers] = useState<TeamMember[]>([]);
@@ -132,10 +133,10 @@ const ManageTeamPage = () => {
   return (
     <div className="space-y-6">
       <div className="flex justify-between items-center">
-        <h2 className="text-3xl font-bold tracking-tight text-deep-forest-green-900">Manage Team</h2>
+        <h2 className="text-3xl font-bold tracking-tight text-slate-900">Manage Team</h2>
         <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
           <DialogTrigger asChild>
-            <Button onClick={resetForm} className="bg-deep-forest-green-900 hover:bg-deep-forest-green-800 text-white shadow-md hover:shadow-lg transition-all">
+            <Button onClick={resetForm} className="bg-primary hover:bg-primary/90 text-white shadow-md hover:shadow-lg transition-all">
               <Plus className="mr-2 h-4 w-4" /> Add Member
             </Button>
           </DialogTrigger>
@@ -228,7 +229,7 @@ const ManageTeamPage = () => {
                 </div>
               </div>
 
-              <Button type="submit" className="w-full bg-deep-forest-green-900 hover:bg-deep-forest-green-800" disabled={loading || uploading}>
+              <Button type="submit" className="w-full bg-primary hover:bg-primary/90" disabled={loading || uploading}>
                 {loading ? <Loader2 className="h-4 w-4 animate-spin" /> : "Save"}
               </Button>
             </form>
@@ -238,7 +239,7 @@ const ManageTeamPage = () => {
 
       {loading ? (
         <div className="flex justify-center items-center h-64">
-          <Loader2 className="h-8 w-8 animate-spin text-deep-forest-green-900" />
+          <Loader2 className="h-8 w-8 animate-spin text-primary" />
         </div>
       ) : members.length === 0 ? (
         <EmptyState 
@@ -249,7 +250,7 @@ const ManageTeamPage = () => {
           onAction={() => setIsDialogOpen(true)}
         />
       ) : (
-        <div className="rounded-md border bg-white">
+        <div className="rounded-md border bg-white dark:bg-slate-800">
           <Table>
             <TableHeader>
               <TableRow>
@@ -268,16 +269,16 @@ const ManageTeamPage = () => {
                         {member.image_url ? (
                           <img src={member.image_url} alt={member.name} className="h-full w-full object-cover" />
                         ) : (
-                          <div className="h-full w-full flex items-center justify-center bg-emerald-100 text-emerald-700 font-bold">
+                          <div className="h-full w-full flex items-center justify-center bg-slate-100 text-slate-700 font-bold">
                             {member.name.charAt(0)}
                           </div>
                         )}
                       </div>
-                      <span>{member.name}</span>
+                      <span className="text-slate-900 dark:text-slate-100">{member.name}</span>
                     </div>
                   </TableCell>
-                  <TableCell>{member.role}</TableCell>
-                  <TableCell className="max-w-xs truncate text-slate-500">{member.bio}</TableCell>
+                  <TableCell className="text-slate-600 dark:text-slate-300">{member.role}</TableCell>
+                  <TableCell className="max-w-xs truncate text-slate-500 dark:text-slate-400">{member.bio}</TableCell>
                   <TableCell className="text-right">
                     <div className="flex justify-end gap-2">
                       <Button variant="ghost" size="icon" onClick={() => openEditDialog(member)}>

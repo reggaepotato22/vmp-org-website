@@ -19,14 +19,19 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import { ScrollArea } from "@/components/ui/scroll-area";
 import { Plus, Pencil, Trash2, Loader2, Target, ImageIcon } from "lucide-react";
 import { toast } from "sonner";
 import { uploadImage } from "@/services/storageService";
+import EmptyState from "@/components/admin/EmptyState";
+import { GalleryItem } from "@/types";
 
 const ManageMissionsPage = () => {
   const [missions, setMissions] = useState<Mission[]>([]);
   const [loading, setLoading] = useState(true);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [isGalleryOpen, setIsGalleryOpen] = useState(false);
+  const [galleryItems, setGalleryItems] = useState<GalleryItem[]>([]);
   const [editingItem, setEditingItem] = useState<Mission | null>(null);
   const [formData, setFormData] = useState({
     title: "",
@@ -41,6 +46,12 @@ const ManageMissionsPage = () => {
 
   useEffect(() => {
     fetchMissions();
+    // Initialize mock gallery items for now to prevent empty list
+    setGalleryItems([
+       { id: '1', title: 'Mission 1', category: 'mission', image_url: 'https://images.unsplash.com/photo-1576201836163-4917a6a41d84', featured: false, created_at: new Date().toISOString() },
+       { id: '2', title: 'Mission 2', category: 'mission', image_url: 'https://images.unsplash.com/photo-1599443015574-be5fe8a05783', featured: false, created_at: new Date().toISOString() },
+       { id: '3', title: 'Community', category: 'general', image_url: 'https://images.unsplash.com/photo-1469571486292-0ba58a3f068b', featured: false, created_at: new Date().toISOString() },
+    ]);
   }, []);
 
   const fetchMissions = async () => {
@@ -96,6 +107,11 @@ const ManageMissionsPage = () => {
     } finally {
       setUploading(false);
     }
+  };
+
+  const handleSelectGalleryImage = (url: string) => {
+    setFormData(prev => ({ ...prev, cover_image: url }));
+    setIsGalleryOpen(false);
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -167,7 +183,7 @@ const ManageMissionsPage = () => {
   return (
     <div className="space-y-6">
       <div className="flex justify-between items-center">
-        <h2 className="text-3xl font-bold tracking-tight">Manage Missions</h2>
+        <h2 className="text-3xl font-bold tracking-tight dark:text-slate-100">Manage Missions</h2>
         <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
           <DialogTrigger asChild>
             <Button onClick={resetForm} className="bg-green-600 hover:bg-green-700 shadow-sm hover:shadow-md transition-all">
@@ -191,7 +207,7 @@ const ManageMissionsPage = () => {
                  <div>
                   <label className="text-sm font-medium">Status</label>
                   <select
-                    className="flex h-10 w-full rounded-md border border-slate-300 bg-white px-3 py-2 text-sm ring-offset-white file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-slate-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                    className="flex h-10 w-full rounded-md border border-slate-300 bg-white dark:bg-slate-950 px-3 py-2 text-sm ring-offset-white file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-slate-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
                     value={formData.status}
                     onChange={(e) => setFormData({ ...formData, status: e.target.value as "upcoming" | "ongoing" | "completed" })}
                   >
@@ -351,32 +367,32 @@ const ManageMissionsPage = () => {
           onAction={() => setIsDialogOpen(true)}
         />
       ) : (
-        <div className="rounded-md border bg-white border-t-4 border-t-green-500 shadow-sm">
+        <div className="rounded-md border bg-white dark:bg-slate-800 border-t-4 border-t-green-500 shadow-sm dark:border-slate-700">
           <Table>
             <TableHeader>
               <TableRow>
-                <TableHead>Title</TableHead>
-                <TableHead>Location</TableHead>
-                <TableHead>Status</TableHead>
-                <TableHead>Dates</TableHead>
-                <TableHead className="text-right">Actions</TableHead>
+                <TableHead className="dark:text-slate-400">Title</TableHead>
+                <TableHead className="dark:text-slate-400">Location</TableHead>
+                <TableHead className="dark:text-slate-400">Status</TableHead>
+                <TableHead className="dark:text-slate-400">Dates</TableHead>
+                <TableHead className="text-right dark:text-slate-400">Actions</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
               {missions.map((item) => (
-                <TableRow key={item.id}>
-                  <TableCell className="font-medium">{item.title}</TableCell>
-                  <TableCell>{item.location}</TableCell>
+                <TableRow key={item.id} className="dark:border-slate-700">
+                  <TableCell className="font-medium text-slate-900 dark:text-slate-100">{item.title}</TableCell>
+                  <TableCell className="text-slate-600 dark:text-slate-300">{item.location}</TableCell>
                   <TableCell>
                     <span className={`inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium ${
-                      item.status === 'upcoming' ? 'bg-blue-100 text-blue-800' :
-                      item.status === 'ongoing' ? 'bg-green-100 text-green-800' :
-                      'bg-gray-100 text-gray-800'
+                      item.status === 'upcoming' ? 'bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-300' :
+                      item.status === 'ongoing' ? 'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-300' :
+                      'bg-gray-100 text-gray-800 dark:bg-slate-700 dark:text-slate-300'
                     }`}>
                       {item.status}
                     </span>
                   </TableCell>
-                  <TableCell className="text-sm text-slate-500">
+                  <TableCell className="text-sm text-slate-500 dark:text-slate-400">
                     {item.start_date} - {item.end_date}
                   </TableCell>
                   <TableCell className="text-right">

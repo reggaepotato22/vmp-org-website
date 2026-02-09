@@ -83,9 +83,9 @@ const LandingPage = () => {
         <section className="py-24 bg-slate-50">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-16">
-              <span className="text-emerald-600 font-semibold tracking-wider uppercase text-sm">Our Work</span>
+              <span className="text-primary font-semibold tracking-wider uppercase text-sm">Our Work</span>
               <h2 className="mt-2 text-3xl md:text-4xl font-bold text-slate-900">Making a Tangible Difference</h2>
-              <div className="w-20 h-1 bg-amber-400 mx-auto mt-4 rounded-full"></div>
+              <div className="w-20 h-1 bg-secondary mx-auto mt-4 rounded-full"></div>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -125,18 +125,18 @@ const LandingPage = () => {
 
       {/* 3. Donation Section */}
       {settings.features?.showDonations && (
-        <section className="py-24 bg-emerald-900 text-white relative overflow-hidden">
+        <section className="py-24 bg-primary text-white relative overflow-hidden">
           <div className="absolute inset-0 bg-[url('/assets/pattern.svg')] opacity-5"></div>
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
-            <HandHeart className="w-16 h-16 text-amber-400 mx-auto mb-6" />
+            <HandHeart className="w-16 h-16 text-secondary mx-auto mb-6" />
             <h2 className="text-3xl md:text-5xl font-bold mb-6">Your Support Changes Lives</h2>
-            <p className="text-xl text-emerald-100 max-w-2xl mx-auto mb-10">
+            <p className="text-xl text-blue-100 max-w-2xl mx-auto mb-10">
               Every donation goes directly to providing veterinary care, vaccines, and education to those who need it most.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button 
                 size="lg" 
-                className="bg-amber-500 hover:bg-amber-600 text-white rounded-full px-8 py-6 text-lg shadow-xl"
+                className="bg-secondary hover:bg-secondary/90 text-white rounded-full px-8 py-6 text-lg shadow-xl"
                 onClick={() => navigate("/donate")}
               >
                 Donate Now
@@ -144,7 +144,7 @@ const LandingPage = () => {
               <Button 
                 variant="outline" 
                 size="lg" 
-                className="border-white text-emerald-900 hover:bg-emerald-800 hover:text-white rounded-full px-8 py-6 text-lg"
+                className="border-white text-primary hover:bg-primary/90 hover:text-white rounded-full px-8 py-6 text-lg"
                 onClick={() => navigate("/volunteer")}
               >
                 Volunteer
@@ -212,12 +212,12 @@ const LandingPage = () => {
               {testimonials.map((testimonial) => (
                 <Card key={testimonial.id} className="border-none shadow-lg hover:shadow-xl transition-shadow bg-white rounded-2xl overflow-hidden">
                   <CardContent className="p-8 relative">
-                    <div className="absolute top-6 right-8 text-emerald-100">
+                    <div className="absolute top-6 right-8 text-blue-100">
                       <svg width="40" height="40" viewBox="0 0 24 24" fill="currentColor"><path d="M14.017 21L14.017 18C14.017 16.054 15.331 14.812 16.463 13.896C17.321 13.202 18.337 12.379 18.337 10.975C18.337 9.805 17.584 9.176 16.792 9.176C15.932 9.176 15.111 9.923 14.542 10.457L12.915 8.718C13.682 7.822 14.996 6.875 16.666 6.875C18.887 6.875 20.957 8.242 20.957 10.975C20.957 14.012 18.766 15.961 17.321 17.13C16.463 17.824 15.787 18.371 15.787 19.34L15.787 21H14.017ZM6.683 21L6.683 18C6.683 16.054 7.997 14.812 9.129 13.896C9.987 13.202 11.003 12.379 11.003 10.975C11.003 9.805 10.25 9.176 9.458 9.176C8.598 9.176 7.777 9.923 7.208 10.457L5.581 8.718C6.348 7.822 7.662 6.875 9.332 6.875C11.553 6.875 13.623 8.242 13.623 10.975C13.623 14.012 11.432 15.961 9.987 17.13C9.129 17.824 8.453 18.371 8.453 19.34L8.453 21H6.683Z" /></svg>
                     </div>
                     <p className="text-slate-600 italic mb-6 relative z-10">"{testimonial.content}"</p>
                     <div className="flex items-center gap-4">
-                      <div className="w-12 h-12 rounded-full bg-emerald-100 flex items-center justify-center text-emerald-700 font-bold">
+                      <div className="w-12 h-12 rounded-full bg-blue-100 flex items-center justify-center text-primary font-bold">
                         {testimonial.name.charAt(0)}
                       </div>
                       <div>

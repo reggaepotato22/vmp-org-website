@@ -66,9 +66,9 @@ const GalleryDetailPage = () => {
         <div className="w-20 h-20 bg-slate-200 rounded-full flex items-center justify-center mb-6 text-slate-500">
           <Activity className="w-10 h-10" />
         </div>
-        <h1 className="text-3xl font-heading font-bold text-deep-forest-green-900 mb-4">Gallery Item Not Found</h1>
+        <h1 className="text-3xl font-heading font-bold text-slate-900 mb-4">Gallery Item Not Found</h1>
         <p className="text-slate-600 mb-8 max-w-md">The image you are looking for might have been removed or does not exist.</p>
-        <Button asChild className="rounded-full bg-deep-forest-green-900 text-white hover:bg-deep-forest-green-800 px-8">
+        <Button asChild className="rounded-full bg-primary text-white hover:bg-primary/90 px-8">
           <Link to="/gallery">Back to Gallery</Link>
         </Button>
       </div>
@@ -112,11 +112,11 @@ const GalleryDetailPage = () => {
 
             <div className="flex justify-between items-center px-2">
               <div className="flex items-center gap-3">
-                <Badge className="bg-deep-forest-green-50 text-deep-forest-green-700 hover:bg-deep-forest-green-100 rounded-full px-4 py-1.5 text-sm font-medium border border-deep-forest-green-100">
+                <Badge className="bg-slate-100 text-slate-800 hover:bg-slate-200 rounded-full px-4 py-1.5 text-sm font-medium border border-slate-200">
                   {item.category}
                 </Badge>
                 {item.featured && (
-                  <Badge className="bg-gold text-deep-forest-green-900 hover:bg-gold-600 rounded-full px-4 py-1.5 text-sm font-bold border-none">
+                  <Badge className="bg-secondary text-white hover:bg-secondary/90 rounded-full px-4 py-1.5 text-sm font-bold border-none">
                     Featured
                   </Badge>
                 )}
@@ -124,7 +124,7 @@ const GalleryDetailPage = () => {
               
               {item.created_at && (
                 <div className="flex items-center text-slate-500 text-sm font-medium bg-white px-3 py-1.5 rounded-full shadow-sm border border-slate-100">
-                  <Calendar className="h-4 w-4 mr-2 text-gold" />
+                  <Calendar className="h-4 w-4 mr-2 text-secondary" />
                   {format(new Date(item.created_at), 'MMMM d, yyyy')}
                 </div>
               )}
@@ -139,7 +139,7 @@ const GalleryDetailPage = () => {
             className="space-y-8"
           >
             <div>
-              <h1 className="text-4xl md:text-5xl font-heading font-bold text-deep-forest-green-900 mb-6 leading-tight">
+              <h1 className="text-4xl md:text-5xl font-heading font-bold text-slate-900 mb-6 leading-tight">
                 {item.title || "Untitled Image"}
               </h1>
               
@@ -152,9 +152,9 @@ const GalleryDetailPage = () => {
 
             {mission && (
               <Card className="border-none shadow-lg rounded-3xl overflow-hidden bg-white">
-                <CardHeader className="bg-deep-forest-green-50 pb-4 border-b border-deep-forest-green-100">
-                  <CardTitle className="text-xl font-heading font-bold text-deep-forest-green-900 flex items-center gap-2">
-                    <Activity className="h-5 w-5 text-gold" />
+                <CardHeader className="bg-slate-50 pb-4 border-b border-slate-100">
+                  <CardTitle className="text-xl font-heading font-bold text-slate-900 flex items-center gap-2">
+                    <Activity className="h-5 w-5 text-secondary" />
                     Related Mission
                   </CardTitle>
                 </CardHeader>
@@ -164,16 +164,16 @@ const GalleryDetailPage = () => {
                   
                   <div className="grid grid-cols-2 gap-4 pt-2">
                     <div className="flex items-center text-sm text-slate-600 bg-slate-50 p-2 rounded-xl">
-                      <MapPin className="h-4 w-4 mr-2 text-deep-forest-green-600" />
+                      <MapPin className="h-4 w-4 mr-2 text-slate-600" />
                       {mission.location}
                     </div>
                     <div className="flex items-center text-sm text-slate-600 bg-slate-50 p-2 rounded-xl">
-                      <Users className="h-4 w-4 mr-2 text-deep-forest-green-600" />
+                      <Users className="h-4 w-4 mr-2 text-slate-600" />
                       {mission.volunteers_count || 0} Volunteers
                     </div>
                   </div>
 
-                  <Button asChild className="w-full mt-4 bg-deep-forest-green-900 hover:bg-deep-forest-green-800 text-white rounded-xl shadow-md">
+                  <Button asChild className="w-full mt-4 bg-primary hover:bg-primary/90 text-white rounded-xl shadow-md">
                     <Link to={`/missions/${mission.id}`}>
                       View Mission Report <ExternalLink className="ml-2 h-4 w-4" />
                     </Link>
@@ -183,7 +183,7 @@ const GalleryDetailPage = () => {
             )}
             
             {!mission && item.mission_id && (
-              <div className="bg-amber-50 border border-amber-200 rounded-3xl p-6 text-amber-800 flex items-start gap-3">
+              <div className="bg-slate-50 border border-slate-200 rounded-3xl p-6 text-slate-700 flex items-start gap-3">
                 <Activity className="h-5 w-5 mt-0.5 flex-shrink-0" />
                 <div>
                   <h4 className="font-bold mb-1">Associated Mission Data Unavailable</h4>

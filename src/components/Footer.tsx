@@ -55,13 +55,13 @@ const Footer = () => {
 
           {/* Column 2: Quick Links */}
           <div>
-            <h3 className="text-lg font-bold mb-6 text-secondary">Organization</h3>
+            <h3 className="text-lg font-bold mb-6 text-white">Organization</h3>
             <ul className="space-y-3">
               {footerLinks.organization.map((link) => (
                 <li key={link.name}>
                   <Link 
                     to={link.path} 
-                    className="text-white/80 hover:text-secondary hover:translate-x-1 transition-all inline-block text-sm"
+                    className="text-white/80 hover:text-white hover:translate-x-1 transition-all inline-block text-sm"
                   >
                     {link.name}
                   </Link>
@@ -72,13 +72,13 @@ const Footer = () => {
 
           {/* Column 3: Support */}
           <div>
-            <h3 className="text-lg font-bold mb-6 text-secondary">Support</h3>
+            <h3 className="text-lg font-bold mb-6 text-white">Support</h3>
             <ul className="space-y-3">
               {footerLinks.support.map((link) => (
                 <li key={link.name}>
                   <Link 
                     to={link.path} 
-                    className="text-white/80 hover:text-secondary hover:translate-x-1 transition-all inline-block text-sm"
+                    className="text-white/80 hover:text-white hover:translate-x-1 transition-all inline-block text-sm"
                   >
                     {link.name}
                   </Link>
@@ -89,20 +89,20 @@ const Footer = () => {
 
           {/* Column 4: Contact */}
           <div>
-            <h3 className="text-lg font-bold mb-6 text-secondary">Contact Info</h3>
+            <h3 className="text-lg font-bold mb-6 text-white">Contact Info</h3>
             <ul className="space-y-4">
               <li className="flex items-start gap-3">
-                <MapPin className="h-5 w-5 text-secondary shrink-0 mt-0.5" />
+                <MapPin className="h-5 w-5 text-blue-300 shrink-0 mt-0.5" />
                 <span className="text-white/80 text-sm">
                   {settings.address || "Ultimate House, Oloolua Road, Ngong Town"}
                 </span>
               </li>
               <li className="flex items-center gap-3">
-                <Phone className="h-5 w-5 text-secondary shrink-0" />
+                <Phone className="h-5 w-5 text-blue-300 shrink-0" />
                 <span className="text-white/80 text-sm">{settings.phone || "0116-922-908"}</span>
               </li>
               <li className="flex items-center gap-3">
-                <Mail className="h-5 w-5 text-secondary shrink-0" />
+                <Mail className="h-5 w-5 text-blue-300 shrink-0" />
                 <span className="text-white/80 text-sm">{settings.contactEmail || "info@kenyavetsmission.org"}</span>
               </li>
             </ul>

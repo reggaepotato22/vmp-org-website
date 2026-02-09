@@ -75,8 +75,8 @@ const SuccessStories = () => {
     <section className="py-24 bg-slate-900 text-white overflow-hidden relative">
       {/* Background Elements */}
       <div className="absolute top-0 left-0 w-full h-full opacity-10 pointer-events-none">
-        <div className="absolute top-[-10%] right-[-10%] w-[500px] h-[500px] bg-emerald-500 rounded-full blur-[120px]"></div>
-        <div className="absolute bottom-[-10%] left-[-10%] w-[500px] h-[500px] bg-amber-500 rounded-full blur-[120px]"></div>
+        <div className="absolute top-[-10%] right-[-10%] w-[500px] h-[500px] bg-primary rounded-full blur-[120px]"></div>
+        <div className="absolute bottom-[-10%] left-[-10%] w-[500px] h-[500px] bg-secondary rounded-full blur-[120px]"></div>
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
@@ -84,13 +84,13 @@ const SuccessStories = () => {
           
           {/* Left Content */}
           <div className="md:w-1/2 space-y-6">
-            <div className="flex items-center gap-2 text-amber-400 font-bold uppercase tracking-wider text-sm">
+            <div className="flex items-center gap-2 text-secondary font-bold uppercase tracking-wider text-sm">
               <Star className="w-4 h-4 fill-current" />
               <span>Success Stories</span>
             </div>
             <h2 className="text-4xl md:text-5xl font-bold leading-tight">
               Real Lives,<br />
-              <span className="text-emerald-400">Real Change.</span>
+              <span className="text-blue-300">Real Change.</span>
             </h2>
             <p className="text-slate-300 text-lg max-w-lg">
               Every mission has a story. Behind every number is a life saved, a family supported, and a community strengthened.
@@ -134,9 +134,9 @@ const SuccessStories = () => {
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-slate-900 to-transparent opacity-80"></div>
                     <div className="absolute bottom-4 left-6">
-                      <div className="flex gap-3 text-xs font-medium text-emerald-300 mb-2">
-                        <span className="bg-emerald-900/50 backdrop-blur px-2 py-1 rounded">{stories[currentIndex].location}</span>
-                        <span className="bg-emerald-900/50 backdrop-blur px-2 py-1 rounded">{stories[currentIndex].beneficiary}</span>
+                      <div className="flex gap-3 text-xs font-medium text-blue-200 mb-2">
+                        <span className="bg-blue-900/50 backdrop-blur px-2 py-1 rounded">{stories[currentIndex].location}</span>
+                        <span className="bg-blue-900/50 backdrop-blur px-2 py-1 rounded">{stories[currentIndex].beneficiary}</span>
                       </div>
                       <h3 className="text-2xl font-bold text-white">{stories[currentIndex].title}</h3>
                     </div>
@@ -150,7 +150,7 @@ const SuccessStories = () => {
                     
                     <Sheet>
                       <SheetTrigger asChild>
-                        <Button variant="link" className="self-start p-0 text-amber-400 hover:text-amber-300 font-bold">
+                        <Button variant="link" className="self-start p-0 text-secondary hover:text-secondary/80 font-bold">
                           Read Full Story <ArrowRight className="w-4 h-4 ml-2" />
                         </Button>
                       </SheetTrigger>
@@ -167,10 +167,10 @@ const SuccessStories = () => {
                             />
                           </div>
                           <div className="flex gap-2 mb-2">
-                             <span className="bg-emerald-100 text-emerald-800 text-xs px-2 py-1 rounded font-medium">{stories[currentIndex].location}</span>
+                             <span className="bg-blue-100 text-primary text-xs px-2 py-1 rounded font-medium">{stories[currentIndex].location}</span>
                           </div>
                           <SheetTitle className="text-2xl font-bold text-slate-900">{stories[currentIndex].title}</SheetTitle>
-                          <SheetDescription className="text-emerald-600 font-medium">
+                          <SheetDescription className="text-primary font-medium">
                             Beneficiary: {stories[currentIndex].beneficiary}
                           </SheetDescription>
                         </SheetHeader>
@@ -179,7 +179,7 @@ const SuccessStories = () => {
                           <p>Your support makes stories like this possible. Join us in our mission to heal and protect.</p>
                           
                           <div className="pt-6">
-                            <Button className="w-full bg-emerald-600 hover:bg-emerald-700 text-white rounded-full h-12 text-lg">
+                            <Button className="w-full bg-primary hover:bg-primary/90 text-white rounded-full h-12 text-lg">
                               Support This Cause
                             </Button>
                           </div>

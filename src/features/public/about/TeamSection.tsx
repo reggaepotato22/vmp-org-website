@@ -102,7 +102,7 @@ const TeamSection = () => {
                         </a>
                       )}
                       {member.social_links?.email && (
-                        <a href={`mailto:${member.social_links.email}`} className="hover:text-amber-400 transition-colors">
+                        <a href={`mailto:${member.social_links.email}`} className="hover:text-secondary transition-colors">
                           <Mail className="h-5 w-5" />
                         </a>
                       )}

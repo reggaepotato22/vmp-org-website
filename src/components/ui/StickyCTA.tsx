@@ -40,12 +40,12 @@ const StickyCTA = () => {
                 initial={{ opacity: 0, scale: 0.9, y: 20 }}
                 animate={{ opacity: 1, scale: 1, y: 0 }}
                 exit={{ opacity: 0, scale: 0.9, y: 20 }}
-                className="bg-white rounded-2xl shadow-2xl p-6 w-80 mb-2 border border-emerald-100"
+                className="bg-white rounded-2xl shadow-2xl p-6 w-80 mb-2 border border-slate-200"
               >
                 <div className="flex justify-between items-start mb-4">
                   <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-full bg-emerald-100 flex items-center justify-center">
-                      <MessageCircle className="w-5 h-5 text-emerald-600" />
+                    <div className="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center">
+                      <MessageCircle className="w-5 h-5 text-primary" />
                     </div>
                     <div>
                       <h4 className="font-bold text-slate-900">Hi there! 👋</h4>
@@ -63,7 +63,7 @@ const StickyCTA = () => {
                 <div className="space-y-3">
                   <Button 
                     variant="default" 
-                    className="w-full justify-start bg-amber-500 hover:bg-amber-600 text-white"
+                    className="w-full justify-start bg-secondary hover:bg-secondary/90 text-white"
                     onClick={() => navigate("/donate")}
                   >
                     <Heart className="w-4 h-4 mr-2" />
@@ -71,7 +71,7 @@ const StickyCTA = () => {
                   </Button>
                   <Button 
                     variant="outline" 
-                    className="w-full justify-start border-emerald-200 text-emerald-700 hover:bg-emerald-50"
+                    className="w-full justify-start border-primary/20 text-primary hover:bg-blue-50"
                     onClick={() => navigate("/volunteer")}
                   >
                     <MessageCircle className="w-4 h-4 mr-2" />
@@ -91,7 +91,7 @@ const StickyCTA = () => {
               flex items-center gap-2 px-6 py-4 rounded-full shadow-xl transition-all duration-300
               ${isExpanded 
                 ? "bg-slate-900 text-white" 
-                : "bg-gradient-to-r from-emerald-600 to-emerald-500 text-white hover:shadow-emerald-500/25"
+                : "bg-gradient-to-r from-primary to-blue-600 text-white hover:shadow-blue-500/25"
               }
             `}
           >

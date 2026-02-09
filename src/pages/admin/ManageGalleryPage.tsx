@@ -164,7 +164,7 @@ const ManageGalleryPage = () => {
   return (
     <div className="space-y-6">
       <div className="flex justify-between items-center">
-        <h2 className="text-3xl font-bold tracking-tight">Manage Gallery</h2>
+        <h2 className="text-3xl font-bold tracking-tight dark:text-slate-100">Manage Gallery</h2>
         <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
           <DialogTrigger asChild>
             <Button>
@@ -283,10 +283,10 @@ const ManageGalleryPage = () => {
                   className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
                 />
                 {item.featured && (
-                  <Badge className="absolute top-2 left-2 z-10 bg-yellow-500 hover:bg-yellow-600">Featured</Badge>
+                  <Badge className="absolute top-2 left-2 z-10 bg-yellow-500 hover:bg-yellow-600 text-white">Featured</Badge>
                 )}
                 {item.mission_id && (
-                  <Badge variant="outline" className="absolute top-2 right-2 z-10 bg-white/90 text-slate-900 border-none shadow-sm">Linked</Badge>
+                  <Badge variant="outline" className="absolute top-2 right-2 z-10 bg-white/90 dark:bg-slate-800/90 text-slate-900 dark:text-slate-100 border-none shadow-sm">Linked</Badge>
                 )}
                 <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex flex-wrap items-center justify-center gap-2 p-4">
                   <Button variant="secondary" size="icon" onClick={() => copyUrl(item.image_url)} title="Copy Link">
@@ -319,9 +319,9 @@ const ManageGalleryPage = () => {
                   </Button>
                 </div>
               </div>
-              <CardContent className="p-2">
-                <p className="font-medium text-sm truncate">{item.title || "Untitled"}</p>
-                <div className="flex justify-between items-center text-xs text-slate-500">
+              <CardContent className="p-2 bg-white dark:bg-slate-800">
+                <p className="font-medium text-sm truncate text-slate-900 dark:text-slate-100">{item.title || "Untitled"}</p>
+                <div className="flex justify-between items-center text-xs text-slate-500 dark:text-slate-400">
                   <span className="capitalize">{item.category}</span>
                   {item.mission_id && <span>Linked to Mission</span>}
                 </div>

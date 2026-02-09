@@ -31,8 +31,8 @@ const impactLevels = [
     icon: Truck,
     title: "Mobile Clinic Day",
     description: "Funds fuel and supplies for a full day of mobile veterinary clinic operations in remote areas.",
-    color: "text-gold",
-    bgColor: "bg-deep-forest-green-50"
+    color: "text-secondary",
+    bgColor: "bg-slate-50"
   }
 ];
 
@@ -78,8 +78,8 @@ const ImpactLevels = () => {
               </div>
               <div>
                 <div className="flex items-baseline gap-2 mb-1">
-                  <h3 className="text-2xl font-bold text-deep-forest-green-900">${level.amount}</h3>
-                  <span className="text-sm font-semibold text-gold uppercase tracking-wider">Impact</span>
+                  <h3 className="text-2xl font-bold text-slate-900">${level.amount}</h3>
+                  <span className="text-sm font-semibold text-secondary uppercase tracking-wider">Impact</span>
                 </div>
                 <h4 className="font-bold text-slate-800 mb-2">{level.title}</h4>
                 <p className="text-sm text-slate-600 leading-relaxed">

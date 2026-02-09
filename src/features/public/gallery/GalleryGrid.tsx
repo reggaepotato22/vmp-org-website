@@ -83,8 +83,8 @@ const GalleryGrid = () => {
                     onClick={() => setFilter(category)}
                     className={`min-w-[100px] capitalize rounded-full px-6 transition-all duration-300 ${
                       filter === category 
-                        ? "bg-deep-forest-green-900 text-white hover:bg-deep-forest-green-800 shadow-lg" 
-                        : "border-deep-forest-green-200 text-deep-forest-green-700 hover:bg-deep-forest-green-50 hover:text-deep-forest-green-900"
+                        ? "bg-primary text-white hover:bg-primary/90 shadow-lg" 
+                        : "border-slate-200 text-slate-700 hover:bg-slate-100 hover:text-slate-900"
                     }`}
                   >
                     {category}
@@ -114,7 +114,7 @@ const GalleryGrid = () => {
                   >
                     <Link to={`/gallery/${image.id}`} className="group cursor-pointer block h-full">
                       <div className="bg-white rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 h-full flex flex-col border border-slate-100 transform hover:-translate-y-1">
-                        <div className="aspect-[4/3] relative overflow-hidden bg-deep-forest-green-100">
+                        <div className="aspect-[4/3] relative overflow-hidden bg-slate-100">
                           <img
                             src={image.image_url}
                             alt={image.title}
@@ -123,14 +123,14 @@ const GalleryGrid = () => {
                           />
                           
                           {/* Overlay */}
-                          <div className="absolute inset-0 bg-deep-forest-green-900/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                          <div className="absolute inset-0 bg-primary/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
                             <div className="bg-white/20 backdrop-blur-md p-4 rounded-full text-white transform scale-0 group-hover:scale-100 transition-transform duration-500 delay-100">
                               <ZoomIn className="w-8 h-8" />
                             </div>
                           </div>
 
                           {image.featured && (
-                            <Badge className="absolute top-4 left-4 z-10 bg-gold hover:bg-gold-600 text-deep-forest-green-900 font-bold border-none shadow-md">
+                            <Badge className="absolute top-4 left-4 z-10 bg-secondary hover:bg-secondary/90 text-white font-bold border-none shadow-md">
                               Featured
                             </Badge>
                           )}
@@ -138,7 +138,7 @@ const GalleryGrid = () => {
                         
                         <div className="p-6 flex-1 flex flex-col">
                           <div className="flex justify-between items-start mb-4">
-                            <Badge variant="secondary" className="bg-deep-forest-green-50 text-deep-forest-green-700 hover:bg-deep-forest-green-100 capitalize rounded-full px-3 py-1 font-medium border border-deep-forest-green-100">
+                            <Badge variant="secondary" className="bg-slate-100 text-slate-800 hover:bg-slate-200 capitalize rounded-full px-3 py-1 font-medium border border-slate-200">
                               {image.category}
                             </Badge>
                             {image.created_at && (
@@ -153,7 +153,7 @@ const GalleryGrid = () => {
                             )}
                           </div>
                           
-                          <h3 className="text-xl font-heading font-bold text-deep-forest-green-900 mb-3 group-hover:text-gold transition-colors line-clamp-2">
+                          <h3 className="text-xl font-heading font-bold text-slate-900 mb-3 group-hover:text-secondary transition-colors line-clamp-2">
                             {image.title || "Untitled"}
                           </h3>
                           
@@ -163,7 +163,7 @@ const GalleryGrid = () => {
                             </p>
                           )}
                           
-                          <div className="mt-auto pt-4 border-t border-slate-100 flex items-center text-gold font-bold text-sm group-hover:translate-x-1 transition-transform duration-300">
+                          <div className="mt-auto pt-4 border-t border-slate-100 flex items-center text-secondary font-bold text-sm group-hover:translate-x-1 transition-transform duration-300">
                             View Details 
                             <svg className="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
