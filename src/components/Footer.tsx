@@ -36,17 +36,17 @@ const Footer = () => {
             </p>
             <div className="flex space-x-4">
               {settings.socialLinks.facebook && (
-                <a href={settings.socialLinks.facebook} target="_blank" rel="noopener noreferrer" className="bg-white/10 hover:bg-secondary hover:text-slate-900 p-2 rounded-full transition-all">
+                <a href={settings.socialLinks.facebook} target="_blank" rel="noopener noreferrer" className="bg-white/10 hover:bg-secondary hover:text-slate-900 p-2 rounded-md transition-all">
                   <Facebook className="h-4 w-4" />
                 </a>
               )}
               {settings.socialLinks.twitter && (
-                <a href={settings.socialLinks.twitter} target="_blank" rel="noopener noreferrer" className="bg-white/10 hover:bg-secondary hover:text-slate-900 p-2 rounded-full transition-all">
+                <a href={settings.socialLinks.twitter} target="_blank" rel="noopener noreferrer" className="bg-white/10 hover:bg-secondary hover:text-slate-900 p-2 rounded-md transition-all">
                   <Twitter className="h-4 w-4" />
                 </a>
               )}
               {settings.socialLinks.instagram && (
-                <a href={settings.socialLinks.instagram} target="_blank" rel="noopener noreferrer" className="bg-white/10 hover:bg-secondary hover:text-slate-900 p-2 rounded-full transition-all">
+                <a href={settings.socialLinks.instagram} target="_blank" rel="noopener noreferrer" className="bg-white/10 hover:bg-secondary hover:text-slate-900 p-2 rounded-md transition-all">
                   <Instagram className="h-4 w-4" />
                 </a>
               )}

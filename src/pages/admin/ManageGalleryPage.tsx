@@ -19,12 +19,13 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Plus, Trash2, Loader2, Copy, Star, Edit, Image as ImageIcon } from "lucide-react";
+import { Plus, Trash2, Loader2, Copy, Star, Edit, Image as ImageIcon, ExternalLink, Upload } from "lucide-react";
 import { toast } from "sonner";
 import { deleteImage } from "@/services/storageService";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import EmptyState from "@/components/admin/EmptyState";
+import { ImageUpload } from "@/components/admin/ImageUpload";
 
 const ManageGalleryPage = () => {
   const [items, setItems] = useState<GalleryItem[]>([]);
@@ -35,12 +36,14 @@ const ManageGalleryPage = () => {
     title: string;
     category: string;
     image_url: string;
+    external_link: string;
     featured: boolean;
     mission_id?: string;
   }>({
     title: "",
     category: "general",
     image_url: "",
+    external_link: "",
     featured: false,
     mission_id: undefined,
   });
@@ -57,6 +60,7 @@ const ManageGalleryPage = () => {
         title: editingItem.title,
         category: editingItem.category,
         image_url: editingItem.image_url,
+        external_link: editingItem.external_link || "",
         featured: editingItem.featured || false,
         mission_id: editingItem.mission_id,
       });
@@ -93,16 +97,17 @@ const ManageGalleryPage = () => {
           title: formData.title,
           category: formData.category,
           image_url: formData.image_url,
+          external_link: formData.external_link,
           featured: formData.featured,
           mission_id: formData.mission_id
         });
-        toast.success("Image updated successfully");
+        toast.success("Gallery item updated successfully");
       } else {
         await galleryService.create({
           ...formData,
           mission_id: formData.mission_id === "none" ? undefined : formData.mission_id
         });
-        toast.success("Image added successfully");
+        toast.success("Gallery item added successfully");
       }
       setIsDialogOpen(false);
       fetchData();
@@ -110,12 +115,13 @@ const ManageGalleryPage = () => {
         title: "",
         category: "general",
         image_url: "",
+        external_link: "",
         featured: false,
         mission_id: "none",
       });
       setEditingItem(null);
     } catch (error) {
-      toast.error("Failed to save image");
+      toast.error("Failed to save gallery item");
     } finally {
       setLoading(false);
     }
@@ -171,13 +177,13 @@ const ManageGalleryPage = () => {
               <Plus className="mr-2 h-4 w-4" /> Upload Image
             </Button>
           </DialogTrigger>
-          <DialogContent>
+          <DialogContent className="max-h-[85vh] overflow-y-auto">
             <DialogHeader>
               <DialogTitle>Upload New Image</DialogTitle>
             </DialogHeader>
             <form onSubmit={handleSubmit} className="space-y-4">
               <div>
-                <label className="text-sm font-medium">Title (Optional)</label>
+                <label className="text-sm font-bold text-black">Title (Optional)</label>
                 <Input
                   value={formData.title}
                   onChange={(e) => setFormData({ ...formData, title: e.target.value })}
@@ -187,7 +193,7 @@ const ManageGalleryPage = () => {
               
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <label className="text-sm font-medium">Category</label>
+                  <label className="text-sm font-bold text-black">Category</label>
                   <Input
                     value={formData.category}
                     onChange={(e) => setFormData({ ...formData, category: e.target.value })}
@@ -195,7 +201,7 @@ const ManageGalleryPage = () => {
                   />
                 </div>
                 <div>
-                  <label className="text-sm font-medium">Link to Mission (Optional)</label>
+                  <label className="text-sm font-bold text-black">Link to Mission (Optional)</label>
                   <Select 
                     value={formData.mission_id || "none"} 
                     onValueChange={(val) => setFormData({ ...formData, mission_id: val === "none" ? undefined : val })}
@@ -215,6 +221,24 @@ const ManageGalleryPage = () => {
                 </div>
               </div>
 
+              <div>
+                <label className="text-sm font-bold text-black">External Link (e.g. Google Photos Album)</label>
+                <div className="flex gap-2">
+                  <Input
+                    value={formData.external_link}
+                    onChange={(e) => setFormData({ ...formData, external_link: e.target.value })}
+                    placeholder="https://photos.google.com/..."
+                    className="flex-1"
+                  />
+                  <Button type="button" variant="outline" size="icon" onClick={() => formData.external_link && window.open(formData.external_link, '_blank')}>
+                    <ExternalLink className="h-4 w-4" />
+                  </Button>
+                </div>
+                <p className="text-xs text-muted-foreground">
+                  Optional: Provide a link to the full album or source.
+                </p>
+              </div>
+
               <div className="flex items-center space-x-2">
                 <Checkbox 
                   id="featured" 
@@ -223,14 +247,23 @@ const ManageGalleryPage = () => {
                 />
                 <label
                   htmlFor="featured"
-                  className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                  className="text-sm font-bold text-black leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
                 >
                   Set as Cover/Featured Image
                 </label>
               </div>
 
-              <div className="grid gap-2">
-                <label className="text-sm font-medium">Image URL (Google Photos)</label>
+              <div>
+                <ImageUpload 
+                  value={formData.image_url}
+                  onChange={(url) => setFormData({ ...formData, image_url: url as string })}
+                  label="Upload Image"
+                  folder="gallery"
+                />
+              </div>
+
+              <div>
+                <label className="text-sm font-bold text-black">Or Image URL (External)</label>
                 <div className="flex gap-2">
                   <Input 
                     value={formData.image_url} 
@@ -247,12 +280,12 @@ const ManageGalleryPage = () => {
                 </p>
               </div>
 
-              {formData.image_url && (
+              {formData.image_url && !formData.image_url.startsWith('data:') && !formData.image_url.startsWith('blob:') && (
                 <div className="mt-2 relative">
                   <img src={formData.image_url} alt="Preview" className="h-40 w-full object-cover rounded" />
                 </div>
               )}
-              <Button type="submit" className="w-full bg-purple-600 hover:bg-purple-700" disabled={loading || uploading}>
+              <Button type="submit" className="w-full bg-purple-600 hover:bg-purple-700" disabled={loading}>
                 {loading ? <Loader2 className="h-4 w-4 animate-spin" /> : "Save"}
               </Button>
             </form>
@@ -289,6 +322,11 @@ const ManageGalleryPage = () => {
                   <Badge variant="outline" className="absolute top-2 right-2 z-10 bg-white/90 dark:bg-slate-800/90 text-slate-900 dark:text-slate-100 border-none shadow-sm">Linked</Badge>
                 )}
                 <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex flex-wrap items-center justify-center gap-2 p-4">
+                  {item.external_link && (
+                    <Button variant="secondary" size="icon" onClick={() => window.open(item.external_link, '_blank')} title="Open External Link">
+                      <ExternalLink className="h-4 w-4" />
+                    </Button>
+                  )}
                   <Button variant="secondary" size="icon" onClick={() => copyUrl(item.image_url)} title="Copy Link">
                     <Copy className="h-4 w-4" />
                   </Button>

@@ -45,9 +45,10 @@ const ManageTeamPage = () => {
   const fetchMembers = async () => {
     try {
       const data = await teamService.getAll();
-      setMembers(data);
+      setMembers(data || []);
     } catch (error) {
       console.error("Failed to fetch team members", error);
+      setMembers([]);
     } finally {
       setLoading(false);
     }
@@ -133,21 +134,21 @@ const ManageTeamPage = () => {
   return (
     <div className="space-y-6">
       <div className="flex justify-between items-center">
-        <h2 className="text-3xl font-bold tracking-tight text-slate-900">Manage Team</h2>
+        <h2 className="text-3xl font-bold tracking-tight text-slate-900 dark:text-slate-100">Manage Team</h2>
         <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
           <DialogTrigger asChild>
             <Button onClick={resetForm} className="bg-primary hover:bg-primary/90 text-white shadow-md hover:shadow-lg transition-all">
               <Plus className="mr-2 h-4 w-4" /> Add Member
             </Button>
           </DialogTrigger>
-          <DialogContent className="sm:max-w-[600px]">
+          <DialogContent className="sm:max-w-[600px] max-h-[85vh] overflow-y-auto">
             <DialogHeader>
               <DialogTitle>{editingItem ? "Edit Team Member" : "Add Team Member"}</DialogTitle>
             </DialogHeader>
             <form onSubmit={handleSubmit} className="space-y-4">
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <label className="text-sm font-medium">Name</label>
+                  <label className="text-sm font-bold text-black">Name</label>
                   <Input
                     value={formData.name}
                     onChange={(e) => setFormData({ ...formData, name: e.target.value })}
@@ -155,7 +156,7 @@ const ManageTeamPage = () => {
                   />
                 </div>
                 <div>
-                  <label className="text-sm font-medium">Role</label>
+                  <label className="text-sm font-bold text-black">Role</label>
                   <Input
                     value={formData.role}
                     onChange={(e) => setFormData({ ...formData, role: e.target.value })}
@@ -165,7 +166,7 @@ const ManageTeamPage = () => {
               </div>
               
               <div>
-                <label className="text-sm font-medium">Profile Image</label>
+                <label className="text-sm font-bold text-black">Profile Image</label>
                 <div className="space-y-3">
                   <Input 
                     value={formData.image_url} 
@@ -185,12 +186,12 @@ const ManageTeamPage = () => {
                   </div>
                 </div>
                 {formData.image_url && (
-                  <img src={formData.image_url} alt="Preview" className="mt-2 h-32 w-32 object-cover rounded-full border-2 border-slate-200" />
+                  <img src={formData.image_url} alt="Preview" className="mt-2 h-32 w-32 object-cover rounded-md border-2 border-slate-200" />
                 )}
               </div>
 
               <div>
-                <label className="text-sm font-medium">Bio</label>
+                <label className="text-sm font-bold text-black">Bio</label>
                 <Textarea
                   value={formData.bio}
                   onChange={(e) => setFormData({ ...formData, bio: e.target.value })}
@@ -200,7 +201,7 @@ const ManageTeamPage = () => {
               </div>
 
               <div className="space-y-2">
-                <label className="text-sm font-medium">Social Links (Optional)</label>
+                <label className="text-sm font-bold text-black">Social Links (Optional)</label>
                 <div className="grid grid-cols-1 gap-2">
                     <div className="flex items-center gap-2">
                         <Linkedin className="h-4 w-4 text-slate-500" />
@@ -265,7 +266,7 @@ const ManageTeamPage = () => {
                 <TableRow key={member.id}>
                   <TableCell className="font-medium">
                     <div className="flex items-center gap-3">
-                      <div className="h-10 w-10 rounded-full overflow-hidden bg-slate-100">
+                      <div className="h-10 w-10 rounded-md overflow-hidden bg-slate-100">
                         {member.image_url ? (
                           <img src={member.image_url} alt={member.name} className="h-full w-full object-cover" />
                         ) : (

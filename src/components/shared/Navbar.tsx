@@ -276,6 +276,15 @@ const Navbar = () => {
               Missions
             </button>
             
+            {settings.features?.showProjects && (
+              <button
+                onClick={() => handleNavClick("/projects")}
+                className="text-left px-4 py-3 text-lg font-bold text-slate-800 dark:text-slate-200 hover:text-primary bg-slate-50 dark:bg-slate-800 rounded-xl"
+              >
+                Projects
+              </button>
+            )}
+
             <button
               onClick={() => handleNavClick("/news")}
               className="text-left px-4 py-3 text-lg font-bold text-slate-800 dark:text-slate-200 hover:text-primary bg-slate-50 dark:bg-slate-800 rounded-xl"
@@ -300,7 +309,7 @@ const Navbar = () => {
             <div className="pt-4">
                <Button
                 onClick={() => handleNavClick("/donate")}
-                className="w-full bg-secondary hover:bg-secondary/90 text-slate-900 font-bold rounded-full py-6 text-lg shadow-md"
+                className="w-full bg-secondary hover:bg-secondary/90 text-slate-900 font-bold rounded-md py-6 text-lg shadow-md"
               >
                 Donate Now
               </Button>

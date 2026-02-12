@@ -71,7 +71,7 @@ const MissionOverview = () => {
               viewport={{ once: true }}
               transition={{ duration: 0.6 }}
             >
-              <Card className="border-none shadow-lg rounded-3xl overflow-hidden h-full">
+              <Card className="border-none shadow-lg rounded-xl overflow-hidden h-full">
                   <div className="h-2 bg-secondary w-full"></div>
                   <CardHeader className="pb-2">
                       <CardTitle className="flex items-center text-3xl font-heading text-primary">
@@ -123,7 +123,7 @@ const MissionOverview = () => {
               <motion.div key={index} variants={item}>
                 <Card className="bg-white hover:shadow-xl transition-all duration-300 rounded-2xl border-none shadow-md h-full transform hover:-translate-y-2">
                   <CardContent className="pt-8 pb-8 text-center px-6">
-                    <div className="mx-auto bg-slate-50 w-16 h-16 rounded-full flex items-center justify-center mb-6">
+                    <div className="mx-auto bg-slate-50 w-16 h-16 rounded-xl flex items-center justify-center mb-6">
                       <Icon className="h-8 w-8 text-primary" />
                     </div>
                     <h3 className="text-xl font-bold text-slate-900 mb-3">{value.title}</h3>

@@ -84,7 +84,7 @@ const FloatingNavbar = () => {
             <button
               onClick={() => handleNavClick("/")}
               className={cn(
-                "px-4 py-2 text-sm font-bold uppercase tracking-wide transition-colors hover:text-secondary rounded-full",
+                "px-4 py-2 text-sm font-bold uppercase tracking-wide transition-colors hover:text-secondary rounded-md",
                 isActive("/") ? "text-primary bg-blue-50" : "text-slate-700"
               )}
             >
@@ -94,7 +94,7 @@ const FloatingNavbar = () => {
             <DropdownMenu>
               <DropdownMenuTrigger
                 className={cn(
-                  "flex items-center px-4 py-2 text-sm font-bold uppercase tracking-wide transition-colors hover:text-secondary focus:outline-none rounded-full",
+                  "flex items-center px-4 py-2 text-sm font-bold uppercase tracking-wide transition-colors hover:text-secondary focus:outline-none rounded-md",
                   location.pathname.startsWith("/about")
                     ? "text-primary bg-blue-50"
                     : "text-slate-700"
@@ -118,27 +118,29 @@ const FloatingNavbar = () => {
             <button
               onClick={() => handleNavClick("/missions")}
               className={cn(
-                "px-4 py-2 text-sm font-bold uppercase tracking-wide transition-colors hover:text-secondary rounded-full",
+                "px-4 py-2 text-sm font-bold uppercase tracking-wide transition-colors hover:text-secondary rounded-md",
                 isActive("/missions") ? "text-primary bg-blue-50" : "text-slate-700"
               )}
             >
               Missions
             </button>
             
-            <button
-              onClick={() => handleNavClick("/projects")}
-              className={cn(
-                "px-4 py-2 text-sm font-bold uppercase tracking-wide transition-colors hover:text-secondary rounded-full",
-                isActive("/projects") ? "text-primary bg-blue-50" : "text-slate-700"
-              )}
-            >
-              Projects
-            </button>
+            {settings.features?.showProjects && (
+              <button
+                onClick={() => handleNavClick("/projects")}
+                className={cn(
+                  "px-4 py-2 text-sm font-bold uppercase tracking-wide transition-colors hover:text-secondary rounded-md",
+                  isActive("/projects") ? "text-primary bg-blue-50" : "text-slate-700"
+                )}
+              >
+                Projects
+              </button>
+            )}
 
             <button
               onClick={() => handleNavClick("/news")}
               className={cn(
-                "px-4 py-2 text-sm font-bold uppercase tracking-wide transition-colors hover:text-secondary rounded-full",
+                "px-4 py-2 text-sm font-bold uppercase tracking-wide transition-colors hover:text-secondary rounded-md",
                 isActive("/news") ? "text-primary bg-blue-50" : "text-slate-700"
               )}
             >
@@ -148,7 +150,7 @@ const FloatingNavbar = () => {
             <button
               onClick={() => handleNavClick("/gallery")}
               className={cn(
-                "px-4 py-2 text-sm font-bold uppercase tracking-wide transition-colors hover:text-secondary rounded-full",
+                "px-4 py-2 text-sm font-bold uppercase tracking-wide transition-colors hover:text-secondary rounded-md",
                 isActive("/gallery") ? "text-primary bg-blue-50" : "text-slate-700"
               )}
             >
@@ -158,7 +160,7 @@ const FloatingNavbar = () => {
             <div className="pl-4">
                 <Button 
                     onClick={() => handleNavClick("/donate")}
-                    className="bg-secondary hover:bg-rose-900 text-white border-none rounded-full px-8 py-5 font-bold shadow-md hover:shadow-lg transition-all hover:-translate-y-0.5"
+                    className="bg-secondary hover:bg-rose-900 text-white border-none rounded-md px-8 py-5 font-bold shadow-md hover:shadow-lg transition-all hover:-translate-y-0.5"
                 >
                     Donate
                 </Button>
@@ -204,12 +206,14 @@ const FloatingNavbar = () => {
             >
               MISSIONS
             </button>
-            <button
-              onClick={() => handleNavClick("/projects")}
-              className="block w-full text-left px-4 py-3 text-base font-bold text-slate-700 hover:bg-blue-50 hover:text-primary rounded-lg"
-            >
-              PROJECTS
-            </button>
+            {settings.features?.showProjects && (
+              <button
+                onClick={() => handleNavClick("/projects")}
+                className="block w-full text-left px-4 py-3 text-base font-bold text-slate-700 hover:bg-blue-50 hover:text-primary rounded-lg"
+              >
+                PROJECTS
+              </button>
+            )}
             <button
               onClick={() => handleNavClick("/news")}
               className="block w-full text-left px-4 py-3 text-base font-bold text-slate-700 hover:bg-blue-50 hover:text-primary rounded-lg"

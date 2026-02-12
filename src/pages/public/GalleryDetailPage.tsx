@@ -39,7 +39,7 @@ const GalleryDetailPage = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-slate-50 flex flex-col py-24">
+      <div className="min-h-screen bg-slate-50 flex flex-col pt-12 pb-24">
         <div className="container mx-auto px-4">
           <div className="grid lg:grid-cols-2 gap-12">
             <div className="space-y-4">
@@ -63,12 +63,12 @@ const GalleryDetailPage = () => {
   if (!item) {
     return (
       <div className="min-h-screen bg-slate-50 flex flex-col items-center justify-center py-24 text-center px-4">
-        <div className="w-20 h-20 bg-slate-200 rounded-full flex items-center justify-center mb-6 text-slate-500">
+        <div className="w-20 h-20 bg-slate-200 rounded-md flex items-center justify-center mb-6 text-slate-500">
           <Activity className="w-10 h-10" />
         </div>
         <h1 className="text-3xl font-heading font-bold text-slate-900 mb-4">Gallery Item Not Found</h1>
         <p className="text-slate-600 mb-8 max-w-md">The image you are looking for might have been removed or does not exist.</p>
-        <Button asChild className="rounded-full bg-primary text-white hover:bg-primary/90 px-8">
+        <Button asChild className="rounded-md bg-primary text-white hover:bg-primary/90 px-8">
           <Link to="/gallery">Back to Gallery</Link>
         </Button>
       </div>
@@ -76,14 +76,14 @@ const GalleryDetailPage = () => {
   }
 
   return (
-    <div className="min-h-screen bg-slate-50 py-24">
+    <div className="min-h-screen bg-slate-50 pt-12 pb-24">
       <div className="container mx-auto px-4">
         <motion.div
           initial={{ opacity: 0, x: -20 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.4 }}
         >
-          <Button variant="ghost" className="mb-8 gap-2 hover:bg-slate-100 rounded-full pl-2 pr-4 text-slate-600" asChild>
+          <Button variant="ghost" className="mb-8 gap-2 hover:bg-slate-100 rounded-md pl-2 pr-4 text-slate-600" asChild>
             <Link to="/gallery">
               <ArrowLeft className="h-4 w-4" />
               Back to Gallery
@@ -112,18 +112,18 @@ const GalleryDetailPage = () => {
 
             <div className="flex justify-between items-center px-2">
               <div className="flex items-center gap-3">
-                <Badge className="bg-slate-100 text-slate-800 hover:bg-slate-200 rounded-full px-4 py-1.5 text-sm font-medium border border-slate-200">
+                <Badge className="bg-slate-100 text-slate-800 hover:bg-slate-200 rounded-md px-4 py-1.5 text-sm font-medium border border-slate-200">
                   {item.category}
                 </Badge>
                 {item.featured && (
-                  <Badge className="bg-secondary text-white hover:bg-secondary/90 rounded-full px-4 py-1.5 text-sm font-bold border-none">
+                  <Badge className="bg-secondary text-white hover:bg-secondary/90 rounded-md px-4 py-1.5 text-sm font-bold border-none">
                     Featured
                   </Badge>
                 )}
               </div>
               
               {item.created_at && (
-                <div className="flex items-center text-slate-500 text-sm font-medium bg-white px-3 py-1.5 rounded-full shadow-sm border border-slate-100">
+                <div className="flex items-center text-slate-500 text-sm font-medium bg-white px-3 py-1.5 rounded-md shadow-sm border border-slate-100">
                   <Calendar className="h-4 w-4 mr-2 text-secondary" />
                   {format(new Date(item.created_at), 'MMMM d, yyyy')}
                 </div>

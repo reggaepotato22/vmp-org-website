@@ -10,13 +10,13 @@ import {
 
 const testimonials = [
   {
-    name: "Dr. Sarah Kimani",
+    name: "Dr. Josiah Mandieka",
     role: "Volunteer Veterinarian",
     content: "Joining VMP was one of the most fulfilling decisions of my career. Witnessing the direct impact of our work on both animals and communities has been incredibly rewarding.",
     location: "Nairobi, Kenya"
   },
   {
-    name: "James Omondi",
+    name: "Pst. Amos Tanin",
     role: "Community Leader",
     content: "VMP transformed our community by bringing not just veterinary care, but hope and education. Our livestock are healthier, our children are learning, and our families are thriving.",
     location: "Turkana County"
@@ -66,7 +66,7 @@ const Testimonials = () => {
                         "{testimonial.content}"
                       </p>
                       <div className="mt-auto flex items-center space-x-4">
-                        <div className="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center text-primary">
+                        <div className="w-10 h-10 bg-blue-100 rounded-md flex items-center justify-center text-primary">
                             <User className="h-5 w-5" />
                         </div>
                         <div>

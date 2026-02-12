@@ -7,6 +7,7 @@ import { Search, Loader2 } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Skeleton } from "@/components/ui/skeleton";
 import { motion } from "framer-motion";
+import bgImage from "@/assets/vmphotos/flock.jpg";
 
 const NewsPage = () => {
   const [newsItems, setNewsItems] = useState<NewsItem[]>([]);
@@ -80,15 +81,17 @@ const NewsPage = () => {
   }
 
   return (
-    <div className="min-h-screen bg-slate-50 flex flex-col">
+    <div className="min-h-screen font-sans flex flex-col relative">
       
-      {/* Header */}
-      <section className="bg-primary text-white py-24 relative overflow-hidden">
-        <div className="absolute inset-0 opacity-10 bg-[radial-gradient(#ffffff_1px,transparent_1px)] [background-size:20px_20px]"></div>
-        <div className="absolute top-0 right-0 -mr-20 -mt-20 w-96 h-96 bg-secondary/10 rounded-full blur-3xl"></div>
-        <div className="absolute bottom-0 left-0 -ml-20 -mb-20 w-72 h-72 bg-primary/20 rounded-full blur-3xl"></div>
+      {/* Fixed Background */}
+      <div className="fixed inset-0 z-0">
+        <img src={bgImage} alt="Flock of Sheep" className="w-full h-full object-cover" />
+        <div className="absolute inset-0 bg-black/60 bg-gradient-to-b from-black/80 via-black/50 to-primary/90 mix-blend-multiply"></div>
+      </div>
 
-        <div className="container mx-auto px-4 text-center relative z-10">
+      {/* Header */}
+      <section className="text-white py-24 relative z-10">
+        <div className="container mx-auto px-4 text-center">
             <motion.h1 
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -97,7 +100,7 @@ const NewsPage = () => {
             >
                 News & Stories
             </motion.h1>
-            <motion.p 
+            <motion.p  
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.2 }}
@@ -119,7 +122,7 @@ const NewsPage = () => {
                         <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-slate-400 h-5 w-5" />
                         <Input 
                             placeholder="Search articles..." 
-                            className="pl-12 rounded-full border-slate-200 h-12 text-base focus:ring-primary focus:border-primary"
+                            className="pl-12 rounded-md border-slate-200 h-12 text-base focus:ring-primary focus:border-primary"
                             value={searchTerm}
                             onChange={(e) => setSearchTerm(e.target.value)}
                         />
@@ -128,21 +131,21 @@ const NewsPage = () => {
                         <Button 
                             variant={filter === "all" ? "default" : "outline"}
                             onClick={() => setFilter("all")}
-                            className={`rounded-full px-6 ${filter === "all" ? "bg-primary text-white hover:bg-primary/90" : "text-slate-600 hover:text-primary border-slate-200"}`}
+                            className={`rounded-md px-6 ${filter === "all" ? "bg-primary text-white hover:bg-primary/90" : "text-slate-600 hover:text-primary border-slate-200"}`}
                         >
                             All
                         </Button>
                         <Button 
                             variant={filter === "news" ? "default" : "outline"}
                             onClick={() => setFilter("news")}
-                            className={`rounded-full px-6 ${filter === "news" ? "bg-primary text-white hover:bg-primary/90" : "text-slate-600 hover:text-primary border-slate-200"}`}
+                            className={`rounded-md px-6 ${filter === "news" ? "bg-primary text-white hover:bg-primary/90" : "text-slate-600 hover:text-primary border-slate-200"}`}
                         >
                             News
                         </Button>
                         <Button 
                             variant={filter === "event" ? "default" : "outline"}
                             onClick={() => setFilter("event")}
-                            className={`rounded-full px-6 ${filter === "event" ? "bg-primary text-white hover:bg-primary/90" : "text-slate-600 hover:text-primary border-slate-200"}`}
+                            className={`rounded-md px-6 ${filter === "event" ? "bg-primary text-white hover:bg-primary/90" : "text-slate-600 hover:text-primary border-slate-200"}`}
                         >
                             Events
                         </Button>
@@ -161,12 +164,12 @@ const NewsPage = () => {
 
             {filteredNews.length === 0 && !loading && !error && (
                 <div className="text-center py-20 bg-white rounded-3xl shadow-sm border border-slate-100">
-                    <div className="w-16 h-16 bg-slate-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <div className="w-16 h-16 bg-slate-100 rounded-md flex items-center justify-center mx-auto mb-4">
                         <Search className="h-8 w-8 text-slate-400" />
                     </div>
                     <h3 className="text-xl font-bold text-slate-800 mb-2">No stories found</h3>
                     <p className="text-slate-600 mb-6">We couldn't find any articles matching your search.</p>
-                    <Button onClick={() => {setSearchTerm(""); setFilter("all");}} variant="outline" className="rounded-full">
+                    <Button onClick={() => {setSearchTerm(""); setFilter("all");}} variant="outline" className="rounded-md">
                         Clear Filters
                     </Button>
                 </div>

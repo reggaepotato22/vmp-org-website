@@ -37,7 +37,7 @@ const TeamSection = () => {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
             {[1, 2, 3].map((i) => (
               <div key={i} className="flex flex-col items-center">
-                <Skeleton className="w-48 h-48 rounded-full mb-4" />
+                <Skeleton className="w-48 h-48 rounded-xl mb-4" />
                 <Skeleton className="h-6 w-32 mb-2" />
                 <Skeleton className="h-4 w-24" />
               </div>
@@ -57,7 +57,7 @@ const TeamSection = () => {
         <div className="text-center mb-16">
           <span className="text-secondary font-semibold tracking-wider uppercase text-sm">Our Team</span>
           <h2 className="mt-2 text-3xl md:text-4xl font-bold text-primary">Meet the Experts</h2>
-          <div className="w-20 h-1 bg-secondary mx-auto mt-4 rounded-full"></div>
+          <div className="w-20 h-1 bg-secondary mx-auto mt-4 rounded-md"></div>
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10 max-w-6xl mx-auto">
@@ -76,7 +76,7 @@ const TeamSection = () => {
                   
                   {/* Front Side: Image */}
                   <div className="absolute inset-0 backface-hidden">
-                    <div className="w-full h-full rounded-[2rem] overflow-hidden border-4 border-blue-50 shadow-lg">
+                    <div className="w-full h-full rounded-xl overflow-hidden border-4 border-blue-50 shadow-lg">
                       <img 
                         src={member.image_url || "/placeholder-user.jpg"} 
                         alt={member.name}
@@ -86,7 +86,7 @@ const TeamSection = () => {
                   </div>
 
                   {/* Back Side: Bio (Hover State) */}
-                  <div className="absolute inset-0 h-full w-full rounded-[2rem] bg-primary p-6 text-white backface-hidden rotate-y-180 flex flex-col justify-center items-center shadow-xl">
+                  <div className="absolute inset-0 h-full w-full rounded-xl bg-primary p-6 text-white backface-hidden rotate-y-180 flex flex-col justify-center items-center shadow-xl">
                     <p className="text-sm leading-relaxed mb-4 line-clamp-6">
                       {member.bio || "Dedicated to animal welfare and community service."}
                     </p>

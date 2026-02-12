@@ -48,14 +48,9 @@ const DonationForm = () => {
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.8 }}
     >
-      <Card className="w-full max-w-lg mx-auto shadow-2xl border-0 rounded-3xl overflow-hidden relative z-30">
+      <Card className="w-full max-w-lg mx-auto shadow-2xl border-0 rounded-xl overflow-hidden relative z-30">
         <div className="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-secondary to-primary"></div>
         <CardHeader className="pb-2 pt-8">
-          <div className="flex justify-center mb-4">
-            <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center">
-                <Heart className="w-8 h-8 text-primary fill-current" />
-            </div>
-          </div>
           <CardTitle className="text-3xl text-center font-heading font-bold text-slate-900">
             Make a Donation
           </CardTitle>
@@ -67,16 +62,16 @@ const DonationForm = () => {
           
           {/* Frequency Toggle */}
           <Tabs defaultValue="one-time" value={frequency} onValueChange={(v) => setFrequency(v as any)} className="w-full">
-            <TabsList className="grid w-full grid-cols-2 bg-slate-100 p-1 rounded-xl h-auto">
+            <TabsList className="grid w-full grid-cols-2 bg-slate-100 p-1 rounded-md h-auto">
               <TabsTrigger 
                 value="one-time" 
-                className="rounded-lg py-2.5 data-[state=active]:bg-white data-[state=active]:text-primary data-[state=active]:shadow-sm font-semibold transition-all"
+                className="rounded-sm py-2.5 data-[state=active]:bg-white data-[state=active]:text-primary data-[state=active]:shadow-sm font-semibold transition-all"
               >
                 One-Time
               </TabsTrigger>
               <TabsTrigger 
                 value="monthly"
-                className="rounded-lg py-2.5 data-[state=active]:bg-white data-[state=active]:text-primary data-[state=active]:shadow-sm font-semibold transition-all"
+                className="rounded-sm py-2.5 data-[state=active]:bg-white data-[state=active]:text-primary data-[state=active]:shadow-sm font-semibold transition-all"
               >
                 Monthly
               </TabsTrigger>
@@ -89,14 +84,14 @@ const DonationForm = () => {
               <div className="grid grid-cols-2 gap-4">
                   <div 
                       onClick={() => setPaymentMethod("card")}
-                      className={`cursor-pointer border-2 rounded-2xl p-4 flex flex-col items-center justify-center gap-2 transition-all duration-300 ${paymentMethod === "card" ? "border-primary bg-primary/5 text-slate-900 shadow-md transform scale-[1.02]" : "border-slate-100 bg-slate-50 hover:border-slate-300 text-slate-500"}`}
+                      className={`cursor-pointer border-2 rounded-md p-4 flex flex-col items-center justify-center gap-2 transition-all duration-300 ${paymentMethod === "card" ? "border-primary bg-primary/5 text-slate-900 shadow-md transform scale-[1.02]" : "border-slate-100 bg-slate-50 hover:border-slate-300 text-slate-500"}`}
                   >
                       <CreditCard className={`h-6 w-6 ${paymentMethod === "card" ? "text-primary" : "text-slate-400"}`} />
                       <span className="font-bold text-sm">Card (USD)</span>
                   </div>
                   <div 
                       onClick={() => setPaymentMethod("mpesa")}
-                      className={`cursor-pointer border-2 rounded-2xl p-4 flex flex-col items-center justify-center gap-2 transition-all duration-300 ${paymentMethod === "mpesa" ? "border-green-600 bg-green-50 text-green-900 shadow-md transform scale-[1.02]" : "border-slate-100 bg-slate-50 hover:border-slate-300 text-slate-500"}`}
+                      className={`cursor-pointer border-2 rounded-md p-4 flex flex-col items-center justify-center gap-2 transition-all duration-300 ${paymentMethod === "mpesa" ? "border-green-600 bg-green-50 text-green-900 shadow-md transform scale-[1.02]" : "border-slate-100 bg-slate-50 hover:border-slate-300 text-slate-500"}`}
                   >
                       <Smartphone className={`h-6 w-6 ${paymentMethod === "mpesa" ? "text-green-600" : "text-slate-400"}`} />
                       <span className="font-bold text-sm">M-Pesa (KES)</span>
@@ -113,7 +108,7 @@ const DonationForm = () => {
                   key={val}
                   type="button"
                   variant="outline"
-                  className={`h-12 border-2 text-base rounded-xl transition-all duration-200 ${
+                  className={`h-12 border-2 text-base rounded-md transition-all duration-200 ${
                     amount === val && !customAmount 
                       ? "bg-primary text-white border-primary hover:bg-primary/90 hover:text-white shadow-md transform scale-[1.02]" 
                       : "border-slate-200 text-slate-600 hover:border-primary/30 hover:text-primary hover:bg-primary/5"
@@ -138,7 +133,7 @@ const DonationForm = () => {
                           setCustomAmount(e.target.value);
                           setAmount(0);
                       }}
-                      className={`pl-10 h-12 border-2 rounded-xl text-base ${customAmount ? "border-primary ring-2 ring-primary/20" : "border-slate-200"}`}
+                      className={`pl-10 h-12 border-2 rounded-md text-base ${customAmount ? "border-primary ring-2 ring-primary/20" : "border-slate-200"}`}
                   />
               </div>
             </div>
@@ -153,7 +148,7 @@ const DonationForm = () => {
                       placeholder="John Doe" 
                       value={name} 
                       onChange={(e) => setName(e.target.value)}
-                      className="h-11 rounded-xl border-slate-200 focus:border-primary focus:ring-primary/20"
+                      className="h-11 rounded-md border-slate-200 focus:border-primary focus:ring-primary/20"
                   />
               </div>
               
@@ -165,7 +160,7 @@ const DonationForm = () => {
                       placeholder="john@example.com" 
                       value={email} 
                       onChange={(e) => setEmail(e.target.value)}
-                      className="h-11 rounded-xl border-slate-200 focus:border-primary focus:ring-primary/20"
+                      className="h-11 rounded-md border-slate-200 focus:border-primary focus:ring-primary/20"
                   />
               </div>
 
@@ -178,7 +173,7 @@ const DonationForm = () => {
                           placeholder="0712 345 678" 
                           value={phone} 
                           onChange={(e) => setPhone(e.target.value)}
-                          className="h-11 rounded-xl border-slate-200 focus:border-primary focus:ring-primary/20"
+                          className="h-11 rounded-md border-slate-200 focus:border-primary focus:ring-primary/20"
                       />
                       <p className="text-xs text-slate-500">Enter the number that will receive the M-Pesa prompt.</p>
                   </div>

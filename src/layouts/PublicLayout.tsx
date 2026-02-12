@@ -4,13 +4,13 @@ import Footer from "@/components/Footer";
 
 const PublicLayout = () => {
   const location = useLocation();
-  // Pages that have a hero header and need the navbar to overlap
-  const isTransparentNavPage = ["/", "/about", "/missions", "/projects", "/gallery", "/news", "/donate"].includes(location.pathname);
+  // Transparent nav only on home page
+  const isTransparentNavPage = location.pathname === "/";
 
   return (
     <div className="min-h-screen flex flex-col font-sans text-slate-900">
       <FloatingNavbar />
-      <main className={`flex-grow ${isTransparentNavPage ? 'pt-0' : 'pt-24'}`}>
+      <main className={`flex-grow ${isTransparentNavPage ? 'pt-0' : 'pt-32'}`}>
         <Outlet />
       </main>
       <Footer />

@@ -25,6 +25,7 @@ import { uploadImage } from "@/services/storageService";
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import EmptyState from "@/components/admin/EmptyState";
+import DocxImporter from "@/components/admin/DocxImporter";
 
 const ManageNewsPage = () => {
   const [news, setNews] = useState<NewsItem[]>([]);
@@ -131,20 +132,20 @@ const ManageNewsPage = () => {
   return (
     <div className="space-y-6">
       <div className="flex justify-between items-center">
-        <h2 className="text-3xl font-bold tracking-tight">Manage News & Events</h2>
+        <h2 className="text-3xl font-bold tracking-tight text-slate-900 dark:text-slate-100">Manage News & Events</h2>
         <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
           <DialogTrigger asChild>
             <Button onClick={resetForm}>
               <Plus className="mr-2 h-4 w-4" /> Add New
             </Button>
           </DialogTrigger>
-          <DialogContent className="sm:max-w-[600px]">
+          <DialogContent className="sm:max-w-[600px] max-h-[85vh] overflow-y-auto">
             <DialogHeader>
               <DialogTitle>{editingItem ? "Edit News" : "Create News"}</DialogTitle>
             </DialogHeader>
             <form onSubmit={handleSubmit} className="space-y-4">
               <div>
-                <label className="text-sm font-medium">Title</label>
+                <label className="text-sm font-bold text-black">Title</label>
                 <Input
                   value={formData.title}
                   onChange={(e) => setFormData({ ...formData, title: e.target.value })}
@@ -153,7 +154,7 @@ const ManageNewsPage = () => {
               </div>
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <label className="text-sm font-medium">Category</label>
+                  <label className="text-sm font-bold text-black">Category</label>
                   <select
                     className="flex h-10 w-full rounded-md border border-slate-300 bg-white dark:bg-slate-950 px-3 py-2 text-sm ring-offset-white file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-slate-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
                     value={formData.category}
@@ -164,7 +165,7 @@ const ManageNewsPage = () => {
                   </select>
                 </div>
                 <div>
-                  <label className="text-sm font-medium">Date</label>
+                  <label className="text-sm font-bold text-black">Date</label>
                   <Input
                     type="date"
                     value={formData.date}
@@ -174,7 +175,7 @@ const ManageNewsPage = () => {
                 </div>
               </div>
               <div>
-                <label className="text-sm font-medium">Image</label>
+                <label className="text-sm font-bold text-black">Image</label>
                 <div className="space-y-3">
                   <Input 
                     value={formData.image_url} 
@@ -198,13 +199,16 @@ const ManageNewsPage = () => {
                 )}
               </div>
               <div className="space-y-2">
-                <label className="text-sm font-medium">Content</label>
+                <div className="flex justify-between items-center">
+                  <label className="text-sm font-bold text-black">Content</label>
+                  <DocxImporter onImport={(html) => setFormData(prev => ({ ...prev, content: html }))} />
+                </div>
                 <div className="h-64 mb-12">
                   <ReactQuill 
                     theme="snow" 
                     value={formData.content} 
                     onChange={(content) => setFormData({...formData, content})}
-                    className="h-48"
+                    className="h-48 [&_.ql-editor]:text-black [&_.ql-editor]:text-base"
                   />
                 </div>
               </div>

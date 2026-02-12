@@ -14,21 +14,10 @@ export const FloatingNavbar = () => {
   const navigate = useNavigate();
   const { settings } = useSettings();
   
-  // Pages with dark hero headers where navbar should be transparent white initially
-  // Note: specific sub-routes might need adjustment if they don't share the same header style
-  const isDarkHeaderPage = [
-    "/", 
-    "/about", 
-    "/missions", 
-    "/projects", 
-    "/donate"
-  ].some(path => path === "/" ? location.pathname === "/" : location.pathname.startsWith(path)) || 
-  // Exact match only for pages where sub-routes (details) have light headers
-  ["/gallery", "/news"].includes(location.pathname);
-
+  // Navbar is now always solid for better visibility
   useEffect(() => {
     const handleScroll = () => {
-      setScrolled(window.scrollY > 50);
+      setScrolled(window.scrollY > 10);
     };
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
@@ -38,11 +27,17 @@ export const FloatingNavbar = () => {
     { name: "Home", path: "/" },
     { name: "About", path: "/about" },
     { name: "Missions", path: "/missions" },
-    { name: "Projects", path: "/projects" }, // Assuming this exists or will redirect to missions/projects
     { name: "Gallery", path: "/gallery" },
-    { name: "News", path: "/news" },
+    { name: "Volunteer", path: "/volunteer" },
     { name: "Contact", path: "/contact" },
+    { name: "Donate", path: "/donate" },
   ];
+
+  const handleNavClick = (path: string) => {
+    navigate(path);
+    window.scrollTo({ top: 0, behavior: "smooth" });
+    setIsMenuOpen(false);
+  };
 
   return (
     <>
@@ -51,62 +46,50 @@ export const FloatingNavbar = () => {
         animate={{ y: 0 }}
         className={cn(
           "fixed top-0 left-0 right-0 z-50 transition-all duration-300 ease-in-out px-4 sm:px-6 lg:px-8",
-          scrolled 
-            ? "py-3 bg-blue-50/95 backdrop-blur-md shadow-md border-b border-blue-100" 
-            : "py-6 bg-transparent"
+          scrolled || location.pathname !== "/"
+            ? "py-2 bg-white shadow-md border-b border-gray-100"
+            : "py-4 bg-transparent"
         )}
       >
         <div className="max-w-7xl mx-auto flex items-center justify-between">
           {/* Logo */}
-          <Link to="/" className="flex items-center gap-2 group">
-            <div className="relative overflow-hidden rounded-full w-10 h-10 bg-white p-1 shadow-sm group-hover:shadow-md transition-all">
-               <img src={logoImage} alt="VMP Logo" className="w-full h-full object-contain" />
+          <Link to="/" className="flex items-center gap-2 group outline-none" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
+            <div className={cn("relative transition-all duration-300", scrolled || location.pathname !== "/" ? "w-28 h-28" : "w-48 h-48")}>
+               <img src={logoImage} alt="VMP Logo" className="w-full h-full object-contain cursor-pointer" />
             </div>
-            <span className={cn(
-              "font-heading font-bold text-lg tracking-tight transition-colors hidden sm:inline-block",
-              scrolled || !isDarkHeaderPage ? "text-slate-900" : "text-white"
-            )}>
-              {settings.siteTitle || "Veterinarians With a Mission Programme"}
-            </span>
+            {(scrolled || location.pathname !== "/") && (
+              <span className="font-heading font-bold tracking-tight text-vmp-black hidden sm:inline-block">
+                {settings.siteTitle || "VMP"}
+              </span>
+            )}
           </Link>
 
           {/* Desktop Nav */}
           <div className="hidden lg:flex items-center space-x-8">
             {navLinks.map((link) => {
-              const isActive = location.pathname === link.path;
+              // Simple active check logic could be enhanced with intersection observer
               return (
-                <Link
+                <a
                   key={link.name}
-                  to={link.path}
+                  href={link.path}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    handleNavClick(link.path);
+                  }}
                   className={cn(
-                    "text-sm font-medium transition-all relative py-1",
-                    isActive
-                      ? (scrolled || !isDarkHeaderPage
-                          ? "text-secondary font-bold border-b-2 border-secondary" 
-                          : "text-white font-bold border-b-2 border-secondary")
-                      : scrolled || !isDarkHeaderPage
-                          ? "text-slate-900 hover:text-secondary hover:font-semibold" 
-                          : "text-slate-100 hover:text-white hover:font-semibold"
+                    "text-sm font-bold uppercase tracking-wide transition-all relative py-1 cursor-pointer",
+                    scrolled || location.pathname !== "/" ? "text-vmp-black hover:text-vmp-maroon" : "text-white hover:text-vmp-beige"
                   )}
                 >
                   {link.name}
-                </Link>
+                </a>
               );
             })}
-            <Button 
-              className="bg-secondary hover:bg-rose-900 text-white rounded-full px-6 shadow-md hover:shadow-lg transition-all"
-              onClick={() => navigate("/donate")}
-            >
-              Donate Now <Heart className="ml-2 w-4 h-4 fill-white" />
-            </Button>
           </div>
 
           {/* Mobile Menu Button */}
           <button 
-            className={cn(
-              "lg:hidden p-2 transition-colors",
-              scrolled ? "text-slate-700" : (isDarkHeaderPage ? "text-white" : "text-slate-900")
-            )}
+            className={cn("lg:hidden p-2 transition-colors", scrolled || location.pathname !== "/" ? "text-black" : "text-white")}
             onClick={() => setIsMenuOpen(true)}
           >
             <Menu className="w-6 h-6" />
@@ -132,7 +115,7 @@ export const FloatingNavbar = () => {
                 </Link>
                 <button 
                   onClick={() => setIsMenuOpen(false)}
-                  className="p-2 rounded-full hover:bg-slate-100"
+                  className="p-2 rounded-md hover:bg-slate-100"
                 >
                   <X className="w-6 h-6 text-slate-500" />
                 </button>
@@ -140,29 +123,20 @@ export const FloatingNavbar = () => {
 
               <div className="flex flex-col space-y-6">
                 {navLinks.map((link) => (
-                  <Link
+                  <a
                     key={link.name}
-                    to={link.path}
-                    onClick={() => setIsMenuOpen(false)}
+                    href={link.path}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      handleNavClick(link.path);
+                    }}
                     className={cn(
-                      "text-2xl font-medium text-slate-800 hover:text-secondary transition-colors",
-                      location.pathname === link.path && "text-secondary font-bold"
+                      "text-2xl font-medium text-slate-800 hover:text-secondary transition-colors"
                     )}
                   >
                     {link.name}
-                  </Link>
+                  </a>
                 ))}
-                <div className="pt-6 border-t border-slate-100 flex flex-col gap-4">
-                  <Button 
-                    className="w-full bg-secondary hover:bg-rose-900 text-white rounded-full py-6 text-lg"
-                    onClick={() => {
-                      navigate("/donate");
-                      setIsMenuOpen(false);
-                    }}
-                  >
-                    Donate Now
-                  </Button>
-                </div>
               </div>
             </div>
           </motion.div>

@@ -12,7 +12,7 @@ interface EmptyStateProps {
 const EmptyState = ({ icon: Icon, title, description, actionLabel, onAction }: EmptyStateProps) => {
   return (
     <div className="flex flex-col items-center justify-center py-16 px-4 text-center border-2 border-dashed border-slate-200 dark:border-slate-700 rounded-lg bg-slate-50/50 dark:bg-slate-900/50">
-      <div className="bg-white dark:bg-slate-800 p-4 rounded-full shadow-sm mb-4">
+      <div className="bg-white dark:bg-slate-800 p-4 rounded-md shadow-sm mb-4">
         <Icon className="h-8 w-8 text-slate-400" />
       </div>
       <h3 className="text-lg font-semibold text-slate-900 dark:text-slate-100 mb-2">{title}</h3>

@@ -31,7 +31,7 @@ const StatItem = ({ icon, value, label, suffix = "+" }: StatProps) => {
 
   return (
     <div className="flex flex-col items-center text-center p-6 bg-white dark:bg-slate-800 rounded-2xl shadow-lg hover:shadow-xl transition-shadow border border-slate-100 dark:border-slate-700 group">
-      <div className="mb-4 p-4 bg-blue-100 dark:bg-blue-900/30 rounded-full text-primary dark:text-blue-400 group-hover:scale-110 transition-transform duration-300">
+      <div className="mb-4 p-4 bg-blue-100 dark:bg-blue-900/30 rounded-md text-primary dark:text-blue-400 group-hover:scale-110 transition-transform duration-300">
         {icon}
       </div>
       <div className="flex items-baseline gap-1 mb-2">

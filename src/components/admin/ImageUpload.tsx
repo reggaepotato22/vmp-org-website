@@ -109,7 +109,7 @@ export const ImageUpload: React.FC<ImageUploadProps> = ({
           onClick={triggerUpload}
           className="border-2 border-dashed border-slate-300 dark:border-slate-700 rounded-lg p-8 flex flex-col items-center justify-center cursor-pointer hover:border-primary/50 hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors h-48"
         >
-          <div className="bg-slate-100 dark:bg-slate-800 p-4 rounded-full mb-4">
+          <div className="bg-slate-100 dark:bg-slate-800 p-4 rounded-md mb-4">
             <ImageIcon className="h-8 w-8 text-slate-400 dark:text-slate-500" />
           </div>
           <p className="text-sm font-medium text-slate-600 dark:text-slate-400">

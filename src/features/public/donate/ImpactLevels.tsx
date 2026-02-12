@@ -1,4 +1,4 @@
-import { Heart, Syringe, GraduationCap, Truck } from "lucide-react";
+import { Stethoscope, Syringe, GraduationCap, Truck } from "lucide-react";
 import { motion } from "framer-motion";
 
 const impactLevels = [
@@ -12,7 +12,7 @@ const impactLevels = [
   },
   {
     amount: 50,
-    icon: Heart,
+    icon: Stethoscope,
     title: "Treat a Calf",
     description: "Covers the cost of life-saving surgery or medical treatment for a sick calf.",
     color: "text-red-600",
@@ -70,10 +70,10 @@ const ImpactLevels = () => {
           <motion.div 
             key={index}
             variants={itemVariants}
-            className="bg-white rounded-3xl p-6 shadow-lg border border-slate-100 hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1 group"
+            className="bg-white rounded-md p-6 shadow-lg border border-slate-100 hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1 group"
           >
             <div className="flex items-start space-x-4">
-              <div className={`w-14 h-14 rounded-2xl flex items-center justify-center flex-shrink-0 ${level.bgColor} group-hover:scale-110 transition-transform duration-300`}>
+              <div className={`w-14 h-14 rounded-md flex items-center justify-center flex-shrink-0 ${level.bgColor} group-hover:scale-110 transition-transform duration-300`}>
                 <Icon className={`h-7 w-7 ${level.color}`} />
               </div>
               <div>

@@ -57,10 +57,11 @@ const ManageProjectsPage = () => {
   const fetchProjects = async () => {
     try {
       const data = await projectService.getAll();
-      setProjects(data);
+      setProjects(data || []);
     } catch (error) {
       console.error("Failed to fetch projects", error);
       toast.error("Failed to fetch projects");
+      setProjects([]);
     } finally {
       setLoading(false);
     }
@@ -162,14 +163,14 @@ const ManageProjectsPage = () => {
               <Plus className="mr-2 h-4 w-4" /> Add Project
             </Button>
           </DialogTrigger>
-          <DialogContent className="sm:max-w-[600px]">
+          <DialogContent className="sm:max-w-[600px] max-h-[85vh] overflow-y-auto">
             <DialogHeader>
               <DialogTitle>{editingItem ? "Edit Project" : "Add Project"}</DialogTitle>
             </DialogHeader>
             <form onSubmit={handleSubmit} className="space-y-4">
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-2">
-                  <label className="text-sm font-medium">Title</label>
+                  <label className="text-sm font-bold text-black">Title</label>
                   <Input
                     value={formData.title}
                     onChange={(e) => {
@@ -184,7 +185,7 @@ const ManageProjectsPage = () => {
                   />
                 </div>
                 <div className="space-y-2">
-                  <label className="text-sm font-medium">Slug</label>
+                  <label className="text-sm font-bold text-black">Slug</label>
                   <Input
                     value={formData.slug}
                     onChange={(e) => setFormData({ ...formData, slug: e.target.value })}
@@ -195,7 +196,7 @@ const ManageProjectsPage = () => {
 
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-2">
-                  <label className="text-sm font-medium">Status</label>
+                  <label className="text-sm font-bold text-black">Status</label>
                   <Select 
                     value={formData.status} 
                     onValueChange={(value: any) => setFormData({ ...formData, status: value })}
@@ -218,7 +219,7 @@ const ManageProjectsPage = () => {
                   />
                   <label
                     htmlFor="featured"
-                    className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                    className="text-sm font-bold text-black leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
                   >
                     Featured Project
                   </label>
@@ -227,7 +228,7 @@ const ManageProjectsPage = () => {
 
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-2">
-                  <label className="text-sm font-medium">Start Date</label>
+                  <label className="text-sm font-bold text-black">Start Date</label>
                   <Input
                     type="date"
                     value={formData.start_date?.split('T')[0] || ''}
@@ -235,7 +236,7 @@ const ManageProjectsPage = () => {
                   />
                 </div>
                 <div className="space-y-2">
-                  <label className="text-sm font-medium">End Date</label>
+                  <label className="text-sm font-bold text-black">End Date</label>
                   <Input
                     type="date"
                     value={formData.end_date?.split('T')[0] || ''}
@@ -245,7 +246,7 @@ const ManageProjectsPage = () => {
               </div>
 
               <div className="space-y-2">
-                <label className="text-sm font-medium">Cover Image</label>
+                <label className="text-sm font-bold text-black">Cover Image</label>
                 <div className="space-y-3">
                   <Input 
                     value={formData.cover_image} 
@@ -268,7 +269,7 @@ const ManageProjectsPage = () => {
               </div>
 
               <div className="space-y-2">
-                <label className="text-sm font-medium">Description</label>
+                <label className="text-sm font-bold text-black">Description</label>
                 <Textarea
                   value={formData.description}
                   onChange={(e) => setFormData({ ...formData, description: e.target.value })}

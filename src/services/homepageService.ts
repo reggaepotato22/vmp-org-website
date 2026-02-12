@@ -1,5 +1,5 @@
 import { api } from "@/lib/api";
-import { HeroSlide, Testimonial } from "@/types";
+import { HeroSlide, Testimonial, Partner } from "@/types";
 
 export const homepageService = {
   // Hero Slides
@@ -17,6 +17,23 @@ export const homepageService = {
 
   async deleteSlide(id: string) {
     return await api.delete(`/homepage/slides/${id}`);
+  },
+
+  // Partners
+  async getPartners() {
+    return await api.get<Partner[]>('/homepage/partners');
+  },
+
+  async updatePartner(id: string, updates: Partial<Partner>) {
+    return await api.put<Partner>(`/homepage/partners/${id}`, updates);
+  },
+
+  async createPartner(partner: Omit<Partner, 'id'>) {
+    return await api.post<Partner>('/homepage/partners', partner);
+  },
+
+  async deletePartner(id: string) {
+    return await api.delete(`/homepage/partners/${id}`);
   },
 
   // Testimonials

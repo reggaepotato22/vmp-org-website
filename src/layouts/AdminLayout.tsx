@@ -48,7 +48,7 @@ const AdminLayout = () => {
                 {theme === 'light' ? <Moon className="h-5 w-5" /> : <Sun className="h-5 w-5" />}
               </Button>
               <span className="text-sm font-medium text-slate-600 dark:text-slate-300 hidden md:inline-block">{user?.username || 'Admin'}</span>
-              <div className="h-8 w-8 rounded-full bg-blue-100 dark:bg-blue-900 text-slate-900 dark:text-blue-100 flex items-center justify-center font-bold border dark:border-blue-700">
+              <div className="h-8 w-8 rounded-md bg-blue-100 dark:bg-blue-900 text-slate-900 dark:text-blue-100 flex items-center justify-center font-bold border dark:border-blue-700">
                 {user?.username ? user.username.charAt(0).toUpperCase() : 'A'}
               </div>
             </div>

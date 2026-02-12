@@ -1,19 +1,20 @@
 import GalleryGrid from "@/features/public/gallery/GalleryGrid";
 import { motion } from "framer-motion";
+import bgImage from "@/assets/vmphotos/vetst2.jpg";
 
 const GalleryPage = () => {
   return (
-    <div className="min-h-screen bg-slate-50 flex flex-col">
-      {/* Page Header */}
-      <section className="bg-primary text-white py-24 relative overflow-hidden">
-        {/* Pattern Overlay */}
-        <div className="absolute inset-0 opacity-10 bg-[radial-gradient(#ffffff_1px,transparent_1px)] [background-size:20px_20px]"></div>
-        
-        {/* Decorative elements */}
-        <div className="absolute top-0 right-0 -mr-20 -mt-20 w-96 h-96 bg-secondary/10 rounded-full blur-3xl"></div>
-        <div className="absolute bottom-0 left-0 -ml-20 -mb-20 w-72 h-72 bg-primary/20 rounded-full blur-3xl"></div>
+    <div className="min-h-screen font-sans flex flex-col relative">
+      {/* Fixed Background */}
+      <div className="fixed inset-0 z-0">
+        <img src={bgImage} alt="Veterinary Mission" className="w-full h-full object-cover" />
+        <div className="absolute inset-0 bg-black/60 bg-gradient-to-b from-black/80 via-black/50 to-primary/90 mix-blend-multiply"></div>
+      </div>
 
-        <div className="container mx-auto px-4 text-center relative z-10">
+      {/* Page Header */}
+      <section className="text-white py-24 relative z-10">
+        
+        <div className="container mx-auto px-4 text-center">
           <motion.h1 
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -34,7 +35,9 @@ const GalleryPage = () => {
       </section>
 
       {/* Gallery Grid */}
-      <GalleryGrid />
+      <div className="relative z-10">
+        <GalleryGrid />
+      </div>
       
     </div>
   );

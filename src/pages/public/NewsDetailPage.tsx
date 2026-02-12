@@ -34,7 +34,7 @@ const NewsDetailPage = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-slate-50 py-24">
+      <div className="min-h-screen bg-slate-50 pt-12 pb-24">
         <div className="container mx-auto px-4 max-w-4xl">
           <Skeleton className="h-8 w-32 mb-8 rounded-full" />
           <Skeleton className="h-16 w-3/4 mb-6 rounded-xl" />
@@ -62,7 +62,7 @@ const NewsDetailPage = () => {
     if (navigator.share) {
       navigator.share({
         title: newsItem.title,
-        text: newsItem.content.replace(/<[^>]*>?/gm, '').substring(0, 100), // Strip HTML tags for share text
+        text: (newsItem.content || '').replace(/<[^>]*>?/gm, '').substring(0, 100), // Strip HTML tags for share text
         url: window.location.href,
       });
     } else {
@@ -72,11 +72,11 @@ const NewsDetailPage = () => {
   };
 
   // Estimate read time
-  const wordCount = newsItem.content.replace(/<[^>]*>?/gm, '').split(/\s+/).length;
+  const wordCount = (newsItem.content || '').replace(/<[^>]*>?/gm, '').split(/\s+/).length;
   const readTime = Math.ceil(wordCount / 200) + " min read";
 
   return (
-    <div className="min-h-screen bg-slate-50 py-24">
+    <div className="min-h-screen bg-slate-50 pt-12 pb-24">
       <div className="container mx-auto px-4 max-w-4xl">
         {/* Back Button */}
         <motion.div
@@ -102,7 +102,7 @@ const NewsDetailPage = () => {
                 newsItem.category === 'news' 
                   ? 'bg-slate-100 text-slate-800 border-slate-200' 
                   : 'bg-secondary text-white border-secondary'
-            } hover:bg-opacity-90 border px-3 py-1 text-sm rounded-full`}>
+            } hover:bg-opacity-90 border px-3 py-1 text-sm rounded-md`}>
                 {newsItem.category === 'news' ? 'News' : 'Event'}
             </Badge>
             <span className="text-slate-400 text-sm">•</span>
@@ -123,7 +123,7 @@ const NewsDetailPage = () => {
 
           <div className="flex items-center justify-between border-y border-slate-200 py-6">
              <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center text-primary">
+                <div className="w-10 h-10 rounded-md bg-primary/10 flex items-center justify-center text-primary">
                    <User className="h-5 w-5" />
                 </div>
                 <div>
@@ -132,7 +132,7 @@ const NewsDetailPage = () => {
                 </div>
              </div>
              
-             <Button variant="outline" size="sm" className="rounded-full gap-2 text-slate-600 hover:text-slate-900 border-slate-200" onClick={handleShare}>
+             <Button variant="outline" size="sm" className="rounded-md gap-2 text-slate-600 hover:text-slate-900 border-slate-200" onClick={handleShare}>
                 <Share2 className="h-4 w-4" />
                 <span className="hidden sm:inline">Share</span>
              </Button>

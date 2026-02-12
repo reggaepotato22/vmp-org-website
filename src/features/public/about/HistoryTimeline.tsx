@@ -70,7 +70,7 @@ const HistoryTimeline = () => {
                     className="relative pl-8 md:pl-12 group"
                 >
                     {/* Dot */}
-                    <div className="absolute -left-[11px] top-1 bg-white border-4 border-secondary w-6 h-6 rounded-full group-hover:scale-125 transition-transform duration-300 shadow-sm" />
+                    <div className="absolute -left-[11px] top-1 bg-white border-4 border-secondary w-6 h-6 rounded-md group-hover:scale-125 transition-transform duration-300 shadow-sm" />
                     
                     <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-4">
                         <div className="md:w-1/4">

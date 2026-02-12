@@ -59,12 +59,12 @@ const ManageSettingsPage = () => {
             </CardHeader>
             <CardContent className="space-y-4">
               <div className="grid gap-2">
-                <label className="text-sm font-medium">Site Title</label>
+                <label className="text-sm font-medium dark:text-slate-200">Site Title</label>
                 <Input {...register("siteTitle")} placeholder="Veterinarians With a Mission Programme" />
               </div>
 
               <div className="grid gap-2">
-                <label className="text-sm font-medium">Mission Statement</label>
+                <label className="text-sm font-medium dark:text-slate-200">Mission Statement</label>
                 <textarea 
                   {...register("missionStatement")} 
                   className="flex min-h-[80px] w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
@@ -74,17 +74,17 @@ const ManageSettingsPage = () => {
               
               <div className="grid md:grid-cols-2 gap-4">
                 <div className="grid gap-2">
-                  <label className="text-sm font-medium">Contact Email</label>
+                  <label className="text-sm font-medium dark:text-slate-200">Contact Email</label>
                   <Input {...register("contactEmail")} placeholder="info@kenyavetsmission.org" />
                 </div>
                 <div className="grid gap-2">
-                  <label className="text-sm font-medium">Phone Number</label>
+                  <label className="text-sm font-medium dark:text-slate-200">Phone Number</label>
                   <Input {...register("phone")} placeholder="0116-922-908" />
                 </div>
               </div>
 
               <div className="grid gap-2">
-                <label className="text-sm font-medium">Physical Address</label>
+                <label className="text-sm font-medium dark:text-slate-200">Physical Address</label>
                 <Input {...register("address")} placeholder="Ultimate House, Oloolua Road, Ngong Town" />
               </div>
             </CardContent>
@@ -125,7 +125,7 @@ const ManageSettingsPage = () => {
             <CardContent className="space-y-6">
               <div className="flex flex-row items-center justify-between rounded-lg border p-4">
                 <div className="space-y-0.5">
-                  <label className="text-base font-medium">Donations Section</label>
+                  <label className="text-base font-medium dark:text-slate-200">Donations Section</label>
                   <p className="text-sm text-muted-foreground">
                     Show the "Every Gift Creates a Brighter Tomorrow" section.
                   </p>
@@ -137,7 +137,7 @@ const ManageSettingsPage = () => {
               </div>
               <div className="flex flex-row items-center justify-between rounded-lg border p-4">
                 <div className="space-y-0.5">
-                  <label className="text-base font-medium">Missions/Impact Section</label>
+                  <label className="text-base font-medium dark:text-slate-200">Missions/Impact Section</label>
                   <p className="text-sm text-muted-foreground">
                     Show the impact statistics and missions highlights.
                   </p>
@@ -145,6 +145,18 @@ const ManageSettingsPage = () => {
                 <Switch
                   checked={watch("features.showMissions")}
                   onCheckedChange={(checked) => setValue("features.showMissions", checked, { shouldDirty: true })}
+                />
+              </div>
+              <div className="flex flex-row items-center justify-between rounded-lg border p-4">
+                <div className="space-y-0.5">
+                  <label className="text-base font-medium dark:text-slate-200">Projects Section</label>
+                  <p className="text-sm text-muted-foreground">
+                    Show the "Our Work" / Projects grid section.
+                  </p>
+                </div>
+                <Switch
+                  checked={watch("features.showProjects")}
+                  onCheckedChange={(checked) => setValue("features.showProjects", checked, { shouldDirty: true })}
                 />
               </div>
               <div className="flex flex-row items-center justify-between rounded-lg border p-4">

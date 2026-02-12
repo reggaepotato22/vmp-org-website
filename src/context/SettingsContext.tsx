@@ -16,6 +16,7 @@ export interface SiteSettings {
   features: {
     showDonations: boolean;
     showMissions: boolean;
+    showProjects: boolean;
     showGallery: boolean;
     showTestimonials: boolean;
     showNews: boolean;
@@ -37,6 +38,7 @@ const defaultSettings: SiteSettings = {
   features: {
     showDonations: false,
     showMissions: false,
+    showProjects: false,
     showGallery: false,
     showTestimonials: false,
     showNews: false,

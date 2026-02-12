@@ -38,25 +38,26 @@ router.get('/:id', async (req, res) => {
 
 // Create mission (Protected)
 router.post('/', authenticateToken, async (req, res) => {
-  const { title, location, start_date, end_date, description, content, cover_image, status, images, stats, report_file, report_summary } = req.body;
+  const { title, location, start_date, end_date, description, content, cover_image, status, images, stats, report_file, report_summary, gallery_link } = req.body;
   try {
     const [result] = await pool.query(
       `INSERT INTO missions 
-      (title, location, start_date, end_date, description, content, cover_image, status, images, stats, report_file, report_summary) 
-      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+      (title, location, start_date, end_date, description, content, cover_image, status, images, stats, report_file, report_summary, gallery_link) 
+      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
       [
         title, 
         location, 
         start_date, 
         end_date, 
         description, 
-        content, 
+        content || '', 
         cover_image, 
         status || 'upcoming', 
         JSON.stringify(images || []), 
         JSON.stringify(stats || {}),
-        report_file,
-        report_summary
+        report_file || null,
+        report_summary || '',
+        gallery_link || ''
       ]
     );
     const [newMission] = await pool.query('SELECT * FROM missions WHERE id = ?', [result.insertId]);
@@ -68,11 +69,11 @@ router.post('/', authenticateToken, async (req, res) => {
 
 // Update mission (Protected)
 router.put('/:id', authenticateToken, async (req, res) => {
-  const { title, location, start_date, end_date, description, content, cover_image, status, images, stats, report_file, report_summary } = req.body;
+  const { title, location, start_date, end_date, description, content, cover_image, status, images, stats, report_file, report_summary, gallery_link } = req.body;
   try {
     await pool.query(
       `UPDATE missions SET 
-      title = ?, location = ?, start_date = ?, end_date = ?, description = ?, content = ?, cover_image = ?, status = ?, images = ?, stats = ?, report_file = ?, report_summary = ? 
+      title = ?, location = ?, start_date = ?, end_date = ?, description = ?, content = ?, cover_image = ?, status = ?, images = ?, stats = ?, report_file = ?, report_summary = ?, gallery_link = ?
       WHERE id = ?`,
       [
         title, 
@@ -80,13 +81,14 @@ router.put('/:id', authenticateToken, async (req, res) => {
         start_date, 
         end_date, 
         description, 
-        content, 
+        content || '', 
         cover_image, 
         status, 
         JSON.stringify(images || []), 
         JSON.stringify(stats || {}), 
-        report_file, 
-        report_summary, 
+        report_file || null, 
+        report_summary || '', 
+        gallery_link || '',
         req.params.id
       ]
     );

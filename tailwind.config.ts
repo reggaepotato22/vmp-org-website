@@ -18,10 +18,6 @@ export default {
 			},
 		},
 		extend: {
-			fontFamily: {
-				sans: ["Inter", "sans-serif"],
-				heading: ["Montserrat", "sans-serif"],
-			},
 			colors: {
 				border: "hsl(var(--border))",
 				input: "hsl(var(--input))",
@@ -29,24 +25,31 @@ export default {
 				background: "hsl(var(--background))",
 				foreground: "hsl(var(--foreground))",
 				primary: {
-					DEFAULT: "hsl(var(--primary))",
-					foreground: "hsl(var(--primary-foreground))",
+					DEFAULT: "#800000", // Maroon
+					foreground: "#FFFFFF",
 				},
 				secondary: {
-					DEFAULT: "hsl(var(--secondary))",
-					foreground: "hsl(var(--secondary-foreground))",
+					DEFAULT: "#F5F5DC", // Beige
+					foreground: "#1A1A1A",
+				},
+				accent: {
+					DEFAULT: "#1E40AF", // Blue
+					foreground: "#FFFFFF",
+				},
+				neutral: {
+					DEFAULT: "#1A1A1A", // Black
+					foreground: "#FFFFFF",
+				},
+				vmp: {
+					maroon: "#800000",
+					beige: "#F5F5DC",
+					blue: "#1E40AF",
+					black: "#1A1A1A",
+					white: "#FFFFFF",
 				},
 				destructive: {
 					DEFAULT: "hsl(var(--destructive))",
 					foreground: "hsl(var(--destructive-foreground))",
-				},
-				muted: {
-					DEFAULT: "hsl(var(--muted))",
-					foreground: "hsl(var(--muted-foreground))",
-				},
-				accent: {
-					DEFAULT: "hsl(var(--accent))",
-					foreground: "hsl(var(--accent-foreground))",
 				},
 				popover: {
 					DEFAULT: "hsl(var(--popover))",
@@ -59,7 +62,7 @@ export default {
 			},
 			fontFamily: {
 				sans: ["Inter", "Lato", "sans-serif"],
-				heading: ["Montserrat", "Playfair Display", "serif"],
+				heading: ["Playfair Display", "Montserrat", "serif"],
 			},
 			borderRadius: {
 				lg: "var(--radius)",

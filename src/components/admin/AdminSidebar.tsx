@@ -7,7 +7,8 @@ import {
   Image as ImageIcon, 
   Home, 
   Briefcase,
-  FolderKanban
+  FolderKanban,
+  Mail
 } from "lucide-react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useAuth } from "@/context/AuthContext";
@@ -40,6 +41,8 @@ export function AdminSidebar() {
     { to: "/admin/homepage", icon: Home, label: "Homepage" },
     { to: "/admin/missions", icon: Briefcase, label: "Missions" },
     { to: "/admin/projects", icon: FolderKanban, label: "Projects" },
+    { to: "/admin/volunteers", icon: Users, label: "Volunteers" },
+    { to: "/admin/messages", icon: Mail, label: "Messages" },
     { to: "/admin/gallery", icon: ImageIcon, label: "Gallery" },
     { to: "/admin/team", icon: Users, label: "Team" },
     { to: "/admin/settings", icon: Settings, label: "Settings" },

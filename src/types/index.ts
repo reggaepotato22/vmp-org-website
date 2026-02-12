@@ -1,3 +1,40 @@
+export interface HeroSlide {
+  id: string;
+  title: string;
+  description: string;
+  image: string;
+  order_index: number;
+  active: boolean;
+}
+
+export interface Stat {
+  id: string;
+  label: string;
+  value: string; // e.g., "120+"
+  suffix?: string;
+}
+
+export interface ServiceCard {
+  id: string;
+  number: string; // "01"
+  title: string;
+  image: string;
+}
+
+export interface Campaign {
+  id: string;
+  title: string;
+  description: string; // Short description
+  image: string;
+  link: string;
+  ctaText?: string;
+}
+
+export interface ProgramItem {
+  id: string;
+  text: string;
+}
+
 export interface NewsItem {
   id: string;
   title: string;
@@ -12,6 +49,7 @@ export interface Mission {
   id: string;
   title: string;
   description: string;
+  content?: string;
   location: string;
   status: 'upcoming' | 'ongoing' | 'completed';
   start_date: string;
@@ -20,6 +58,7 @@ export interface Mission {
   images: string[];
   report_file?: string;
   report_summary?: string;
+  gallery_link?: string;
   stats?: {
     treated: string | number;
     value: string | number;
@@ -34,6 +73,7 @@ export interface GalleryItem {
   image_url: string;
   category: string;
   description?: string;
+  external_link?: string;
   featured?: boolean;
   mission_id?: string;
   created_at?: string;
@@ -65,8 +105,39 @@ export interface Testimonial {
   created_at?: string;
 }
 
+export interface Partner {
+  id: string;
+  name: string;
+  logo: string;
+  website_url: string;
+  order_index: number;
+  active: boolean;
+}
+
 export interface SiteSettings {
   hero_slides: HeroSlide[];
+  partners: Partner[];
+  testimonials: Testimonial[];
+  id?: string;
+  site_name?: string;
+  contact_email?: string;
+  contact_phone?: string;
+  address?: string;
+  socialLinks?: {
+    facebook?: string;
+    twitter?: string;
+    instagram?: string;
+    linkedin?: string;
+    youtube?: string;
+  };
+  features?: {
+    showDonations?: boolean;
+    showMissions?: boolean;
+    showGallery?: boolean;
+    showTestimonials?: boolean;
+    showNews?: boolean;
+    showProjects?: boolean;
+  };
 }
 
 export interface HeroSlide {
@@ -90,4 +161,15 @@ export interface Project {
   end_date?: string;
   featured?: boolean;
   created_at?: string;
+}
+
+export interface ContactMessage {
+  id: string;
+  name: string;
+  email: string;
+  subject: string;
+  interest: string;
+  message: string;
+  date: string;
+  read: boolean;
 }

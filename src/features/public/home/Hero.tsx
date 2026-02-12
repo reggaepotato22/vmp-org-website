@@ -16,6 +16,10 @@ import { HeroSlide } from "@/types";
 import heroSlide1 from "@/assets/vmphotos/heroslide1.png";
 import heroSlide2 from "@/assets/vmphotos/heroslide2.png";
 import heroSlide3 from "@/assets/vmphotos/heroslide3.png";
+import heroSlide4 from "@/assets/vmphotos/heroslide4.png";
+import heroSlide5 from "@/assets/vmphotos/heroslide5.png";
+import heroSlide6 from "@/assets/vmphotos/heroslide6.png";
+import heroSlide7 from "@/assets/vmphotos/heroslide7.jpg";
 
 const defaultSlides = [
   {
@@ -40,6 +44,38 @@ const defaultSlides = [
     title: "Join Our Mission Today",
     description: "Your support helps us reach more communities and save more lives.",
     order_index: 2,
+    active: true
+  },
+  {
+    id: "default-4",
+    image: heroSlide4,
+    title: "Sustainable Livelihoods",
+    description: "Building resilience in pastoral communities through improved animal health and productivity.",
+    order_index: 3,
+    active: true
+  },
+  {
+    id: "default-5",
+    image: heroSlide5,
+    title: "Education for Future Generations",
+    description: "Training and mentoring the next generation of animal health workers and community leaders.",
+    order_index: 4,
+    active: true
+  },
+  {
+    id: "default-6",
+    image: heroSlide6,
+    title: "Spiritual Transformation",
+    description: "Sharing the message of hope and faith alongside professional veterinary practice.",
+    order_index: 5,
+    active: true
+  },
+  {
+    id: "default-7",
+    image: heroSlide7,
+    title: "Community Partnership",
+    description: "Working hand-in-hand with local leaders to create lasting impact and sustainable change.",
+    order_index: 6,
     active: true
   },
 ];
@@ -117,10 +153,10 @@ const Hero = () => {
                       {slide.description}
                     </p>
                     <div className="pt-4 flex flex-col sm:flex-row gap-4 justify-center">
-                      <Button asChild size="lg" className="bg-primary hover:bg-primary/90 text-white border-none shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-200 text-lg px-8 py-6 h-auto rounded-full">
+                      <Button asChild size="lg" className="bg-primary hover:bg-primary/90 text-white border-none shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-200 text-lg px-8 py-6 h-auto rounded-md">
                         <Link to="/about">Learn More</Link>
                       </Button>
-                      <Button asChild variant="outline" size="lg" className="bg-transparent hover:bg-white/10 text-white border-2 border-white backdrop-blur-sm shadow-lg text-lg px-8 py-6 h-auto rounded-full">
+                      <Button asChild variant="outline" size="lg" className="bg-transparent hover:bg-white/10 text-white border-2 border-white backdrop-blur-sm shadow-lg text-lg px-8 py-6 h-auto rounded-md">
                         <Link to="/donate">Donate Now</Link>
                       </Button>
                     </div>

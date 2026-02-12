@@ -34,14 +34,18 @@ import ManageGalleryPage from "@/pages/admin/ManageGalleryPage";
 import ManageTeamPage from "@/pages/admin/ManageTeamPage";
 import ManageSettingsPage from "@/pages/admin/ManageSettingsPage";
 import ManageProjectsPage from "@/pages/admin/ManageProjectsPage";
+import ManageMessagesPage from "@/pages/admin/ManageMessagesPage";
+import ManageVolunteersPage from "@/pages/admin/VolunteersPage";
 
 // Components
 import ProtectedRoute from "@/components/auth/ProtectedRoute";
 import ScrollToTop from "@/components/shared/ScrollToTop";
+import ErrorBoundary from "@/components/shared/ErrorBoundary";
 
 // Contexts
 import { AuthProvider } from './context/AuthContext';
 import { SettingsProvider } from './context/SettingsContext';
+import { DataProvider } from './context/DataContext';
 
 const queryClient = new QueryClient();
 
@@ -51,50 +55,56 @@ const App = () => (
       <TooltipProvider>
         <Toaster />
         <Sonner />
-        <Analytics />
+        {/* <Analytics /> */}
         <BrowserRouter future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
           <ScrollToTop />
-          <SettingsProvider>
-            <Routes>
-              {/* Public Routes */}
-                    <Route path="/" element={<PublicLayout />}>
-                      <Route index element={<LandingPage />} />
-                      <Route path="about" element={<AboutPage />} />
-                      <Route path="missions" element={<MissionsPage />} />
-                      <Route path="missions/:id" element={<MissionDetailPage />} />
-                      <Route path="projects" element={<ProjectsPage />} />
-                      <Route path="donate" element={<DonatePage />} />
-                      <Route path="news" element={<NewsPage />} />
-                      <Route path="news/:id" element={<NewsDetailPage />} />
-                      <Route path="volunteer" element={<VolunteerPage />} />
-                      <Route path="contact" element={<ContactPage />} />
-                      <Route path="gallery" element={<GalleryPage />} />
-                      <Route path="gallery/:id" element={<GalleryDetailPage />} />
-                      <Route path="*" element={<NotFound />} />
-                    </Route>
+          <DataProvider>
+            <SettingsProvider>
+              <ErrorBoundary>
+                <Routes>
+                  {/* Public Routes */}
+                  <Route path="/" element={<PublicLayout />}>
+                    <Route index element={<LandingPage />} />
+                    <Route path="about" element={<AboutPage />} />
+                    <Route path="missions" element={<MissionsPage />} />
+                    <Route path="missions/:id" element={<MissionDetailPage />} />
+                    <Route path="projects" element={<ProjectsPage />} />
+                    <Route path="donate" element={<DonatePage />} />
+                    <Route path="news" element={<NewsPage />} />
+                    <Route path="news/:id" element={<NewsDetailPage />} />
+                    <Route path="volunteer" element={<VolunteerPage />} />
+                    <Route path="contact" element={<ContactPage />} />
+                    <Route path="gallery" element={<GalleryPage />} />
+                    <Route path="gallery/:id" element={<GalleryDetailPage />} />
+                    <Route path="*" element={<NotFound />} />
+                  </Route>
 
-                    {/* Auth Routes */}
-                    <Route path="/login" element={<LoginPage />} />
+                  {/* Auth Routes */}
+                  <Route path="/login" element={<LoginPage />} />
 
-                    {/* Admin Routes */}
-                    <Route path="/admin" element={
-                      <ProtectedRoute>
-                        <AdminLayout />
-                      </ProtectedRoute>
-                    }>
-                      <Route index element={<Navigate to="/admin/dashboard" replace />} />
-                      <Route path="dashboard" element={<DashboardPage />} />
-                      <Route path="news" element={<ManageNewsPage />} />
-                      <Route path="homepage" element={<ManageHomepagePage />} />
-                      <Route path="missions" element={<ManageMissionsPage />} />
-                      <Route path="users" element={<ManageUsersPage />} />
-                      <Route path="projects" element={<ManageProjectsPage />} />
-                      <Route path="gallery" element={<ManageGalleryPage />} />
-                      <Route path="team" element={<ManageTeamPage />} />
-                      <Route path="settings" element={<ManageSettingsPage />} />
-                    </Route>
-                  </Routes>
-          </SettingsProvider>
+                  {/* Admin Routes */}
+                  <Route path="/admin" element={
+                    <ProtectedRoute>
+                      <AdminLayout />
+                    </ProtectedRoute>
+                  }>
+                    <Route index element={<Navigate to="/admin/dashboard" replace />} />
+                    <Route path="dashboard" element={<DashboardPage />} />
+                    <Route path="news" element={<ManageNewsPage />} />
+                    <Route path="homepage" element={<ManageHomepagePage />} />
+                    <Route path="missions" element={<ManageMissionsPage />} />
+                    <Route path="volunteers" element={<ManageVolunteersPage />} />
+                    <Route path="users" element={<ManageUsersPage />} />
+                    <Route path="projects" element={<ManageProjectsPage />} />
+                    <Route path="messages" element={<ManageMessagesPage />} />
+                    <Route path="gallery" element={<ManageGalleryPage />} />
+                    <Route path="team" element={<ManageTeamPage />} />
+                    <Route path="settings" element={<ManageSettingsPage />} />
+                  </Route>
+                </Routes>
+              </ErrorBoundary>
+            </SettingsProvider>
+          </DataProvider>
         </BrowserRouter>
       </TooltipProvider>
     </QueryClientProvider>

@@ -6,7 +6,7 @@ import { Quote, Star, Heart, Award, Users, MapPin } from "lucide-react";
 const Testimonials = () => {
   const testimonials = [
     {
-      name: "Dr. Sarah Kimani",
+      name: "Dr. Josiah Mandieka",
       role: "Volunteer Veterinarian",
       location: "Nairobi, Kenya",
       year: "2023",
@@ -16,7 +16,7 @@ const Testimonials = () => {
       highlight: "Life-Changing Experience"
     },
     {
-      name: "James Omondi",
+      name: "Pst. Amos Tanin",
       role: "Community Leader",
       location: "Turkana County",
       year: "2022",

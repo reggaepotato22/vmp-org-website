@@ -97,10 +97,10 @@ const SuccessStories = () => {
             </p>
             
             <div className="flex gap-4 pt-4">
-              <Button variant="outline" size="icon" onClick={prevSlide} className="rounded-full border-slate-700 text-slate-300 hover:bg-slate-800 hover:text-white">
+              <Button variant="outline" size="icon" onClick={prevSlide} className="rounded-md border-slate-700 text-slate-300 hover:bg-slate-800 hover:text-white">
                 <ChevronLeft className="w-5 h-5" />
               </Button>
-              <Button variant="outline" size="icon" onClick={nextSlide} className="rounded-full border-slate-700 text-slate-300 hover:bg-slate-800 hover:text-white">
+              <Button variant="outline" size="icon" onClick={nextSlide} className="rounded-md border-slate-700 text-slate-300 hover:bg-slate-800 hover:text-white">
                 <ChevronRight className="w-5 h-5" />
               </Button>
             </div>
@@ -179,7 +179,7 @@ const SuccessStories = () => {
                           <p>Your support makes stories like this possible. Join us in our mission to heal and protect.</p>
                           
                           <div className="pt-6">
-                            <Button className="w-full bg-primary hover:bg-primary/90 text-white rounded-full h-12 text-lg">
+                            <Button className="w-full bg-primary hover:bg-primary/90 text-white rounded-md h-12 text-lg">
                               Support This Cause
                             </Button>
                           </div>

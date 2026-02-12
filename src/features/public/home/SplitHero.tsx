@@ -38,10 +38,10 @@ const SplitHero = ({
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
         >
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-100 text-primary text-sm font-medium mb-6">
-            <Heart className="w-4 h-4 fill-primary" />
-            <span>Veterinarians with a Mission Programme</span>
-          </div>
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-blue-100 text-primary text-sm font-medium mb-6">
+          <Heart className="w-4 h-4 fill-primary" />
+          <span>Veterinarians with a Mission Programme</span>
+        </div>
           
           <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-slate-900 leading-tight mb-6 tracking-tight">
             {title.split(" ").map((word, i) => (
@@ -58,7 +58,7 @@ const SplitHero = ({
           <div className="flex flex-col sm:flex-row gap-4">
             <Button 
               size="lg" 
-              className="bg-primary hover:bg-primary/90 text-white rounded-full px-8 h-12 text-base shadow-lg hover:shadow-xl transition-all hover:scale-105"
+              className="bg-primary hover:bg-primary/90 text-white rounded-md px-8 h-12 text-base shadow-lg hover:shadow-xl transition-all hover:scale-105"
               onClick={() => navigate(ctaLink)}
             >
               {ctaText}
@@ -66,7 +66,7 @@ const SplitHero = ({
             <Button 
               variant="outline" 
               size="lg" 
-              className="border-primary text-primary hover:bg-blue-50 rounded-full px-8 h-12 text-base"
+              className="border-primary text-primary hover:bg-blue-50 rounded-md px-8 h-12 text-base"
               onClick={() => navigate(secondaryCtaLink)}
             >
               {secondaryCtaText} <ArrowRight className="ml-2 h-4 w-4" />

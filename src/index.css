@@ -3,26 +3,29 @@
 @tailwind utilities;
 
 @layer base {
+  html {
+    scroll-behavior: smooth;
+  }
   :root {
-    --background: 210 40% 98%; /* Slate 50 (Cream/Off-white) */
-    --foreground: 215 28% 17%; /* Slate 800 (Text) */
+    --background: 0 0% 100%; /* White */
+    --foreground: 0 0% 10%; /* Black #1A1A1A */
     --card: 0 0% 100%;
-    --card-foreground: 215 28% 17%;
+    --card-foreground: 0 0% 10%;
     --popover: 0 0% 100%;
-    --popover-foreground: 215 28% 17%;
-    --primary: 224 76% 48%; /* Blue 700 */
-    --primary-foreground: 0 0% 100%;
-    --secondary: 343 76% 30%; /* Maroon / Rose 900 */
-    --secondary-foreground: 0 0% 100%;
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
-    --accent: 343 76% 30%; /* Maroon */
-    --accent-foreground: 0 0% 100%;
+    --popover-foreground: 0 0% 10%;
+    --primary: 0 100% 25%; /* Maroon #800000 */
+    --primary-foreground: 0 0% 98%;
+    --secondary: 60 56% 91%; /* Beige #F5F5DC */
+    --secondary-foreground: 0 0% 10%;
+    --muted: 60 20% 96%;
+    --muted-foreground: 0 0% 40%;
+    --accent: 226 71% 40%; /* Blue #1E40AF */
+    --accent-foreground: 0 0% 98%;
     --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 224 76% 48%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 0 0% 90%;
+    --input: 0 0% 90%;
+    --ring: 0 100% 25%;
     --radius: 0.5rem;
   }
 

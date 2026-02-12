@@ -22,57 +22,59 @@ const NewsCard = ({ item, featured = false }: NewsCardProps) => {
   const excerpt = getExcerpt(item.content);
 
   return (
-    <Card className={`group overflow-hidden h-full flex flex-col border-none shadow-lg hover:shadow-xl transition-all duration-300 rounded-3xl ${featured ? 'md:flex-row md:col-span-2' : 'bg-white'}`}>
-      <div className={`relative overflow-hidden ${featured ? 'md:w-1/2 min-h-[300px]' : 'h-56'}`}>
+    <Card className={`group relative overflow-hidden h-[400px] flex flex-col border-none shadow-lg hover:shadow-2xl transition-all duration-500 rounded-xl ${featured ? 'md:col-span-2 md:h-[500px]' : ''}`}>
+      {/* Background Image */}
+      <div className="absolute inset-0 z-0">
         <img 
             src={item.image_url || "https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60"} 
             alt={item.title}
             className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
             loading="lazy"
         />
-        <div className="absolute inset-0 bg-black/20 group-hover:bg-black/10 transition-colors" />
-        <div className="absolute top-4 left-4">
+        {/* Gradient Overlay */}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent opacity-80 group-hover:opacity-90 transition-opacity duration-500" />
+      </div>
+      
+      {/* Content Overlay */}
+      <div className="relative z-10 flex flex-col h-full p-6 md:p-8 text-white">
+        <div className="flex justify-between items-start">
             <Badge className={`${
                 item.category === 'news' 
-                  ? 'bg-slate-100 text-slate-800 border-slate-200' 
+                  ? 'bg-white/20 text-white border-white/30 backdrop-blur-md' 
                   : 'bg-secondary text-white border-secondary'
-            } hover:bg-opacity-90 border`}>
+            } hover:bg-white/30 transition-colors`}>
                 {item.category === 'news' ? 'News' : 'Event'}
             </Badge>
         </div>
-      </div>
-      
-      <div className={`flex flex-col flex-grow ${featured ? 'md:w-1/2 justify-center p-8 bg-slate-50' : 'bg-white'}`}>
-        <CardHeader className={`${featured ? 'p-0 mb-4' : 'pt-6 px-6 pb-2'}`}>
-            <div className="flex items-center text-xs font-medium text-slate-500 mb-3 gap-3">
-                <span className="flex items-center">
+
+        <div className="mt-auto space-y-4 translate-y-2 group-hover:translate-y-0 transition-transform duration-500">
+            <div className="flex items-center text-xs font-medium text-slate-300 gap-3">
+                <span className="flex items-center bg-black/30 px-2 py-1 rounded-md backdrop-blur-sm">
                     <Calendar className="h-3.5 w-3.5 mr-1.5 text-secondary" />
                     {item.date}
                 </span>
             </div>
-            <h3 className={`font-heading font-bold text-slate-900 group-hover:text-secondary transition-colors ${featured ? 'text-2xl md:text-3xl leading-tight' : 'text-xl leading-snug'}`}>
+            
+            <h3 className={`font-heading font-bold text-white group-hover:text-secondary transition-colors duration-300 drop-shadow-md ${featured ? 'text-2xl md:text-4xl leading-tight' : 'text-xl leading-snug'}`}>
                 <Link to={`/news/${item.id}`} className="block">
                   {item.title}
                 </Link>
             </h3>
-        </CardHeader>
-        
-        <CardContent className={`${featured ? 'p-0 mb-6' : 'px-6 py-2'}`}>
-            <p className="text-slate-600 line-clamp-3 leading-relaxed">
-                {excerpt}
-            </p>
-        </CardContent>
-
-        <CardFooter className={`${featured ? 'p-0' : 'px-6 pb-6 pt-4 mt-auto'}`}>
-            <Button variant="link" className="p-0 h-auto font-bold text-secondary hover:text-secondary/80 hover:no-underline" asChild>
-                <Link to={`/news/${item.id}`} className="flex items-center gap-2">
-                    Read Full Story 
-                    <div className="bg-secondary/10 p-1 rounded-full group-hover:bg-secondary/20 transition-colors">
-                      <ArrowRight className="h-4 w-4" />
-                    </div>
-                </Link>
-            </Button>
-        </CardFooter>
+            
+            <div className="h-0 group-hover:h-auto overflow-hidden transition-all duration-500 opacity-0 group-hover:opacity-100">
+                 <p className="text-slate-200 line-clamp-2 leading-relaxed text-sm md:text-base mb-4 drop-shadow-sm">
+                    {excerpt}
+                </p>
+                <Button variant="link" className="p-0 h-auto font-bold text-secondary hover:text-white hover:no-underline" asChild>
+                    <Link to={`/news/${item.id}`} className="flex items-center gap-2">
+                        Read Full Story 
+                        <div className="bg-secondary/20 p-1 rounded-md">
+                        <ArrowRight className="h-4 w-4" />
+                        </div>
+                    </Link>
+                </Button>
+            </div>
+        </div>
       </div>
     </Card>
   );
